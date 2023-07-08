@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEditorModeOn: 0
+  LevelCanvas: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
+    type: 3}
 --- !u!114 &1126419298093973948
 MonoBehaviour:
   m_ObjectHideFlags: 0

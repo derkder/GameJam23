@@ -2,19 +2,6 @@
 using UnityEngine;
 public class TwistEffect : PostEffectsBase
 {
-    // shader
-    //public Shader myShader;
-    //材质 
-    //private Material mat = null;
-    //public Material material
-    //{
-    //    get
-    //    {
-    //        // 检查着色器并创建材质
-    //        mat = CheckShaderAndCreateMaterial(myShader, mat);
-    //        return mat;
-    //    }
-    //}
     private bool _isTwisting;
     private float _startTime;
     private float _twistStrength;
@@ -28,8 +15,7 @@ public class TwistEffect : PostEffectsBase
     public float zoomFactor = 0.4f;
 
     // 放大镜大小
-    [Range(0.0f, 0.2f), Tooltip("放大镜大小")]
-    public float size = 0.08f;
+    private float size = 0.08f;
 
     // 凸镜边缘强度
     [Range(0.0001f, 0.1f), Tooltip("凸镜边缘强度")]

@@ -30,6 +30,12 @@ namespace Assets.Scripts {
             OnWellChangeEvent += GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal;
         }
 
+        public void OnDestroy()
+        {
+        //    OnWellChangeEvent -= ChangeSprite;
+        //    OnWellChangeEvent -= GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal;
+        }
+
         private void OnMouseBehaviourChanged() {
             bool isLmbDown = Input.GetMouseButtonDown(0);
             bool isRmbDown = Input.GetMouseButtonDown(1);

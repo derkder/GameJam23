@@ -8,9 +8,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.Gameplay.Manager
 {
-    public class SceneUIManager : MonoBehaviour
+    public class SceneUIManager : Singleton<SceneUIManager>
     {
-        public static SceneUIManager instance;
         public event Action OnPauseLevel;
         public event Action OnRetryLevel;
         public event Action OnResumeLevel;
@@ -18,16 +17,22 @@ namespace Assets.Scripts.Gameplay.Manager
         public Transform _pnlMain;
         public Transform _pnlRightCorner;
         public Slider BulleSlider;
-        //public TextMeshProUGUI TextScore;
+        public TextMeshProUGUI _textScore;
 
         private Button _btnPlay;
 
-        private void Awake() {
-            instance = this;
-            //_btnPlay = gameObject.Find("BtnPlay");
+        public void Start()
+        {
+            _btnPlay = transform.Find("BtnPlay").GetComponent<Button>();
             _pnlMain.gameObject.SetActive(true);
             _pnlRightCorner.gameObject.SetActive(false);
-            BulleSlider.gameObject.SetActive(true);
+            BulleSlider.gameObject.SetActive(false);
+            GameManager.Instance.OnLevelPass += RefreshCanvas;
+        }
+
+        public void OnDestroy()
+        {
+            //GameManager.Instance.OnLevelPass -= RefreshCanvas;
         }
 
         public void SwitchBulletTimeEffect(bool isEnabled)
@@ -43,10 +48,18 @@ namespace Assets.Scripts.Gameplay.Manager
             }
         }
 
+        public void RefreshCanvas() 
+        {
+            _pnlMain.gameObject.SetActive(true);
+            _pnlRightCorner.gameObject.SetActive(false);
+            BulleSlider.gameObject.SetActive(false);
+        }
+
         #region 暂停开始界面
         public void Play()
         {
             OnResumeLevel?.Invoke();
+            _btnPlay.gameObject.SetActive(false);
         }
 
         public void Pause()
@@ -64,8 +77,8 @@ namespace Assets.Scripts.Gameplay.Manager
         public void Resume()
         {
             OnResumeLevel?.Invoke();
-            _pnlRightCorner.gameObject.SetActive(true);
-            _pnlMain.gameObject.SetActive(false);
+            _pnlRightCorner.gameObject.SetActive(false);
+            _pnlMain.gameObject.SetActive(true);
         }
         #endregion
 
