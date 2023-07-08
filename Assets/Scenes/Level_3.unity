@@ -166,11 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ddffa0a6e2ac94c83ff3669395e17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wells: []
-  speedRatio: 0.8
+  speedRatio: 1.1
   bulletTimeSlowRatio: 0.2
+  predictionLineStepCount: 750
   isBulletTimeOn: 0
   damping: 0
+  wells: []
+  ball: {fileID: 0}
+  predictionLineStepRatio: 0
+  predictionLineSegmentCoverage: 2
 --- !u!4 &87840556
 Transform:
   m_ObjectHideFlags: 0
