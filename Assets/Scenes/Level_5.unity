@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wells: []
-  speedRatio: 1
+  speedRatio: 0.8
   bulletTimeSlowRatio: 0.2
   isBulletTimeOn: 0
   damping: 0

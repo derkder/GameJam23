@@ -23,7 +23,7 @@ namespace Assets.Scripts {
 
         private void Update() {
             Vector3 realDeltaSpeed = Time.fixedDeltaTime / ForceCalculator.standardTimeDelta * accel;
-            float inGameSpeedRatio = GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f;
+            float inGameSpeedRatio = GravityManager.instance.speedRatio * (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
             speed = (speed + realDeltaSpeed * inGameSpeedRatio) * (float)GravityManager.instance.damping;
             transform.localPosition += speed * inGameSpeedRatio;
         }
