@@ -21,7 +21,6 @@ namespace Assets.Scripts {
         }
 
         private void Update() {
-            // Implicitly convert Vector2 to Vector3
             Vector3 realDeltaSpeed = Time.fixedDeltaTime / ForceCalculator.standardTimeDelta * accel;
             speed = (speed + realDeltaSpeed) * damping;
             transform.localPosition += speed;

@@ -3,7 +3,7 @@
 // ---------------------------【放大镜特效】---------------------------
 
 using UnityEngine;
-public class Zoom : PostEffectsBase
+public class TwistEffect : PostEffectsBase
 {
     // shader
     //public Shader myShader;
@@ -18,6 +18,10 @@ public class Zoom : PostEffectsBase
     //        return mat;
     //    }
     //}
+    private bool _isTwisting;
+    private float _startTime;
+    private float _twistStrength;
+    private float _clockwise;
 
     // 放大强度
     [Range(-2.0f, 2.0f), Tooltip("放大强度")]
@@ -43,13 +47,16 @@ public class Zoom : PostEffectsBase
     // 渲染屏幕
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (material)
+        if (material && _isTwisting)
         {
             // 把鼠标坐标传递给Shader
             material.SetVector("_Pos", pos);
             material.SetFloat("_ZoomFactor", zoomFactor);
             material.SetFloat("_EdgeFactor", edgeFactor);
             material.SetFloat("_Size", size);
+            material.SetFloat("_TimeDiff", Time.time - _startTime);
+            material.SetFloat("_Radius", _twistStrength);
+            material.SetFloat("_Clockwise", _clockwise);
             // 渲染
             Graphics.Blit(source, destination, material);
         }
@@ -65,7 +72,33 @@ public class Zoom : PostEffectsBase
         {
             Vector2 mousePos = Input.mousePosition;
             //将mousePos转化为（0，1）区间
-            pos = new Vector2(mousePos.x / Screen.width, mousePos.y / Screen.height);
+            //pos = new Vector2(mousePos.x / Screen.width, mousePos.y / Screen.height);
+            if (!_isTwisting)
+            {
+                TwistPlane(mousePos.x / Screen.width, mousePos.y / Screen.height);
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            _isTwisting = false;
         }
     }
+
+    /// <summary>
+    /// 创造漩涡渲染效果
+    /// </summary>
+    /// <param 坐标x值name="x"></param>
+    /// <param 坐标y值name="y"></param>
+    /// <param 旋转强度name="twistStrength"></param>
+    /// <param 是否顺时针name="clockwise"></param>
+    public void TwistPlane(float x, float y, float twistStrength = 20, bool clockwise = false)
+    {
+        _twistStrength = twistStrength;
+        _clockwise = clockwise == true ? -1 : 1;
+        pos = new Vector2(x, y);
+        _isTwisting = true;
+        _startTime = Time.time;
+    }
+
+
 }
