@@ -17,7 +17,6 @@ namespace Assets.Scripts {
         public bool isTrajectoryOn;
 
         private void Start() {
-            GameManager.Instance.MainBall = gameObject;
             speed = initialSpeed;
             GravityManager.instance.ball = this;
         }

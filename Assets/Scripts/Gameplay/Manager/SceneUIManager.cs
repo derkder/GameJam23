@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using System.Xml.Serialization;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay.Manager
@@ -12,20 +14,21 @@ namespace Assets.Scripts.Gameplay.Manager
         public event Action OnRetryLevel;
         public event Action OnResumeLevel;
 
-        private Transform _pnlMain;
-        private Transform _pnlSettings;
+        public Transform _pnlMain;
+        public Transform _pnlRightCorner;
+        public Slider BulleSlider;
 
         private void Awake()
         {
+            _pnlMain.gameObject.SetActive(true);
+            _pnlRightCorner.gameObject.SetActive(false);
+            instance = this;
+            BulleSlider.gameObject.SetActive(true);
         }
 
         private void Start()
         {
-            _pnlMain = transform.Find("PnlMain");
-            _pnlSettings = transform.Find("PnlSettings");
-            _pnlSettings?.gameObject.SetActive(false);
-            _pnlMain?.gameObject.SetActive(true);
-            instance = this;
+            
         }
 
         public void SwitchBulletTimeEffect(bool isEnabled)
@@ -44,7 +47,7 @@ namespace Assets.Scripts.Gameplay.Manager
         public void Pause()
         {
             OnPauseLevel?.Invoke();
-            _pnlSettings.gameObject.SetActive(true);
+            _pnlRightCorner.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
         }
 
@@ -56,8 +59,34 @@ namespace Assets.Scripts.Gameplay.Manager
         public void Resume()
         {
             OnResumeLevel?.Invoke();
-            _pnlSettings.gameObject.SetActive(true);
+            _pnlRightCorner.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
         }
+
+#region 子弹时间进度条
+        /// <summary>
+        /// 显示进度条
+        /// </summary>
+        public void OnShowSlider()
+        {
+            BulleSlider.gameObject.SetActive(true);
+        }
+        /// <summary>
+        /// 显示进度条
+        /// </summary>
+        public void OnHideSlider()
+        {
+            BulleSlider.gameObject.SetActive(false);
+        }
+        /// <summary>
+        /// 显示进度条
+        /// </summary>
+        /// param 进度条的进度值（0到1）name="value"></param>
+        public void OnChangeSlider(float val)
+        {
+            BulleSlider.value = val;
+        }
+
     }
+#endregion
 }

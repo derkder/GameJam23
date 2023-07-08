@@ -13,7 +13,6 @@ public class GameManager : Singleton<GameManager>
     private List<string> _sceneList = new List<string> { "TitleScreenScene", "Level_5", "Level_1", "Level_2", "Level_3" };
     public CurLevel NowLevel => _nowLevel;
     public Camera MainCamera { get => Camera.main; }
-    public GameObject MainBall;
 
     public bool isEditorModeOn;
 
