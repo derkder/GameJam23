@@ -18,17 +18,29 @@ namespace Assets.Scripts.Gameplay.Manager
         public Transform _pnlRightCorner;
         public Slider BulleSlider;
 
+<<<<<<< Updated upstream
         private void Awake()
         {
             _pnlMain.gameObject.SetActive(true);
             _pnlRightCorner.gameObject.SetActive(false);
             instance = this;
             BulleSlider.gameObject.SetActive(true);
+=======
+        private void Awake() {
+            instance = this;
+>>>>>>> Stashed changes
         }
 
         private void Start()
         {
+<<<<<<< Updated upstream
             
+=======
+            _pnlMain = transform.Find("PnlMain");
+            _pnlSettings = transform.Find("PnlSettings");
+            _pnlSettings?.gameObject.SetActive(false);
+            _pnlMain?.gameObject.SetActive(true);
+>>>>>>> Stashed changes
         }
 
         public void SwitchBulletTimeEffect(bool isEnabled)

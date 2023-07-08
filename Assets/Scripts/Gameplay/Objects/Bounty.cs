@@ -10,6 +10,7 @@ namespace Assets.Scripts {
             if (collision.gameObject.GetComponent<Ball>() == null) {
                 Debug.LogWarningFormat("{0} collided with non-ball object {1}!",
                     gameObject.name, collision.gameObject.name);
+                return;
             }
             LevelManager.instance.totalGold += gold;
             hasTriggered = true;

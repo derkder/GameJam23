@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.Gameplay.Manager;
+using System;
 using System.Collections;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
@@ -8,6 +9,12 @@ using UnityEngine.UIElements;
 using static UnityEngine.Networking.UnityWebRequest;
 
 namespace Assets.Scripts {
+    [Serializable]
+    public class BallData {
+        public Vector3 position;
+        public Vector3 initialSpeed;
+    }
+
     public class Ball : MonoBehaviour {
         public Vector3 initialSpeed;
 
@@ -17,8 +24,14 @@ namespace Assets.Scripts {
         public bool isTrajectoryOn;
 
         private void Start() {
-            speed = initialSpeed;
+            BallData data = new BallData();
+            data.position = transform.position;
+            data.initialSpeed = initialSpeed;
+
             GravityManager.instance.ball = this;
+            GravityManager.instance.ballData = data;
+
+            speed = initialSpeed;
         }
 
         private void FixedUpdate() {

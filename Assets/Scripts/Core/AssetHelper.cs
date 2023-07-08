@@ -4,9 +4,10 @@ using UnityEngine;
 namespace Assets.Scripts.Core {
     public class AssetHelper : MonoBehaviour {
         public static AssetHelper instance;
-        public GameObject DialogGadget;
 
-        private void Start() {
+        public GameObject Ball;
+
+        private void Awake() {
             instance = this;
         }
     }

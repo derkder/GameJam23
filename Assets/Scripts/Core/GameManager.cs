@@ -51,4 +51,10 @@ public class GameManager : Singleton<GameManager>
         Level3 = 4,
         Level4 = 5,
     }
+    public void ExitGame() {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
 }

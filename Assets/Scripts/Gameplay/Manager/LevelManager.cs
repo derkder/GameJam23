@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Core;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,9 +14,11 @@ namespace Assets.Scripts {
 
         [Header("Runtime Variables")]
         public float remainingBulletTime;
+        public Transform objectParent;
      
         public void Awake() {
             instance = this;
+
             Camera mainCamera = Camera.main;
             mainCamera.gameObject.AddComponent<TwistEffect>();
             mainCamera.gameObject.AddComponent<BlurEffect>();
@@ -23,6 +26,7 @@ namespace Assets.Scripts {
 
         private void Start () {
             remainingBulletTime = totalBulletTime;
+            objectParent = GameObject.Find("Objects").transform;
         }
 
         private void Update() {
@@ -52,13 +56,22 @@ namespace Assets.Scripts {
             }
         }
 
-        public void Pass()
-        {
+        public void Reset() {
+            // TODO: ball destruction animation
+            // TODO: reset score
+            Destroy(GravityManager.instance.ball.gameObject);
+
+            GameObject ball = (GameObject)Instantiate(AssetHelper.instance.Ball, objectParent);
+            ball.transform.position = GravityManager.instance.ballData.position;
+            ball.GetComponent<Ball>().initialSpeed = GravityManager.instance.ballData.initialSpeed;
+        }
+
+        public void Pass() {
             OnLevelPass?.Invoke();
         }
 
         public void Fail() {
-            //关卡内部实现重开
+            Reset();
         }
     }
 }

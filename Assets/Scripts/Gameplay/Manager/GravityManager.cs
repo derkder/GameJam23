@@ -21,6 +21,7 @@ namespace Assets.Scripts {
 
         public float predictionLineStepRatio;
         public int predictionLineSegmentCoverage = 2;
+        public BallData ballData;
 
         // Use this for initialization
         private void Awake() {
