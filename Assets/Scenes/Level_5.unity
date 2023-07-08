@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 87840556}
   - component: {fileID: 87840555}
   - component: {fileID: 87840557}
-  - component: {fileID: 87840558}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -194,21 +193,6 @@ MonoBehaviour:
   totalGold: 0
   totalBulletTime: 7
   remainingBulletTime: 0
---- !u!114 &87840558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87840554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e983c43123b972649a7b68746cdfbbd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pnlMain: {fileID: 0}
-  _pnlRightCorner: {fileID: 0}
-  BulleSlider: {fileID: 0}
 --- !u!4 &97573066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1844684399691330242, guid: 0ef254b5f7abf8342a5d96dc4b52db64,

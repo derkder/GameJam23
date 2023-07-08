@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 87840556}
   - component: {fileID: 87840555}
   - component: {fileID: 87840557}
-  - component: {fileID: 87840558}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -160,11 +159,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ddffa0a6e2ac94c83ff3669395e17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wells: []
   speedRatio: 1
   bulletTimeSlowRatio: 0.2
+  predictionLineStepCount: 500
   isBulletTimeOn: 0
   damping: 0
+  wells: []
+  ball: {fileID: 0}
+  predictionLineStepRatio: 0
+  predictionLineSegmentCoverage: 2
+  ballData:
+    position: {x: 0, y: 0, z: 0}
+    initialSpeed: {x: 0, y: 0, z: 0}
 --- !u!4 &87840556
 Transform:
   m_ObjectHideFlags: 0
@@ -192,19 +198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0adc4a73a3497647be0fff880a1536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBulletTimeAllowed: 1
   totalGold: 0
---- !u!114 &87840558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87840554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e983c43123b972649a7b68746cdfbbd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  totalBulletTime: 7
+  remainingBulletTime: 0
+  objectParent: {fileID: 0}
 --- !u!1 &394361964
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,8 +428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: ff32b14bee283754ebdaae327ea0a652, type: 3}
-  x: 0
-  y: 0
+  _clickWell: 0
   zoomFactor: 0.4
   size: 0.04
   edgeFactor: 0.05

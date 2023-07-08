@@ -10,11 +10,14 @@ public class GameManager : Singleton<GameManager>
 {
     private CurLevel _nowLevel = CurLevel.StartMenu;
     //场景名称列表
-    private List<string> _sceneList = new List<string> { "TitleScreenScene", "Level_5", "Level_1", "Level_2", "Level_3" };
+    private List<string> _sceneList = new List<string> { "TitleScreenScene", "Level_0", "Level_1", "Level_2", "Level_3", "Level_4", "Level_5", "Level_6" };
     public CurLevel NowLevel => _nowLevel;
     public Camera MainCamera { get => Camera.main; }
+    private GameObject _curCanva;
 
     public bool isEditorModeOn;
+    
+    public GameObject LevelCanvas;
 
     public void Start()
     {
@@ -22,18 +25,23 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void Update() 
-    { 
-        //if(Input.GetKeyUp(KeyCode.A))
-        //{
-        //    LevelPass();
-        //    Debug.Log($"_nowLevel{_nowLevel}");
-        //}
+    {
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            LevelPass();
+            Debug.Log($"_nowLevel{_nowLevel}");
+        }
     }
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
     private void LevelPass()
     {
         _nowLevel = (CurLevel)(1 + (int)_nowLevel);
+        if(CurLevel.Level0 == _nowLevel)
+        {
+            GameObject _curCanva = Instantiate(LevelCanvas);
+            DontDestroyOnLoad( _curCanva );
+        }
         SceneChange(_sceneList[(int)_nowLevel]);
     }
 
