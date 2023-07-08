@@ -7,6 +7,7 @@ namespace Assets.Scripts {
         public static LevelManager instance;
         public event Action OnLevelPass;
 
+        public bool isBulletTimeAllowed = true;
         public int totalGold;
         public float totalBulletTime = 7f;
 
@@ -29,7 +30,7 @@ namespace Assets.Scripts {
             {
                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                 {
-                    if (remainingBulletTime > 0) {
+                    if (isBulletTimeAllowed && remainingBulletTime > 0) {
                         GravityManager.instance.SwitchBulletTime(true);
                         SpendBulletTime(Time.deltaTime);
                     }
