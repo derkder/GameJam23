@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts {
     public class LevelManager : MonoBehaviour {
         public static LevelManager instance;
+        public int totalGold;
 
         private void Start() {
             instance = this;
@@ -18,7 +19,7 @@ namespace Assets.Scripts {
         }
 
         public void Pass() {
-
+            // Deal with total gold
         }
 
         public void Fail() {

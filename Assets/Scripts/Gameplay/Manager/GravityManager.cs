@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts {
     public class GravityManager : MonoBehaviour {
-        private const float _baseDampingFactor = 4.5e-5f;
+        private const float _baseDampingFactor = 4.75e-5f;
 
         public static GravityManager instance;
         public List<GravityWell> wells;

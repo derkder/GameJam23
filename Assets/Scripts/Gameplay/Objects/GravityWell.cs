@@ -10,7 +10,7 @@ namespace Assets.Scripts {
         Attract,
         Repel
     }
-    public class GravityWell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+    public class GravityWell : MonoBehaviour {
         public float strength;
         public float attractRatioPerSecond;
         public float repelRatioPerSecond;
@@ -34,11 +34,6 @@ namespace Assets.Scripts {
                 default:
                     break;
             }
-        }
-        public void OnPointerDown(PointerEventData eventData) {
-        }
-
-        public void OnPointerUp(PointerEventData eventData) {
         }
     }
 }
