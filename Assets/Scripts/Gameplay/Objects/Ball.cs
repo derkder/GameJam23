@@ -35,10 +35,16 @@ namespace Assets.Scripts {
         }
 
         private void FixedUpdate() {
+            if (LevelManager.instance.isPaused) {
+                return;
+            }
             accel = GravityManager.instance.GetAcceleration(transform.position);
         }
 
         private void Update() {
+            if (LevelManager.instance.isPaused) {
+                return;
+            }
             Vector3 realDeltaSpeed = Time.fixedDeltaTime / ForceCalculator.standardTimeDelta * accel;
             float inGameSpeedRatio = GravityManager.instance.speedRatio *
                 (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);

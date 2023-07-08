@@ -11,6 +11,8 @@ namespace Assets.Scripts {
         public bool isBulletTimeAllowed = true;
         public int totalGold;
         public float totalBulletTime = 7f;
+        // Change the value to true when the start button is ready
+        public bool isPaused = false;
 
         [Header("Runtime Variables")]
         public float remainingBulletTime;
@@ -31,6 +33,10 @@ namespace Assets.Scripts {
             objectParent = GameObject.Find("Objects").transform;
 
             SceneUIManager.instance.OnRetryLevel += Reset;
+            SceneUIManager.instance.OnPauseLevel += Pause;
+            SceneUIManager.instance.OnResumeLevel += Resume;
+
+            
         }
 
         private void OnDestroy() {
@@ -84,6 +90,22 @@ namespace Assets.Scripts {
 
         public void Fail() {
             Reset();
+        }
+
+        public void Pause() {
+            if (isPaused) {
+                return;
+            }
+            isPaused = true;
+            Time.timeScale = 0f;
+        }
+
+        public void Resume() {
+            if (!isPaused) {
+                return;
+            }
+            isPaused = false;
+            Time.timeScale = 1f;
         }
     }
 }

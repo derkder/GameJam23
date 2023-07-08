@@ -48,12 +48,11 @@ namespace Assets.Scripts.Gameplay.Manager
         #region 暂停开始界面
         public void Play()
         {
-            OnStartBall?.Invoke();
+            OnResumeLevel?.Invoke();
         }
 
         public void Pause()
         {
-            OnStopBall?.Invoke();
             OnPauseLevel?.Invoke();
             _pnlRightCorner.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
@@ -66,7 +65,6 @@ namespace Assets.Scripts.Gameplay.Manager
 
         public void Resume()
         {
-            OnStartBall?.Invoke();
             OnResumeLevel?.Invoke();
             _pnlRightCorner.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
