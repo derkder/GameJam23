@@ -67,6 +67,8 @@ namespace Assets.Scripts {
             GravityManager.instance.ball = ball.GetComponent<Ball>();
 
             GravityManager.instance.ResetWell();
+
+            totalGold = 0;
         }
 
         public void Pass() {

@@ -20,5 +20,11 @@ namespace Assets.Scripts {
             Color color = GetComponent<SpriteRenderer>().color;
             GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, .1f);
         }
+
+        public void Reset() {
+            hasTriggered = false;
+            Color color = GetComponent<SpriteRenderer>().color;
+            GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 1f);
+        }
     }
 }

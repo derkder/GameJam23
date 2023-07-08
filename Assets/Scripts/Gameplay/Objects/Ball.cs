@@ -50,6 +50,11 @@ namespace Assets.Scripts {
                 GetComponent<LineRenderer>().SetPositions(trajectory);
                 GetComponent<LineRenderer>().positionCount = GravityManager.instance.predictionLineStepCount;
             }
+
+            Vector3 viewPos = GameManager.Instance.MainCamera.WorldToViewportPoint(transform.position);
+            if (!(viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)) {
+                LevelManager.instance.Fail();
+            }
         }
 
         public void SwitchTrajectoryState(bool isOn) {
