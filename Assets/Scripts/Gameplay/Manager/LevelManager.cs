@@ -36,18 +36,18 @@ namespace Assets.Scripts {
             objectParent = GameObject.Find("Objects").transform;
 
             if (null != SceneUIManager.Instance) {
-                SceneUIManager.instance.OnRetryLevel += ResetLevel;
-                SceneUIManager.instance.OnPauseLevel += PauseLevel;
-                SceneUIManager.instance.OnResumeLevel += ResumeLevel;
+                SceneUIManager.Instance.OnRetryLevel += ResetLevel;
+                SceneUIManager.Instance.OnPauseLevel += PauseLevel;
+                SceneUIManager.Instance.OnResumeLevel += ResumeLevel;
             }
             
             PauseLevel();
         }
 
         private void OnDestroy() {
-            SceneUIManager.instance.OnRetryLevel -= ResetLevel;
-            SceneUIManager.instance.OnPauseLevel -= PauseLevel;
-            SceneUIManager.instance.OnResumeLevel -= ResumeLevel;
+            SceneUIManager.Instance.OnRetryLevel -= ResetLevel;
+            SceneUIManager.Instance.OnPauseLevel -= PauseLevel;
+            SceneUIManager.Instance.OnResumeLevel -= ResumeLevel;
         }
 
         private void Update() {
