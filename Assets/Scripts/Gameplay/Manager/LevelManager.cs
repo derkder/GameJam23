@@ -12,12 +12,13 @@ namespace Assets.Scripts {
         public void Awake()
         {
             instance = this;
+            Camera mainCamera = Camera.main;
+            mainCamera.gameObject.AddComponent<TwistEffect>();
+            mainCamera.gameObject.AddComponent<BlurEffect>();
         }
 
         private void Start () 
-        {
-            Camera mainCamera = Camera.main;
-            mainCamera.gameObject.AddComponent<TwistEffect>();
+        {        
         }
 
         private void Update() {

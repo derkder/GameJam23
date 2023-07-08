@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     private CurLevel _nowLevel = CurLevel.StartMenu;
     //场景名称列表
     private List<string> _sceneList = new List<string> { "TitleScreenScene", "Level_5", "Level_1", "Level_2", "Level_3" };
-
     public CurLevel NowLevel => _nowLevel;
     public Camera MainCamera { get => Camera.main; }
     public GameObject MainBall;

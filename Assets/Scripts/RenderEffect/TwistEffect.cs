@@ -1,8 +1,4 @@
-﻿// create by 长生但酒狂
-// create time 2020.4.8
-// ---------------------------【放大镜特效】---------------------------
-
-using Assets.Scripts;
+﻿using Assets.Scripts;
 using UnityEngine;
 public class TwistEffect : PostEffectsBase
 {
@@ -33,7 +29,7 @@ public class TwistEffect : PostEffectsBase
 
     // 放大镜大小
     [Range(0.0f, 0.2f), Tooltip("放大镜大小")]
-    public float size = 0.06f;
+    public float size = 0.065f;
 
     // 凸镜边缘强度
     [Range(0.0001f, 0.1f), Tooltip("凸镜边缘强度")]
