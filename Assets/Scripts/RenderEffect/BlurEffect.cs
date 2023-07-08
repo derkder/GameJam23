@@ -5,7 +5,7 @@ public class BlurEffect : PostEffectsBase
 
     [Header("Radial Blur")]
     [Range(0, 1)]
-    public float intensity = 0;                         // 效果强度
+    public float intensity = 0.0f;                         // 效果强度
     [Range(0f, 1f)]
     public float fadeRadius = 0.38f;                    // 半径范围内的都淡出
     [Range(0f, 1f)]
