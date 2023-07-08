@@ -15,7 +15,8 @@ public class TwistEffect : PostEffectsBase
     public float zoomFactor = 0.4f;
 
     // 放大镜大小
-    private float size = 0.08f;
+    [Range(-2.0f, 2.0f), Tooltip("放大镜大小")]
+    public float size = 0.08f;
 
     // 凸镜边缘强度
     [Range(0.0001f, 0.1f), Tooltip("凸镜边缘强度")]
