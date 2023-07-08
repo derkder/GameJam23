@@ -57,5 +57,18 @@ namespace Assets.Scripts {
             float inGameSpeedRatio = speedRatio * (isBulletTimeOn ? bulletTimeSlowRatio : 1f);
             damping = 1 - _baseDampingFactor * inGameSpeedRatio * inGameSpeedRatio;
         }
+
+        public bool IsPositionCollidedWithWell(Vector3 pos) {
+            if (!GameManager.Instance.enableWellColliderDetection) {
+                return false;
+            }
+            foreach (GravityWell well in wells) {
+                Vector2 wellPos = well.transform.position;
+                if (Vector2.Distance(wellPos, pos) < well.GetComponent<CircleCollider2D>().radius) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

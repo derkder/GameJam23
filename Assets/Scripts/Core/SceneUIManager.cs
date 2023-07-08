@@ -14,8 +14,6 @@ namespace Assets.Scripts.Gameplay.Manager
         public event Action OnPauseLevel;
         public event Action OnRetryLevel;
         public event Action OnResumeLevel;
-        public event Action OnStartBall;
-        public event Action OnStopBall;
 
         public Transform _pnlMain;
         public Transform _pnlRightCorner;

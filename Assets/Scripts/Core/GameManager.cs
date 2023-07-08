@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     private GameObject _curCanva;
 
     public bool isEditorModeOn;
+    public bool enableWellColliderDetection;
     
     public GameObject LevelCanvas;
 

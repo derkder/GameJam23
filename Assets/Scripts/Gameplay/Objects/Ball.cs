@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.Gameplay.Manager;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
@@ -54,7 +55,7 @@ namespace Assets.Scripts {
             if (isTrajectoryOn) {
                 Vector3[] trajectory = PlotPredictionLine(GravityManager.instance.predictionLineStepCount);
                 GetComponent<LineRenderer>().SetPositions(trajectory);
-                GetComponent<LineRenderer>().positionCount = GravityManager.instance.predictionLineStepCount;
+                GetComponent<LineRenderer>().positionCount = trajectory.Length;
             }
 
             Vector3 viewPos = GameManager.Instance.MainCamera.WorldToViewportPoint(transform.position);
@@ -85,6 +86,8 @@ namespace Assets.Scripts {
             Vector2 localAccel;
             Vector2 localSpeed = speed;
 
+            int newLength = 0;
+
             int segmentCoverage = GravityManager.instance.predictionLineSegmentCoverage;
             for (int i = 0; i < steps; i++) {
                 for (int j = 0; j < segmentCoverage; j++) {
@@ -93,8 +96,20 @@ namespace Assets.Scripts {
                     localPos += GetPositionDelta(localSpeed, GravityManager.instance.predictionLineStepRatio);
                 }
                 plotline[i] = localPos;
+                if (GravityManager.instance.IsPositionCollidedWithWell(localPos)) {
+                    newLength = i + 1;
+                    break;
+                }
             }
-            return plotline;
+            if (newLength == 0) {
+                return plotline;
+            } else {
+                Vector3[] slicedPlotLine = new Vector3[newLength];
+                for (int i = 0; i < newLength; i++) {
+                    slicedPlotLine[i] = plotline[i];
+                }
+                return slicedPlotLine;
+            }
         }
     }
 }
