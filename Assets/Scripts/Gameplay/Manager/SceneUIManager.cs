@@ -10,6 +10,7 @@ namespace Assets.Scripts.Gameplay.Manager {
         }
 
         public void SwitchBulletTimeEffect(bool isEnabled) {
+            GravityManager.instance.ball.SwitchTrajectoryState(isEnabled);
             if (isEnabled) {
                 // WIP
             } else {

@@ -8,7 +8,6 @@ namespace Assets.Scripts {
         public event Action OnLevelPass;
         public int totalGold;
      
-
         public void Awake()
         {
             instance = this;
@@ -22,7 +21,7 @@ namespace Assets.Scripts {
         }
 
         private void Update() {
-            if(null != GravityManager.instance)
+            if (null != GravityManager.instance)
             {
                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                 {

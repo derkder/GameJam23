@@ -72,7 +72,6 @@ namespace Assets.Scripts {
         }
 
         #region IPointerDelegate
-
         public void OnPointerDown(PointerEventData eventData) {
             OnMouseBehaviourChanged();
         }
@@ -95,7 +94,6 @@ namespace Assets.Scripts {
             OnMouseBehaviourChanged();
         }
         #endregion
-
 
         private void ChangeSprite(Transform trans, GravityWellModifierStatus curStatus, float strength)
         {

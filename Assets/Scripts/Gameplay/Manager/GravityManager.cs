@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Gameplay.Manager;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 namespace Assets.Scripts {
@@ -9,13 +8,19 @@ namespace Assets.Scripts {
         private const float _baseDampingFactor = 4.75e-5f;
 
         public static GravityManager instance;
-        public List<GravityWell> wells;
         public float speedRatio = 1f;
         public float bulletTimeSlowRatio = .2f;
+
+        public int predictionLineStepCount = 500;
 
         [Header("Runtime Variables")]
         public bool isBulletTimeOn = false;
         public double damping;
+        public List<GravityWell> wells;
+        public Ball ball;
+
+        public float predictionLineStepRatio;
+        public int predictionLineSegmentCoverage = 2;
 
         // Use this for initialization
         private void Awake() {
@@ -24,6 +29,7 @@ namespace Assets.Scripts {
         }
 
         public void Start() {
+            predictionLineStepRatio = speedRatio * 2;
             UpdateDamping();
         }
 
@@ -31,8 +37,8 @@ namespace Assets.Scripts {
             wells.Add(gravityWell);
         }
 
-        public Vector2 GetAcceleration(Ball ball) {
-            return ForceCalculator.GetAcceleration(ball, wells);
+        public Vector2 GetAcceleration(Vector3 position) {
+            return ForceCalculator.GetAcceleration((Vector2)position, wells);
         }
 
         public void SwitchBulletTime(bool isOn) {

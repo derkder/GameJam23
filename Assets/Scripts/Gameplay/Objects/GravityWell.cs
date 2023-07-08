@@ -19,7 +19,6 @@ namespace Assets.Scripts {
         [Header("Runtime Variables")]
         public GravityWellModifierStatus status;
 
-
         private void Start() {
             GravityManager.instance.AddGravityWell(this);
         }
