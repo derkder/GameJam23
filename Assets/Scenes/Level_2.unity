@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wells: []
-  speedRatio: 0
+  speedRatio: 0.8
 --- !u!4 &87840556
 Transform:
   m_ObjectHideFlags: 0
