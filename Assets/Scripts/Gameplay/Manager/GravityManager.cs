@@ -6,6 +6,7 @@ namespace Assets.Scripts {
     public class GravityManager : MonoBehaviour {
         public static GravityManager instance;
         public List<GravityWell> wells;
+        public float speedRatio;
 
         // Use this for initialization
         private void Awake() {
