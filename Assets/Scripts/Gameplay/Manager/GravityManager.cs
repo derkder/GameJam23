@@ -57,5 +57,11 @@ namespace Assets.Scripts {
             float inGameSpeedRatio = speedRatio * (isBulletTimeOn ? bulletTimeSlowRatio : 1f);
             damping = 1 - _baseDampingFactor * inGameSpeedRatio * inGameSpeedRatio;
         }
+
+        public void ResetWell() {
+            foreach (GravityWell well in wells) {
+                well.Reset();
+            }
+        }
     }
 }

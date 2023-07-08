@@ -16,8 +16,14 @@ namespace Assets.Scripts {
         public float attractRatioPerSecond;
         public float repelRatioPerSecond;
 
+        private float initialStrength;
+
         [Header("Runtime Variables")]
         public GravityWellModifierStatus status;
+
+        private void Awake() {
+            initialStrength = strength;
+        }
 
         private void Start() {
             GravityManager.instance.AddGravityWell(this);
@@ -35,6 +41,10 @@ namespace Assets.Scripts {
                 default:
                     break;
             }
+        }
+
+        public void Reset() {
+            strength = initialStrength;
         }
     }
 }

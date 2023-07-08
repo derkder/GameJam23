@@ -65,6 +65,8 @@ namespace Assets.Scripts {
             ball.transform.position = GravityManager.instance.ballData.position;
             ball.GetComponent<Ball>().initialSpeed = GravityManager.instance.ballData.initialSpeed;
             GravityManager.instance.ball = ball.GetComponent<Ball>();
+
+            GravityManager.instance.ResetWell();
         }
 
         public void Pass() {
