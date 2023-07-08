@@ -24,14 +24,14 @@ namespace Assets.Scripts {
         public bool isTrajectoryOn;
 
         private void Start() {
+            speed = initialSpeed;
+
             BallData data = new BallData();
             data.position = transform.position;
             data.initialSpeed = initialSpeed;
 
             GravityManager.instance.ball = this;
             GravityManager.instance.ballData = data;
-
-            speed = initialSpeed;
         }
 
         private void FixedUpdate() {

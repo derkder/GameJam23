@@ -64,6 +64,7 @@ namespace Assets.Scripts {
             GameObject ball = (GameObject)Instantiate(AssetHelper.instance.Ball, objectParent);
             ball.transform.position = GravityManager.instance.ballData.position;
             ball.GetComponent<Ball>().initialSpeed = GravityManager.instance.ballData.initialSpeed;
+            GravityManager.instance.ball = ball.GetComponent<Ball>();
         }
 
         public void Pass() {
