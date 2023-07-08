@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     public Camera MainCamera { get => Camera.main; }
     public GameObject MainBall;
 
-    
+    public bool isEditorModeOn;
 
     public void Start()
     {

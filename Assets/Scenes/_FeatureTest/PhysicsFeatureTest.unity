@@ -163,11 +163,12 @@ MonoBehaviour:
   speedRatio: 1
   bulletTimeSlowRatio: 0.2
   predictionLineStepCount: 500
-  predictionLineStepRatio: 2
   isBulletTimeOn: 0
   damping: 0
   wells: []
   ball: {fileID: 0}
+  predictionLineStepRatio: 2
+  predictionLineSegmentCoverage: 2
 --- !u!4 &87840556
 Transform:
   m_ObjectHideFlags: 0
@@ -196,6 +197,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalGold: 0
+  totalBulletTime: 7
+  remainBulletTime: 0
 --- !u!114 &87840558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e983c43123b972649a7b68746cdfbbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  predictionLineCount: 300
 --- !u!1 &394361964
 GameObject:
   m_ObjectHideFlags: 0

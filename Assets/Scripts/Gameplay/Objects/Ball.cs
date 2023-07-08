@@ -71,7 +71,6 @@ namespace Assets.Scripts {
                 }
                 plotline[i] = localPos;
             }
-            Debug.LogFormat("PlotPredictionLine {0} {1} {2}", plotline[0], plotline[steps - 1], steps);
             return plotline;
         }
     }
