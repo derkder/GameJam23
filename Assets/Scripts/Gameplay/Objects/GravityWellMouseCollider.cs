@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,9 +9,24 @@ namespace Assets.Scripts {
         IPointerDownHandler, IPointerUpHandler, IPointerClickHandler,
         IPointerEnterHandler, IPointerExitHandler, IDragHandler, IDropHandler {
         private GravityWell well;
+        public Sprite AttractSprite;
+        public Sprite RepelSprite;
+        public Sprite NoneSprite;
+
+        private SpriteRenderer _spriteRenderer;
+        private float _forceStrength = 20;
+
+        public delegate void OnWellChangeDelegate(Transform trans, GravityWellModifierStatus curStatus, float strength);
+        public event OnWellChangeDelegate OnWellChangeEvent;
 
         private void Awake() {
             well = GetComponentInParent<GravityWell>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        private void Start()
+        {
+            OnWellChangeEvent += ChangeSprite;
         }
 
         private void OnMouseBehaviourChanged() {
@@ -48,8 +65,17 @@ namespace Assets.Scripts {
             if (well.status == status) {
                 return;
             }
+            OnWellChangeEvent?.Invoke(well.transform, status, _forceStrength);
+            if (status == GravityWellModifierStatus.Attract)
+            {
+                GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal(well.transform);
+            }
+            else if(status == GravityWellModifierStatus.Repel)
+            {
+                GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal(well.transform);
+            }
             well.status = status;
-            Debug.LogFormat("{0} status set to {1}", well.gameObject.name, status);
+            //Debug.LogFormat("{0} status set to {1}", well.gameObject.name, status);
         }
 
         #region IPointerDelegate
@@ -76,5 +102,24 @@ namespace Assets.Scripts {
             OnMouseBehaviourChanged();
         }
         #endregion
+
+
+        private void ChangeSprite(Transform trans, GravityWellModifierStatus curStatus, float strength)
+        {
+            switch (curStatus)
+            {
+                case (GravityWellModifierStatus.Attract):
+                    _spriteRenderer.sprite = AttractSprite;
+                    break;
+                case (GravityWellModifierStatus.Repel):
+                    _spriteRenderer.sprite = RepelSprite;
+                    break;
+                case (GravityWellModifierStatus.None):
+                    _spriteRenderer.sprite = NoneSprite;
+                    break;
+                default: break;
+
+            }
+        }
     }
 }

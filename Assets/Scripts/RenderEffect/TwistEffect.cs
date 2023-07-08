@@ -2,6 +2,7 @@
 // create time 2020.4.8
 // ---------------------------【放大镜特效】---------------------------
 
+using Assets.Scripts;
 using UnityEngine;
 public class TwistEffect : PostEffectsBase
 {
@@ -22,6 +23,9 @@ public class TwistEffect : PostEffectsBase
     private float _startTime;
     private float _twistStrength;
     private float _clockwise;
+    public bool _clickWell;
+    private float _twistPosx;
+    private float _twistPosy;
 
     // 放大强度
     [Range(-2.0f, 2.0f), Tooltip("放大强度")]
@@ -29,11 +33,11 @@ public class TwistEffect : PostEffectsBase
 
     // 放大镜大小
     [Range(0.0f, 0.2f), Tooltip("放大镜大小")]
-    public float size = 0.15f;
+    public float size = 0.06f;
 
     // 凸镜边缘强度
     [Range(0.0001f, 0.1f), Tooltip("凸镜边缘强度")]
-    public float edgeFactor = 0.05f;
+    public float edgeFactor = 0.07f;
 
     // 遮罩中心位置
     private Vector2 pos = new Vector4(0.5f, 0.5f);
@@ -68,21 +72,32 @@ public class TwistEffect : PostEffectsBase
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(1))
         {
             Vector2 mousePos = Input.mousePosition;
             //将mousePos转化为（0，1）区间
-            //pos = new Vector2(mousePos.x / Screen.width, mousePos.y / Screen.height);
             if (!_isTwisting)
             {
-                TwistPlane(mousePos.x / Screen.width, mousePos.y / Screen.height);
+                if(_clickWell == true)
+                {
+                    TwistPlane(_twistPosx / Screen.width, _twistPosy / Screen.height);
+                }
             }
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
         {
             _isTwisting = false;
+            _clickWell = false;
         }
     }
+
+    public void ChangeTwistVal(Transform trans, float twistStrength = 20, bool clockwise = false)
+    {
+        _twistPosx = GameManager.Instance.MainCamera.WorldToScreenPoint(trans.position).x;
+        _twistPosy = GameManager.Instance.MainCamera.WorldToScreenPoint(trans.position).y;
+        _clickWell = true;
+    }
+
 
     /// <summary>
     /// 创造漩涡渲染效果

@@ -2,6 +2,7 @@ using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts {
@@ -17,6 +18,7 @@ namespace Assets.Scripts {
 
         [Header("Runtime Variables")]
         public GravityWellModifierStatus status;
+
 
         private void Start() {
             GravityManager.instance.AddGravityWell(this);

@@ -13,6 +13,7 @@ namespace Assets.Scripts {
         public Vector3 accel;
 
         void Start() {
+            GameManager.Instance.MainBall = gameObject;
             speed = initialSpeed;
         }
 
