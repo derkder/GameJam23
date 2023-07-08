@@ -27,6 +27,7 @@ namespace Assets.Scripts {
         private void Start()
         {
             OnWellChangeEvent += ChangeSprite;
+            OnWellChangeEvent += GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal;
         }
 
         private void OnMouseBehaviourChanged() {
@@ -66,16 +67,8 @@ namespace Assets.Scripts {
                 return;
             }
             OnWellChangeEvent?.Invoke(well.transform, status, _forceStrength);
-            if (status == GravityWellModifierStatus.Attract)
-            {
-                GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal(well.transform);
-            }
-            else if(status == GravityWellModifierStatus.Repel)
-            {
-                GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal(well.transform);
-            }
             well.status = status;
-            //Debug.LogFormat("{0} status set to {1}", well.gameObject.name, status);
+            Debug.LogFormat("{0} status set to {1}", well.gameObject.name, status);
         }
 
         #region IPointerDelegate

@@ -91,22 +91,11 @@ public class TwistEffect : PostEffectsBase
         }
     }
 
-    public void ChangeTwistVal(Transform trans, float twistStrength = 20, bool clockwise = false)
-    {
-        _twistPosx = GameManager.Instance.MainCamera.WorldToScreenPoint(trans.position).x;
-        _twistPosy = GameManager.Instance.MainCamera.WorldToScreenPoint(trans.position).y;
-        _clickWell = true;
-    }
-
 
     /// <summary>
     /// 创造漩涡渲染效果
     /// </summary>
-    /// <param 坐标x值name="x"></param>
-    /// <param 坐标y值name="y"></param>
-    /// <param 旋转强度name="twistStrength"></param>
-    /// <param 是否顺时针name="clockwise"></param>
-    public void TwistPlane(float x, float y, float twistStrength = 20, bool clockwise = false)
+    private void TwistPlane(float x, float y, float twistStrength = 20, bool clockwise = false)
     {
         _twistStrength = twistStrength;
         _clockwise = clockwise == true ? -1 : 1;
@@ -115,5 +104,10 @@ public class TwistEffect : PostEffectsBase
         _startTime = Time.time;
     }
 
-
+    public void ChangeTwistVal(Transform trans, GravityWellModifierStatus curStatus, float strength)
+    {
+        _twistPosx = GameManager.Instance.MainCamera.WorldToScreenPoint(trans.position).x;
+        _twistPosy = GameManager.Instance.MainCamera.WorldToScreenPoint(trans.position).y;
+        _clickWell = true;
+    }
 }

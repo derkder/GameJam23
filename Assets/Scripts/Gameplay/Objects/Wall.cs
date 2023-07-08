@@ -8,7 +8,7 @@ namespace Assets.Scripts {
                 Debug.LogWarningFormat("{0} collided with non-ball object {1}!",
                     gameObject.name, collision.gameObject.name);
             }
-            //Debug.LogFormat("{0} collided with ball object {1}, game failed",gameObject.name, collision.gameObject.name);
+            Debug.LogFormat("{0} collided with ball object {1}, game failed",gameObject.name, collision.gameObject.name);
             LevelManager.instance.Fail();
         }
     }
