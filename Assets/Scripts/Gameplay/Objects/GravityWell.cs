@@ -27,6 +27,11 @@ namespace Assets.Scripts {
 
         private void Start() {
             GravityManager.instance.AddGravityWell(this);
+            LevelManager.instance.OnLevelReset += Reset;
+        }
+
+        private void OnDestroy() {
+            LevelManager.instance.OnLevelReset -= Reset;
         }
 
         private void FixedUpdate() {

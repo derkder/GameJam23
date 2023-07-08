@@ -15,7 +15,9 @@ namespace Assets.Scripts {
         [Header("Runtime Variables")]
         public float remainingBulletTime;
         public Transform objectParent;
-     
+
+        public event Action OnLevelReset;
+
         public void Awake() {
             instance = this;
 
@@ -28,11 +30,11 @@ namespace Assets.Scripts {
             remainingBulletTime = totalBulletTime;
             objectParent = GameObject.Find("Objects").transform;
 
-            //SceneUIManager.instance.OnRetryLevel += Reset;
+            SceneUIManager.instance.OnRetryLevel += Reset;
         }
 
         private void OnDestroy() {
-            //SceneUIManager.instance.OnRetryLevel -= Reset;
+            SceneUIManager.instance.OnRetryLevel -= Reset;
         }
 
         private void Update() {
@@ -66,13 +68,12 @@ namespace Assets.Scripts {
             // TODO: ball destruction animation
             // TODO: reset score
             Destroy(GravityManager.instance.ball.gameObject);
-
             GameObject ball = (GameObject)Instantiate(AssetHelper.instance.Ball, objectParent);
             ball.transform.position = GravityManager.instance.ballData.position;
             ball.GetComponent<Ball>().initialSpeed = GravityManager.instance.ballData.initialSpeed;
             GravityManager.instance.ball = ball.GetComponent<Ball>();
 
-            GravityManager.instance.ResetWell();
+            OnLevelReset();
 
             totalGold = 0;
         }

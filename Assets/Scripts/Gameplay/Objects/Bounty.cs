@@ -6,6 +6,14 @@ namespace Assets.Scripts {
         public int gold;
         public bool hasTriggered = false;
 
+        private void Start() {
+            LevelManager.instance.OnLevelReset += Reset;
+        }
+
+        private void OnDestroy() {
+            LevelManager.instance.OnLevelReset -= Reset;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision) {
             if (collision.gameObject.GetComponent<Ball>() == null) {
                 Debug.LogWarningFormat("{0} collided with non-ball object {1}!",
