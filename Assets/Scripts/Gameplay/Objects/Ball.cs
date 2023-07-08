@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace Assets.Scripts {
     public class Ball : MonoBehaviour {
-        private const float baseDampingFactor = 5e-5f;
+        private const float baseDampingFactor = 4e-5f;
         public Vector3 initialSpeed;
 
         [Header("Runtime Variables")]
