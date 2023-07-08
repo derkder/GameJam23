@@ -49,7 +49,8 @@ namespace Assets.Scripts {
             Debug.LogFormat("BulletTime {0}", isOn);
             isBulletTimeOn = isOn;
             UpdateDamping();
-            SceneUIManager.instance.SwitchBulletTimeEffect(isOn);
+            ball.SwitchTrajectoryState(isOn);
+            GameManager.Instance.MainCamera.GetComponent<BlurEffect>().intensity = isOn ? 0.4f : 0.0f;
         }
 
         public void UpdateDamping() {

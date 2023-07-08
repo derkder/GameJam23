@@ -12,6 +12,9 @@ namespace Assets.Scripts {
                     gameObject.name, collision.gameObject.name);
                 return;
             }
+            if (hasTriggered) {
+                return;
+            }
             LevelManager.instance.totalGold += gold;
             hasTriggered = true;
             Color color = GetComponent<SpriteRenderer>().color;

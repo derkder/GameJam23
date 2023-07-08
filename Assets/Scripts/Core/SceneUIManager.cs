@@ -26,19 +26,6 @@ namespace Assets.Scripts.Gameplay.Manager
             BulleSlider.gameObject.SetActive(true);
         }
 
-        public void SwitchBulletTimeEffect(bool isEnabled)
-        {
-            GravityManager.instance.ball.SwitchTrajectoryState(isEnabled);
-            if (isEnabled)
-            {
-                GameManager.Instance.MainCamera.GetComponent<BlurEffect>().intensity = 0.4f;
-            }
-            else
-            {
-                GameManager.Instance.MainCamera.GetComponent<BlurEffect>().intensity = 0.0f;
-            }
-        }
-
         public void Pause()
         {
             OnPauseLevel?.Invoke();
