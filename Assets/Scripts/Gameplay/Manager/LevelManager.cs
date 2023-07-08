@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Core;
+using Assets.Scripts.Gameplay.Manager;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine;
 namespace Assets.Scripts {
     public class LevelManager : MonoBehaviour {
         public static LevelManager instance;
-        public event Action OnLevelPass;
 
         public bool isBulletTimeAllowed = true;
         public int totalGold;
@@ -24,9 +24,15 @@ namespace Assets.Scripts {
             mainCamera.gameObject.AddComponent<BlurEffect>();
         }
 
-        private void Start () {
+        private void Start() {
             remainingBulletTime = totalBulletTime;
             objectParent = GameObject.Find("Objects").transform;
+
+            //SceneUIManager.instance.OnRetryLevel += Reset;
+        }
+
+        private void OnDestroy() {
+            //SceneUIManager.instance.OnRetryLevel -= Reset;
         }
 
         private void Update() {
@@ -72,7 +78,7 @@ namespace Assets.Scripts {
         }
 
         public void Pass() {
-            OnLevelPass?.Invoke();
+            GameManager.Instance.LevelPass();
         }
 
         public void Fail() {

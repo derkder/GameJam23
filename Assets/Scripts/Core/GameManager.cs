@@ -19,9 +19,10 @@ public class GameManager : Singleton<GameManager>
     
     public GameObject LevelCanvas;
 
+    public event Action OnLevelPass;
+
     public void Start()
     {
-        LevelManager.instance.OnLevelPass += LevelPass;
     }
 
     public void Update() 
@@ -34,7 +35,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
-    private void LevelPass()
+    public void LevelPass()
     {
         _nowLevel = (CurLevel)(1 + (int)_nowLevel);
         if(CurLevel.Level0 == _nowLevel)
@@ -43,6 +44,8 @@ public class GameManager : Singleton<GameManager>
             DontDestroyOnLoad( _curCanva );
         }
         SceneChange(_sceneList[(int)_nowLevel]);
+
+        OnLevelPass?.Invoke();
     }
 
     private void SceneChange(string sceneName)
