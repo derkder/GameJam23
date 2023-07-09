@@ -1653,7 +1653,7 @@ GameObject:
   - component: {fileID: 5077584217746006422}
   - component: {fileID: 7315861461079257283}
   m_Layer: 0
-  m_Name: SquareTest
+  m_Name: Pattern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
