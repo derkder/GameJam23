@@ -18,21 +18,23 @@ namespace Assets.Scripts.Gameplay.Manager
         public Transform _pnlRightCorner;
         public Slider BulleSlider;
         public TextMeshProUGUI _textScore;
+        public TextMeshProUGUI _textScoreReal;
 
         private Button _btnPlay;
+        private Transform  _pnlFinish;
+        //private Transform _pn
 
         public void Start()
         {
             _btnPlay = transform.Find("BtnPlay").GetComponent<Button>();
-            _pnlMain.gameObject.SetActive(true);
-            _pnlRightCorner.gameObject.SetActive(false);
-            BulleSlider.gameObject.SetActive(false);
+            _pnlFinish = transform.Find("PnlFinish");
             GameManager.Instance.OnLevelPass += RefreshCanvas;
+            RefreshCanvas();
         }
 
         public void OnDestroy()
         {
-            //GameManager.Instance.OnLevelPass -= RefreshCanvas;
+            //GameManager.Instance.OnNextLevel -= RefreshCanvas;
         }
 
         public void SwitchBulletTimeEffect(bool isEnabled) {
@@ -46,6 +48,7 @@ namespace Assets.Scripts.Gameplay.Manager
         public void RefreshCanvas() 
         {
             _pnlMain.gameObject.SetActive(true);
+            _pnlFinish.gameObject.SetActive(false);
             _pnlRightCorner.gameObject.SetActive(false);
             BulleSlider.gameObject.SetActive(false);
         }
@@ -75,6 +78,17 @@ namespace Assets.Scripts.Gameplay.Manager
             _pnlRightCorner.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(true);
         }
+
+        //结算界面
+        public void LevelComplete()
+        {
+            _pnlFinish.gameObject.SetActive(true);
+            _pnlMain.gameObject.SetActive(false);
+            _pnlRightCorner.gameObject.SetActive(false);
+            BulleSlider.gameObject.SetActive(false);
+            _textScoreReal.text = LevelManager.instance.CalculcateScore().ToString();
+        }
+
         #endregion
 
 
