@@ -20,19 +20,38 @@ namespace Assets.Scripts {
         public Slider BulletTimeSlider;
 
         private Button _btnPlay;
+        private float _speed = 0.5f;
         public ScorePanel PanelScore;
+        public  Image _imgMask;
 
         public void Start() {
             _btnPlay = transform.Find("BtnPlay").GetComponent<Button>();
-
             RefreshCanvas();
             GameManager.Instance.OnLevelPass += RefreshCanvas;
             RefreshCanvas();
+            _imgMask.gameObject.SetActive(false);
         }
 
         public void OnDestroy()
         {
             //GameManager.Instance.OnNextLevel -= RefreshCanvas;
+        }
+
+        public void PassLevel()//通关或场景过渡时调用此函数使用渐暗效果
+        {
+            _imgMask.gameObject.SetActive(true);
+            StartCoroutine(BeDark());
+        }
+
+        IEnumerator BeDark()//渐白
+        {
+            while (1 - _imgMask.color.a > 0.05f)
+            {
+                _imgMask.color = Color.Lerp(_imgMask.color, new Color(1, 1, 1, 1), _speed * Time.deltaTime);
+                yield return null;
+            }
+            _imgMask.color = new Color(1, 1, 1, 0);
+            _imgMask.gameObject.SetActive(false);
         }
 
         public void SwitchBulletTimeEffect(bool isEnabled) {
