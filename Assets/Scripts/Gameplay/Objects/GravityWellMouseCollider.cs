@@ -26,14 +26,6 @@ namespace Assets.Scripts {
 
         private void Start()
         {
-            OnWellChangeEvent += ChangeSprite;
-            OnWellChangeEvent += GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal;
-        }
-
-        public void OnDestroy()
-        {
-        //    OnWellChangeEvent -= ChangeSprite;
-        //    OnWellChangeEvent -= GameManager.Instance.MainCamera.GetComponent<TwistEffect>().ChangeTwistVal;
         }
 
         private void OnMouseBehaviourChanged() {
@@ -72,7 +64,8 @@ namespace Assets.Scripts {
             if (well.status == status) {
                 return;
             }
-            OnWellChangeEvent?.Invoke(well.transform, status, _forceStrength);
+            ChangeSprite(status);
+            LevelManager.instance.twistEffect.UpdateWellTwist(well.transform.position, status, _forceStrength);
             well.status = status;
             Debug.LogFormat("{0} status set to {1}", well.gameObject.name, status);
         }
@@ -101,7 +94,7 @@ namespace Assets.Scripts {
         }
         #endregion
 
-        private void ChangeSprite(Transform trans, GravityWellModifierStatus curStatus, float strength)
+        private void ChangeSprite(GravityWellModifierStatus curStatus)
         {
             switch (curStatus)
             {
@@ -115,7 +108,6 @@ namespace Assets.Scripts {
                     _spriteRenderer.sprite = NoneSprite;
                     break;
                 default: break;
-
             }
         }
     }

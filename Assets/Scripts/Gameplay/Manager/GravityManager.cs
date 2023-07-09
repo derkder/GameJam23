@@ -50,7 +50,7 @@ namespace Assets.Scripts {
             isBulletTimeOn = isOn;
             UpdateDamping();
             ball.SwitchTrajectoryState(isOn);
-            GameManager.Instance.MainCamera.GetComponent<BlurEffect>().intensity = isOn ? 0.4f : 0.0f;
+            Camera.main.GetComponent<BlurEffect>().intensity = isOn ? 0.4f : 0.0f;
         }
 
         public void UpdateDamping() {

@@ -35,17 +35,12 @@ namespace Assets.Scripts.Gameplay.Manager
             //GameManager.Instance.OnLevelPass -= RefreshCanvas;
         }
 
-        public void SwitchBulletTimeEffect(bool isEnabled)
-        {
+        public void SwitchBulletTimeEffect(bool isEnabled) {
+            if (LevelManager.instance == null) {
+                return;
+            }
             GravityManager.instance.ball.SwitchTrajectoryState(isEnabled);
-            if (isEnabled)
-            {
-                GameManager.Instance.MainCamera.GetComponent<BlurEffect>().intensity = 0.4f;
-            }
-            else
-            {
-                GameManager.Instance.MainCamera.GetComponent<BlurEffect>().intensity = 0.0f;
-            }
+            LevelManager.instance.blurEffect.intensity = isEnabled ? 0.4f : 0f;
         }
 
         public void RefreshCanvas() 

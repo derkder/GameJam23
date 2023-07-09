@@ -12,7 +12,6 @@ public class GameManager : Singleton<GameManager>
     //场景名称列表
     private List<string> _sceneList = new List<string> { "TitleScreenScene", "Level_0", "Level_1", "Level_2", "Level_3", "Level_4", "Level_5", "Level_6" };
     public CurLevel NowLevel => _nowLevel;
-    public Camera MainCamera { get => Camera.main; }
     private GameObject _curCanva;
 
     public bool isEditorModeOn;
@@ -26,12 +25,12 @@ public class GameManager : Singleton<GameManager>
     {
     }
 
-    public void Update() 
-    {
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            LevelPass();
-            Debug.Log($"_nowLevel{_nowLevel}");
+    public void Update() {
+        if (isEditorModeOn) {
+            if (Input.GetKeyUp(KeyCode.A)) {
+                LevelPass();
+                Debug.Log($"_nowLevel{_nowLevel}");
+            }
         }
     }
 

@@ -1,8 +1,5 @@
 using UnityEngine;
-public class BlurEffect : PostEffectsBase
-{
-
-
+public class BlurEffect : PostEffectsBase {
     [Header("Radial Blur")]
     [Range(0, 1)]
     public float intensity = 0.0f;                         // 效果强度
@@ -17,7 +14,7 @@ public class BlurEffect : PostEffectsBase
     {
         //找到对应的Shader文件  
         shader = Shader.Find("screenEffect/RadialBlur");
-        GameManager.Instance.MainCamera.depthTextureMode |= DepthTextureMode.Depth;
+        Camera.main.depthTextureMode |= DepthTextureMode.Depth;
     }
 
     // 渲染屏幕

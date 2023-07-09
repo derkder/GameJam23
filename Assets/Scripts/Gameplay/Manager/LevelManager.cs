@@ -21,17 +21,23 @@ namespace Assets.Scripts {
 
         public event Action OnLevelReset;
 
-        public void Awake() {
-            instance = this;
+        // The following properties should belong to effectManager
+        public TwistEffect twistEffect;
+        public BlurEffect blurEffect;
 
-            Camera mainCamera = Camera.main;
-            mainCamera.gameObject.AddComponent<TwistEffect>();
-            mainCamera.gameObject.AddComponent<BlurEffect>();
+        public void Awake() {
+            if (instance != null) {
+                Destroy(instance.gameObject);
+            }
+            instance = this;
         }
 
         private void Start() {
-            curElapsedTime = Time.time;
+            Camera mainCamera = Camera.main;
+            twistEffect = mainCamera.gameObject.AddComponent<TwistEffect>();
+            blurEffect = mainCamera.gameObject.AddComponent<BlurEffect>();
 
+            curElapsedTime = Time.time;
             remainingBulletTime = totalBulletTime;
             objectParent = GameObject.Find("Objects").transform;
 
@@ -40,7 +46,6 @@ namespace Assets.Scripts {
                 SceneUIManager.Instance.OnPauseLevel += PauseLevel;
                 SceneUIManager.Instance.OnResumeLevel += ResumeLevel;
             }
-            
             PauseLevel();
         }
 
