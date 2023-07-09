@@ -112,7 +112,6 @@ namespace Assets.Scripts {
 
         public void ResetLevel() {
             // TODO: ball destruction animation
-            // TODO: reset score
             Destroy(GravityManager.instance.ball.gameObject);
             GameObject ball = (GameObject)Instantiate(AssetHelper.instance.Ball, objectParent);
             ball.transform.position = GravityManager.instance.ballData.position;
@@ -123,6 +122,7 @@ namespace Assets.Scripts {
 
             totalGold = 0;
             curElapsedTime = Time.time;
+            remainingBulletTime = totalBulletTime;
         }
 
         public ScoreData GetScore() {
