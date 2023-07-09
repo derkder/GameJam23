@@ -23,6 +23,7 @@ namespace Assets.Scripts {
             if (hasTriggered) {
                 return;
             }
+            AudioManager.Instance.PlaySFX(SfxType.TouchGold);
             LevelManager.instance.totalGold += gold;
             hasTriggered = true;
             Color color = GetComponent<SpriteRenderer>().color;
