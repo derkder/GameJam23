@@ -48,8 +48,6 @@ MonoBehaviour:
   levelProgress: -1
   isEditorModeOn: 0
   enableWellColliderDetection: 0
-  LevelCanvas: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
-    type: 3}
 --- !u!114 &1126419298093973948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,4 +62,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ball: {fileID: 6926638616270293529, guid: 421750f7789d9f94a9723056efc9cd05, type: 3}
   LevelCanvas: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
+    type: 3}
+  DestructEffect: {fileID: 9012438322536006503, guid: 85446c05a005383468d8d630dadda0b1,
     type: 3}
