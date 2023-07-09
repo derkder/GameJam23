@@ -63,14 +63,5 @@ MonoBehaviour:
   Ball: {fileID: 6926638616270293529, guid: 421750f7789d9f94a9723056efc9cd05, type: 3}
   LevelCanvas: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
     type: 3}
-  BackgroundMaterials:
-  - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
-  - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
-  - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
-  - {fileID: 2100000, guid: 7e58dd62d6c5f5546bbf6f7730771f7e, type: 2}
-  - {fileID: 2100000, guid: a24527598ca149840b241426370201fb, type: 2}
-  - {fileID: 2100000, guid: 50a94ff734124bb4a8cdbdb70f021f4c, type: 2}
-  - {fileID: 2100000, guid: d6b2e523e1301eb40848d2304be899a8, type: 2}
-  - {fileID: 2100000, guid: f507ba5ecd8d254449965231b1cfa2c8, type: 2}
-  - {fileID: 2100000, guid: 4ece24ffdcea4124d8bc36f52195d423, type: 2}
-  - {fileID: 2100000, guid: de59450dd1a934c4588fbe07ea7711d7, type: 2}
+  DestructEffect: {fileID: 9012438322536006503, guid: 85446c05a005383468d8d630dadda0b1,
+    type: 3}
