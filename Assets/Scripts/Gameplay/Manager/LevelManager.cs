@@ -49,19 +49,16 @@ namespace Assets.Scripts {
         }
 
         private void Update() {
-            if (null != GravityManager.instance)
-            {
-                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                {
-                    if (isBulletTimeAllowed && remainingBulletTime > 0) {
-                        GravityManager.instance.SwitchBulletTime(true);
-                        SpendBulletTime(Time.deltaTime);
-                    }
+            if (GravityManager.instance == null) {
+                return;
+            }
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+                if (isBulletTimeAllowed && remainingBulletTime > 0) {
+                    GravityManager.instance.SwitchBulletTime(true);
+                    SpendBulletTime(Time.deltaTime);
                 }
-                else
-                {
-                    GravityManager.instance.SwitchBulletTime(false);
-                }
+            } else {
+                GravityManager.instance.SwitchBulletTime(false);
             }
         }
 
@@ -77,12 +74,20 @@ namespace Assets.Scripts {
         }
 
         public void Pass() {
+            if (GameManager.Instance.IsTitleScene()) {
+                GameManager.Instance.LevelPass();
+                return;
+            }
+
+            PauseLevel();
+
+            ScoreData scoreData = GetScore();
             Debug.LogFormat("Level Passed, Score is ({0} + {1} + {2}) = {3}",
                 totalGold,
                 remainingBulletTime / totalBulletTime,
                 Time.time - curElapsedTime,
-                CalculcateScore());
-            GameManager.Instance.LevelPass();
+                scoreData.TotalScore());
+            SceneUIManager.Instance.ShowScoreView(scoreData);
         }
 
         public void Fail() {
@@ -120,13 +125,12 @@ namespace Assets.Scripts {
             curElapsedTime = Time.time;
         }
 
-        public int CalculcateScore() {
-            ScoreData score = new ScoreData(
+        public ScoreData GetScore() {
+            return new ScoreData(
                 totalGold,
                 remainingBulletTime / totalBulletTime,
                 5000 / (Time.time - curElapsedTime)
             );
-            return score.CalculcateScore();
         }
     }
 }

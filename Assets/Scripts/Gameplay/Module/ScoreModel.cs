@@ -15,8 +15,21 @@ namespace Assets.Scripts {
             this.passDuration = passDuration;
         }
 
-        public int CalculcateScore() {
-            float score = 100 * gold + 1000 * remainingBulletTimeRatio + 5000 / passDuration;
+        public float GoldScore() {
+            return 100 * gold;
+        }
+
+        public float BulletTimeScore() {
+            return 1000 * remainingBulletTimeRatio;
+        }
+
+        public float RemainingTimeScore() {
+            Debug.LogFormat("passduration {0}", passDuration);
+            return 5000 / passDuration * 1e3f;
+        }
+
+        public int TotalScore() {
+            float score = GoldScore() + BulletTimeScore() + RemainingTimeScore();
             return (int)Mathf.Round(score);
         }
     }

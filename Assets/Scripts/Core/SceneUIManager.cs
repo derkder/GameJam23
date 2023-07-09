@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using Assets.Scripts.CanvasUI;
 
 namespace Assets.Scripts {
     public class SceneUIManager : Singleton<SceneUIManager>
@@ -17,16 +18,12 @@ namespace Assets.Scripts {
         public Transform _pnlMain;
         public Transform _pnlRightCorner;
         public Slider BulletTimeSlider;
-        public TextMeshProUGUI _textScore;
-        public TextMeshProUGUI _textScoreReal;
 
         private Button _btnPlay;
-        //private Transform _pnlFinish;
-        //private Transform _pn
+        public ScorePanel PanelScore;
 
         public void Start() {
             _btnPlay = transform.Find("BtnPlay").GetComponent<Button>();
-            //_pnlFinish = transform.Find("PnlFinish");
 
             RefreshCanvas();
             GameManager.Instance.OnLevelPass += RefreshCanvas;
@@ -49,7 +46,7 @@ namespace Assets.Scripts {
         public void RefreshCanvas() {
             Debug.Log("refreshCanvas");
             _pnlMain.gameObject.SetActive(true);
-            //_pnlFinish.gameObject.SetActive(false);
+            PanelScore.gameObject.SetActive(false);
             _pnlRightCorner.gameObject.SetActive(false);
             _btnPlay.gameObject.SetActive(true);
             BulletTimeSlider.gameObject.SetActive(false);
@@ -79,13 +76,13 @@ namespace Assets.Scripts {
         }
 
         //结算界面
-        public void LevelComplete()
-        {
-            //_pnlFinish.gameObject.SetActive(true);
+        public void ShowScoreView(ScoreData data) {
+            PanelScore.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
             _pnlRightCorner.gameObject.SetActive(false);
             BulletTimeSlider.gameObject.SetActive(false);
-            _textScoreReal.text = LevelManager.instance.CalculcateScore().ToString();
+
+            PanelScore.UpdateScore(data);
         }
 
         #endregion

@@ -61,4 +61,9 @@ public class GameManager : Singleton<GameManager>
 #endif
         Application.Quit();
     }
+    
+    // TODO: delete later
+    public bool IsTitleScene() {
+        return levelProgress < 0;
+    }
 }
