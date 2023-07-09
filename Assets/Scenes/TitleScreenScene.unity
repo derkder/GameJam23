@@ -424,12 +424,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4450871633921366631, guid: 2026c86dd135a3044b4520fc03ecaf2d,
-        type: 3}
-      propertyPath: LevelCanvas
-      value: 
-      objectReference: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
-        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
