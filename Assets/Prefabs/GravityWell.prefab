@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1723671838, guid: bd4495e0b37f39e43af400ae92a40e4e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4315b5ba9113e2f41907dff89ddd4923, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.39607844}
   m_FlipX: 0
   m_FlipY: 0
@@ -133,9 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dac9094d075fa843b691a777a53ba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttractSprite: {fileID: -18777040, guid: bd4495e0b37f39e43af400ae92a40e4e, type: 3}
-  RepelSprite: {fileID: 1723671838, guid: bd4495e0b37f39e43af400ae92a40e4e, type: 3}
-  NoneSprite: {fileID: 21300000, guid: 0b5d9d1693b5b1244b18f7dd23cd679a, type: 3}
+  AttractSprite: {fileID: 21300000, guid: 26a4af07f36f25c4d90e48e4b7f8b67b, type: 3}
+  RepelSprite: {fileID: 21300000, guid: 4315b5ba9113e2f41907dff89ddd4923, type: 3}
+  NoneSprite: {fileID: 21300000, guid: d25eecec5abb3a34dba8bbf144a58bcf, type: 3}
 --- !u!1 &4664025703378451726
 GameObject:
   m_ObjectHideFlags: 0
