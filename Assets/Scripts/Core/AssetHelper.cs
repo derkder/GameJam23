@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts {
@@ -8,6 +10,7 @@ namespace Assets.Scripts {
         public GameObject Ball;
         public GameObject LevelCanvas;
         public GameObject DestructEffect;
+        public List<Material> BackgroundMaterials;
 
         private void Awake() {
             instance = this;

@@ -107,7 +107,9 @@ namespace Assets.Scripts {
         {
             //destructEffect.SetActive(true);
             destructEffect.transform.position = GravityManager.instance.ball.transform.position;
-            destructEffect.transform.Find("BallSprite").GetComponent<BallDestruct>().PlayDesTructEffect();
+            if (destructEffect.transform.Find("BallSprite")) {
+                destructEffect.transform.Find("BallSprite").GetComponent<BallDestruct>().PlayDesTructEffect();
+            }
             ResetLevel();
         }
 

@@ -21,6 +21,8 @@ public class GameManager : Singleton<GameManager>
         "Level_6",
         "Level_7"
     };
+
+    private GameDataModel gameDataModel;
     public int levelProgress = -1;
 
     private GameObject _globalLevelCanvas;
@@ -29,6 +31,11 @@ public class GameManager : Singleton<GameManager>
     public bool enableWellColliderDetection;
     
     public event Action OnLevelPass;
+
+    public new void Awake() {
+        base.Awake();
+        gameDataModel = new GameDataModel();
+    }
 
     public void Update() {
         if (isEditorModeOn) {
@@ -45,10 +52,14 @@ public class GameManager : Singleton<GameManager>
             GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);
             DontDestroyOnLoad(_globalLevelCanvas);
         }
+
         SceneChange(levelScenes[levelProgress]);
+        Debug.LogFormat("SceneChange background {0}", levelScenes[levelProgress]);
+        Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
+        Plane.Instance.UpdateImage(levelScenes[levelProgress], backgroundMaterial);
 
         OnLevelPass?.Invoke();
-        Debug.LogFormat("GameManger load scene {0}", levelScenes[levelProgress]);
+        Debug.LogFormat("GameManager load scene {0}", levelScenes[levelProgress]);
     }
 
     private void SceneChange(string sceneName) {

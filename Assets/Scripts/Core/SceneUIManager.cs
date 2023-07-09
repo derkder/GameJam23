@@ -74,6 +74,7 @@ namespace Assets.Scripts {
             _pnlRightCorner.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(true);
         }
+        #endregion
 
         //结算界面
         public void ShowScoreView(ScoreData data) {
@@ -85,10 +86,7 @@ namespace Assets.Scripts {
             PanelScore.UpdateScore(data);
         }
 
-        #endregion
-
-
-        #region 子弹时间进度条
+        #region BulletTimeProgressBar
         /// <summary>
         /// 显示进度条
         /// </summary>
@@ -111,7 +109,7 @@ namespace Assets.Scripts {
         {
             BulletTimeSlider.value = val;
         }
+        #endregion
 
     }
-#endregion
 }

@@ -16,6 +16,9 @@ public class BallDestruct : MonoBehaviour
     /// </summary>
     public void PlayDesTructEffect()
     {
+        if (_explodable == null) {
+            return;
+        }
         _explodable.allowRuntimeFragmentation = true;
         _explodable.explode();
         ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
