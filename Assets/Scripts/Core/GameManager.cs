@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using Assets.Scripts.DialogGadget;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,14 +40,26 @@ public class GameManager : Singleton<GameManager>
     public void Update() {
         if (isEditorModeOn) {
             if (Input.GetKeyUp(KeyCode.A)) {
-                LevelPass();
+                TryShowDialog();
             }
         }
+    }
+
+    public void TryShowDialog() {
+        if (AssetHelper.instance.AfterSceneTexts[levelProgress] == null) {
+            LevelPass();
+            return;
+        }
+        UDialogGadget gadget = Instantiate(AssetHelper.instance.DialogGadget).GetComponentInChildren<UDialogGadget>();
+        TextAsset textAsset = AssetHelper.instance.AfterSceneTexts[levelProgress];
+        gadget.Init(textAsset);
+        gadget.AddOnDialogEndDelegate(LevelPass);
     }
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
     public void LevelPass() {
         levelProgress += 1;
+        Debug.LogFormat("levelProgress update {0}", levelProgress);
         if (levelProgress == 0){
             GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);
             DontDestroyOnLoad(_globalLevelCanvas);

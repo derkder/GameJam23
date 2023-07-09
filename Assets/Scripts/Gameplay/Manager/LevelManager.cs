@@ -89,7 +89,7 @@ namespace Assets.Scripts {
                     scoreData.TotalScore());
                 SceneUIManager.Instance.ShowScoreView(scoreData);
             } else {
-                GameManager.Instance.LevelPass();
+                GameManager.Instance.TryShowDialog();
             }
         }
 

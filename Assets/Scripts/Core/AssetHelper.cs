@@ -9,7 +9,9 @@ namespace Assets.Scripts {
 
         public GameObject Ball;
         public GameObject LevelCanvas;
+        public GameObject DialogGadget;
         public List<Material> BackgroundMaterials;
+        public List<TextAsset> AfterSceneTexts;
 
         private void Awake() {
             instance = this;

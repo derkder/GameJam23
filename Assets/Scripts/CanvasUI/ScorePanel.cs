@@ -32,7 +32,7 @@ namespace Assets.Scripts.CanvasUI {
         }
 
         public void SwitchScene() {
-            GameManager.Instance.LevelPass();
+            GameManager.Instance.TryShowDialog();
         }
     }
 }

@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4450871633921366631
 MonoBehaviour:
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelProgress: -1
-  isEditorModeOn: 0
+  isEditorModeOn: 1
   enableWellColliderDetection: 0
 --- !u!114 &1126419298093973948
 MonoBehaviour:
@@ -63,6 +63,8 @@ MonoBehaviour:
   Ball: {fileID: 6926638616270293529, guid: 421750f7789d9f94a9723056efc9cd05, type: 3}
   LevelCanvas: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
     type: 3}
+  DialogGadget: {fileID: 1900962963219721596, guid: 28ff2d2cb9f240948a7691cc7873354f,
+    type: 3}
   BackgroundMaterials:
   - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
   - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
@@ -74,3 +76,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f507ba5ecd8d254449965231b1cfa2c8, type: 2}
   - {fileID: 2100000, guid: 4ece24ffdcea4124d8bc36f52195d423, type: 2}
   - {fileID: 2100000, guid: de59450dd1a934c4588fbe07ea7711d7, type: 2}
+  AfterSceneTexts:
+  - {fileID: 4900000, guid: bb0c3ad30b899df47ac1f73b689eb67c, type: 3}
+  - {fileID: 0}
+  - {fileID: 4900000, guid: ca28519b9e525704588c856454948e6c, type: 3}
+  - {fileID: 4900000, guid: 07d2b1ebba047d94e9808fda3cd67232, type: 3}
+  - {fileID: 4900000, guid: 07d2b1ebba047d94e9808fda3cd67232, type: 3}
+  - {fileID: 4900000, guid: e44a5da51c8c8a24d91c9a3d6f142387, type: 3}
+  - {fileID: 4900000, guid: f349f95e0958f244d9d4a64b99ef427b, type: 3}
+  - {fileID: 4900000, guid: 9186d74076142be4c8caf54890f3c8d5, type: 3}
+  - {fileID: 4900000, guid: 24972d5f505dd524f932ebd1b4d6fb03, type: 3}
+  - {fileID: 4900000, guid: 623f4bdac50083346a09a86b1f017903, type: 3}
