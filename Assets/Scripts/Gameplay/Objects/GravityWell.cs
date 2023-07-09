@@ -30,10 +30,6 @@ namespace Assets.Scripts {
             LevelManager.instance.OnLevelReset += Reset;
         }
 
-        private void OnDestroy() {
-            LevelManager.instance.OnLevelReset -= Reset;
-        }
-
         private void FixedUpdate() {
             float realDeltaTime = Time.fixedDeltaTime / ForceCalculator.standardTimeDelta;
             switch (status) {

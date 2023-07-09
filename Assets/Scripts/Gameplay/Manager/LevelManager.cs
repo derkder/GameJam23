@@ -24,8 +24,6 @@ namespace Assets.Scripts {
         public TwistEffect twistEffect;
         public BlurEffect blurEffect;
 
-        private GameObject destructEffect;
-
         public void Awake() {
             /*if (instance != null) {
                 Destroy(instance.gameObject);
@@ -40,10 +38,7 @@ namespace Assets.Scripts {
 
             curElapsedTime = Time.time;
             remainingBulletTime = totalBulletTime;
-            //objectParent = GameObject.Find("Objects").transform;
-
-            destructEffect = Instantiate(AssetHelper.instance.DestructEffect);
-            destructEffect.SetActive(true);
+            objectParent = GameObject.Find("Objects").transform;
 
             if (null != SceneUIManager.Instance) {
                 SceneUIManager.Instance.OnRetryLevel += ResetLevel;
@@ -65,11 +60,6 @@ namespace Assets.Scripts {
             } else {
                 GravityManager.instance.SwitchBulletTime(false);
             }
-            //if (Input.GetKeyDown(KeyCode.S))
-            //{
-            //    Fail();
-            //}
-
         }
 
         private void SpendBulletTime(float costTime) {
@@ -103,13 +93,7 @@ namespace Assets.Scripts {
             }
         }
 
-        public void Fail()
-        {
-            //destructEffect.SetActive(true);
-            destructEffect.transform.position = GravityManager.instance.ball.transform.position;
-            if (destructEffect.transform.Find("BallSprite")) {
-                destructEffect.transform.Find("BallSprite").GetComponent<BallDestruct>().PlayDesTructEffect();
-            }
+        public void Fail() {
             ResetLevel();
         }
 

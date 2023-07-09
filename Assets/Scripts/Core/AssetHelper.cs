@@ -9,7 +9,6 @@ namespace Assets.Scripts {
 
         public GameObject Ball;
         public GameObject LevelCanvas;
-        public GameObject DestructEffect;
         public List<Material> BackgroundMaterials;
 
         private void Awake() {

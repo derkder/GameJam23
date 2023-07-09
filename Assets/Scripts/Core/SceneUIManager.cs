@@ -44,7 +44,6 @@ namespace Assets.Scripts {
         }
 
         public void RefreshCanvas() {
-            Debug.Log("refreshCanvas");
             _pnlMain.gameObject.SetActive(true);
             PanelScore.gameObject.SetActive(false);
             _pnlRightCorner.gameObject.SetActive(false);
