@@ -24,8 +24,7 @@ namespace Assets.Scripts {
         }
 
         public float RemainingTimeScore() {
-            Debug.LogFormat("passduration {0}", passDuration);
-            return 5000 / passDuration * 1e3f;
+            return 5000 / passDuration;
         }
 
         public int TotalScore() {

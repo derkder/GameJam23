@@ -80,14 +80,17 @@ namespace Assets.Scripts {
             }
 
             PauseLevel();
-
-            ScoreData scoreData = GetScore();
-            Debug.LogFormat("Level Passed, Score is ({0} + {1} + {2}) = {3}",
-                totalGold,
-                remainingBulletTime / totalBulletTime,
-                Time.time - curElapsedTime,
-                scoreData.TotalScore());
-            SceneUIManager.Instance.ShowScoreView(scoreData);
+            if (!GameManager.Instance.IsScoreBoardScene()) {
+                ScoreData scoreData = GetScore();
+                Debug.LogFormat("Level Passed, Score is ({0} + {1} + {2}) = {3}",
+                    totalGold,
+                    remainingBulletTime / totalBulletTime,
+                    Time.time - curElapsedTime,
+                    scoreData.TotalScore());
+                SceneUIManager.Instance.ShowScoreView(scoreData);
+            } else {
+                GameManager.Instance.LevelPass();
+            }
         }
 
         public void Fail() {
@@ -129,7 +132,7 @@ namespace Assets.Scripts {
             return new ScoreData(
                 totalGold,
                 remainingBulletTime / totalBulletTime,
-                5000 / (Time.time - curElapsedTime)
+                Time.time - curElapsedTime
             );
         }
     }

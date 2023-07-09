@@ -66,4 +66,7 @@ public class GameManager : Singleton<GameManager>
     public bool IsTitleScene() {
         return levelProgress < 0;
     }
+    public bool IsScoreBoardScene() {
+        return levelProgress < 3;
+    }
 }

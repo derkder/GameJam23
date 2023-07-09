@@ -38,6 +38,9 @@ namespace Assets.Scripts {
         }
 
         private void BroadcastMouseHitEvent(GravityWellModifierStatus status) {
+            if (!Camera.main) {
+                return;
+            }
             Debug.LogFormat("BroadcastMouseHitEvent {0} {1}", Input.mousePosition, Camera.main);
             Vector2 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(clickPosition, Vector2.zero);

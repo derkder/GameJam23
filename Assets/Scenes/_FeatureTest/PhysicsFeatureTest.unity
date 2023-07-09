@@ -205,6 +205,8 @@ MonoBehaviour:
   remainingBulletTime: 0
   objectParent: {fileID: 0}
   curElapsedTime: 0
+  twistEffect: {fileID: 0}
+  blurEffect: {fileID: 0}
 --- !u!1001 &88587491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -802,7 +804,7 @@ PrefabInstance:
     - target: {fileID: 6716716249940987331, guid: b355d602d1357ee4dbd495a587edc0f7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -918,12 +920,12 @@ PrefabInstance:
     - target: {fileID: 1844684399691330242, guid: 0ef254b5f7abf8342a5d96dc4b52db64,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.54
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1844684399691330242, guid: 0ef254b5f7abf8342a5d96dc4b52db64,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.95
+      value: 4.3
       objectReference: {fileID: 0}
     - target: {fileID: 1844684399691330242, guid: 0ef254b5f7abf8342a5d96dc4b52db64,
         type: 3}
