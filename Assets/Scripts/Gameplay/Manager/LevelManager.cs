@@ -53,6 +53,7 @@ namespace Assets.Scripts {
                 return;
             }
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+                AudioManager.Instance.PlaySFX(SfxType.BulletTime);
                 if (isBulletTimeAllowed && remainingBulletTime > 0) {
                     GravityManager.instance.SwitchBulletTime(true);
                     SpendBulletTime(Time.deltaTime);
@@ -102,6 +103,7 @@ namespace Assets.Scripts {
                 return;
             }
             isPaused = true;
+            AudioManager.Instance.StopMusic();
             Time.timeScale = 0f;
         }
 
@@ -109,6 +111,7 @@ namespace Assets.Scripts {
             if (!isPaused) {
                 return;
             }
+            AudioManager.Instance.PlaySFX(SfxType.BallRolling, true);
             isPaused = false;
             Time.timeScale = 1f;
         }

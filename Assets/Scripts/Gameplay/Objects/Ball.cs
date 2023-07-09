@@ -32,6 +32,7 @@ namespace Assets.Scripts {
 
             GravityManager.instance.ball = this;
             GravityManager.instance.ballData = data;
+            AudioManager.Instance.PlaySFX(SfxType.BallRolling, true);
         }
 
         private void FixedUpdate() {

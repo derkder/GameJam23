@@ -36,6 +36,11 @@ public class GameManager : Singleton<GameManager>
         gameDataModel = new GameDataModel();
     }
 
+    public void Start()
+    {
+        AudioManager.Instance.PlayMusic(MusicType.MainMenu);
+    }
+
     public void Update() {
         if (isEditorModeOn) {
             if (Input.GetKeyUp(KeyCode.A)) {
@@ -46,6 +51,7 @@ public class GameManager : Singleton<GameManager>
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
     public void LevelPass() {
+        AudioManager.Instance.PlaySFX(SfxType.FinishLevel);
         levelProgress += 1;
         if (levelProgress == 0){
             GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);
@@ -53,6 +59,14 @@ public class GameManager : Singleton<GameManager>
         }
 
         SceneChange(levelScenes[levelProgress]);
+        if (levelProgress <= 3)
+        {
+            AudioManager.Instance.PlayMusic(MusicType.TeachLevel);
+        }
+        else
+        {
+            AudioManager.Instance.PlayMusic(MusicType.MainLevel);
+        }
         Debug.LogFormat("SceneChange background {0}", levelScenes[levelProgress]);
         Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
         Plane.Instance.UpdateImage(levelScenes[levelProgress], backgroundMaterial);
