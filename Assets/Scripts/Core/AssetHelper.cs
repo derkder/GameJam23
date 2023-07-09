@@ -7,6 +7,7 @@ namespace Assets.Scripts {
 
         public GameObject Ball;
         public GameObject LevelCanvas;
+        public GameObject DestructEffect;
 
         private void Awake() {
             instance = this;
