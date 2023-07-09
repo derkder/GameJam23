@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR;
 
 namespace Assets.Scripts {
     [Serializable]

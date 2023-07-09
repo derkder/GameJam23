@@ -16,16 +16,9 @@ namespace Assets.Scripts {
         private SpriteRenderer _spriteRenderer;
         private float _forceStrength = 20;
 
-        public delegate void OnWellChangeDelegate(Transform trans, GravityWellModifierStatus curStatus, float strength);
-        public event OnWellChangeDelegate OnWellChangeEvent;
-
         private void Awake() {
             well = GetComponentInParent<GravityWell>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        private void Start()
-        {
         }
 
         private void OnMouseBehaviourChanged() {
@@ -45,6 +38,7 @@ namespace Assets.Scripts {
         }
 
         private void BroadcastMouseHitEvent(GravityWellModifierStatus status) {
+            Debug.LogFormat("BroadcastMouseHitEvent {0} {1}", Input.mousePosition, Camera.main);
             Vector2 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(clickPosition, Vector2.zero);
             foreach (RaycastHit2D hit in hits) {

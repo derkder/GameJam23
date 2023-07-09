@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts;
-using Assets.Scripts.Gameplay.Manager;
 using System;
 using System.Linq;
 using System.Collections;

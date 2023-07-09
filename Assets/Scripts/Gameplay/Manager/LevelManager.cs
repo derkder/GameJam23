@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Core;
-using Assets.Scripts.Gameplay.Manager;
+﻿using Assets.Scripts;
 using System;
 using System.Collections;
 using UnityEngine;
