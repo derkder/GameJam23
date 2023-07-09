@@ -47,8 +47,15 @@ namespace Assets.Scripts {
             }
             Debug.LogFormat("BulletTime {0}", isOn);
             isBulletTimeOn = isOn;
+
             UpdateDamping();
             ball.SwitchTrajectoryState(isOn);
+
+            if (isOn) {
+                SceneUIManager.Instance.OnShowSlider();
+            } else {
+                SceneUIManager.Instance.OnHideSlider();
+            }
             Camera.main.GetComponent<BlurEffect>().intensity = isOn ? 0.4f : 0.0f;
         }
 

@@ -48,12 +48,6 @@ namespace Assets.Scripts {
             PauseLevel();
         }
 
-        private void OnDestroy() {
-            SceneUIManager.Instance.OnRetryLevel -= ResetLevel;
-            SceneUIManager.Instance.OnPauseLevel -= PauseLevel;
-            SceneUIManager.Instance.OnResumeLevel -= ResumeLevel;
-        }
-
         private void Update() {
             if (null != GravityManager.instance)
             {
@@ -76,6 +70,7 @@ namespace Assets.Scripts {
                 return;
             }
             remainingBulletTime -= costTime;
+            SceneUIManager.Instance.OnChangeSlider(remainingBulletTime / totalBulletTime);
             if (remainingBulletTime <= 0) {
                 GravityManager.instance.SwitchBulletTime(false);
             }

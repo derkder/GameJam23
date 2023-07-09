@@ -909,8 +909,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pnlMain: {fileID: 4091304241731021802}
   _pnlRightCorner: {fileID: 7164549448498157731}
-  BulleSlider: {fileID: 2000934660335160573}
+  BulletTimeSlider: {fileID: 2000934660335160573}
   _textScore: {fileID: 7637212275321340696}
+  _textScoreReal: {fileID: 0}
 --- !u!1 &3983859808711697919
 GameObject:
   m_ObjectHideFlags: 0
