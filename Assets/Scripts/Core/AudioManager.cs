@@ -16,6 +16,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void Start()
     {
+        _audioSourecMusic.clip = MusicSource[2];
     }
 
     public void PlayMusic(MusicType mt, bool loop = true)
@@ -39,7 +40,7 @@ public class AudioManager : Singleton<AudioManager>
         _clip = SfxSource[(int)st];
         _audioSourecSfx.clip = _clip;
         _audioSourecSfx.loop = loop;
-        _audioSourecSfx.volume = musicVolume;
+        _audioSourecSfx.volume = 0.7f * musicVolume;
         _audioSourecSfx.Play();
     }
 

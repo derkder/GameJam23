@@ -36,11 +36,6 @@ public class GameManager : Singleton<GameManager>
         gameDataModel = new GameDataModel();
     }
 
-    public void Start()
-    {
-        AudioManager.Instance.PlayMusic(MusicType.MainMenu);
-    }
-
     public void Update() {
         if (isEditorModeOn) {
             if (Input.GetKeyUp(KeyCode.A)) {

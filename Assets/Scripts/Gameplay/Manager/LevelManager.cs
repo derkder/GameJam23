@@ -103,7 +103,7 @@ namespace Assets.Scripts {
                 return;
             }
             isPaused = true;
-            AudioManager.Instance.StopMusic();
+            AudioManager.Instance.SetMusicVolume(0);
             Time.timeScale = 0f;
         }
 
@@ -111,7 +111,7 @@ namespace Assets.Scripts {
             if (!isPaused) {
                 return;
             }
-            AudioManager.Instance.PlaySFX(SfxType.BallRolling, true);
+            AudioManager.Instance.SetMusicVolume(100);
             isPaused = false;
             Time.timeScale = 1f;
         }
