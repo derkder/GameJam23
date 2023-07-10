@@ -10,6 +10,7 @@ using static UnityEngine.Networking.UnityWebRequest;
 using UnityEngine.Apple.ReplayKit;
 using UnityEditor;
 using static UnityEditor.PlayerSettings;
+using UnityEngine.UI;
 
 namespace Assets.Scripts {
     [Serializable]
@@ -27,6 +28,8 @@ namespace Assets.Scripts {
         public bool isTrajectoryOn;
 
         public const float oneSixth = 1 / 6f;
+        float cubeRootTwo, w0, w1, c1, c2, c3, c4, d1, d2, d3;
+        
 
         public delegate Vector2 acceletationDelegate(Vector2 pos);
         public delegate Vector4 rawUpdateDelegate(Vector4 state, float dt, Vector2 accel);
@@ -47,6 +50,17 @@ namespace Assets.Scripts {
         }
 
         private void Start() {
+            cubeRootTwo = Mathf.Pow(2, 1 / 3.0f);
+            w0 = -cubeRootTwo / (2 - cubeRootTwo);
+            w1 = 1 / (2 - cubeRootTwo);
+            c1 = w1 * 0.5f;
+            c2 = (w0 + w1) * 0.5f;
+            c3 = c2;
+            c4 = c1;
+            d1 = w1;
+            d2 = w0;
+            d3 = w1;
+
             speed = initialSpeed;
 
             BallData data = new BallData();
@@ -84,20 +98,31 @@ namespace Assets.Scripts {
                 return;
             }
 
-            float multiplier = 1;
+            int steps = 500;
+            float multiplier = 1 / (float)steps;
 
-            Vector2 pos = transform.position;
+            for (int i = 0; i < steps; i++) {
+                Vector2 pos = transform.position;
 
-            float inGameSpeedRatio = GravityManager.instance.speedRatio *
-                (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
-            float simulatorDt = Time.deltaTime * inGameSpeedRatio * multiplier;
+                float inGameSpeedRatio = GravityManager.instance.speedRatio *
+                    (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
+                float simulatorDt = Time.deltaTime * inGameSpeedRatio * multiplier;
 
-            accel = GravityManager.instance.GetAcceleration(pos); 
-            Vector2 speed_half_step = speed + accel * simulatorDt * 0.5f;
-            transform.position = pos + speed_half_step * simulatorDt;
-            Vector2 accel_next = GravityManager.instance.GetAcceleration(transform.position);
-            speed = speed_half_step + accel_next * simulatorDt * 0.5f;
+                Vector2 p1 = pos + c1 * (Vector2)speed * simulatorDt;
+                Vector2 a1 = GravityManager.instance.GetAcceleration(p1);
+                Vector2 v1 = (Vector2)speed + d1 * a1 * simulatorDt;
 
+                Vector2 p2 = p1 + c2 * (Vector2)v1 * simulatorDt;
+                Vector2 a2 = GravityManager.instance.GetAcceleration(p2);
+                Vector2 v2 = (Vector2)v1 + d2 * a2 * simulatorDt;
+
+                Vector2 p3 = p2 + c3 * (Vector2)v2 * simulatorDt;
+                Vector2 a3 = GravityManager.instance.GetAcceleration(p3);
+                Vector2 v3 = (Vector2)v2 + d3 * a3 * simulatorDt;
+
+                transform.position = p3 + c4 * v3 * simulatorDt;
+                speed = v3;
+            }
             Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
             if (!(viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)) {
                 LevelManager.instance.Fail();
