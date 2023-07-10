@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using static UnityEngine.Networking.UnityWebRequest;
 using UnityEngine.Apple.ReplayKit;
 using UnityEditor;
+using static UnityEditor.PlayerSettings;
 
 namespace Assets.Scripts {
     [Serializable]
@@ -86,20 +87,16 @@ namespace Assets.Scripts {
             float multiplier = 1;
 
             Vector2 pos = transform.position;
-            Vector4 rkState = new Vector4(pos.x, pos.y,
-                                              speed.x, speed.y);
 
-            for (int i = 0; i < multiplier; i++) {
-                float inGameSpeedRatio = GravityManager.instance.speedRatio *
-                    (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
-                float simulatorDt = Time.deltaTime * inGameSpeedRatio;
+            float inGameSpeedRatio = GravityManager.instance.speedRatio *
+                (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
+            float simulatorDt = Time.deltaTime * inGameSpeedRatio * multiplier;
 
-                Vector4 deltaState = rkUpdate(rawUpdate, rkState, simulatorDt, GravityManager.instance.GetAcceleration);
-                rkState += deltaState;
-                //Debug.LogFormat("rk: {0}", rkState);
-            }
-            speed = new Vector2(rkState.z, rkState.w);
-            transform.position = rkState;
+            accel = GravityManager.instance.GetAcceleration(pos); 
+            Vector2 speed_half_step = speed + accel * simulatorDt * 0.5f;
+            transform.position = pos + speed_half_step * simulatorDt;
+            Vector2 accel_next = GravityManager.instance.GetAcceleration(transform.position);
+            speed = speed_half_step + accel_next * simulatorDt * 0.5f;
 
             Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
             if (!(viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)) {
@@ -134,20 +131,16 @@ namespace Assets.Scripts {
             int segmentCoverage = GravityManager.instance.predictionLineSegmentCoverage;
             for (int i = 0; i < steps; i++) {
                 for (int j = 0; j < segmentCoverage; j++) {
-
-                    Vector4 rkState = new Vector4(localPos.x, localPos.y,
-                                                  localSpeed.x, localSpeed.y);
-
                     float multiplier = 1;
                     float inGameSpeedRatio = GravityManager.instance.speedRatio *
                         (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
                     float simulatorDt = Time.deltaTime * multiplier * inGameSpeedRatio;
 
-                    Vector4 deltaState = rkUpdate(rawUpdate, rkState, simulatorDt, GravityManager.instance.GetAcceleration);
-                    rkState += deltaState;
-
-                    localSpeed = new Vector2(rkState.z, rkState.w);
-                    localPos = rkState;
+                    localAccel = GravityManager.instance.GetAcceleration(localPos);
+                    Vector2 speed_half_step = localSpeed + localAccel * simulatorDt * 0.5f;
+                    localPos = localPos + speed_half_step * simulatorDt;
+                    Vector2 localAccelNext = GravityManager.instance.GetAcceleration(localPos);
+                    localSpeed = speed_half_step + localAccelNext * simulatorDt * 0.5f;
                 }
                 plotline[i] = localPos;
                 if (GravityManager.instance.IsPositionCollidedWithWell(localPos)) {
