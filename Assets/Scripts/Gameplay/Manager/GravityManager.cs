@@ -60,8 +60,9 @@ namespace Assets.Scripts {
         }
 
         public void UpdateDamping() {
-            float inGameSpeedRatio = speedRatio * (isBulletTimeOn ? bulletTimeSlowRatio : 1f);
-            damping = 1 - _baseDampingFactor * inGameSpeedRatio * inGameSpeedRatio;
+            //float inGameSpeedRatio = speedRatio * (isBulletTimeOn ? bulletTimeSlowRatio : 1f);
+            //damping = 1 - _baseDampingFactor * inGameSpeedRatio * inGameSpeedRatio;
+            damping = 1;
         }
 
         public bool IsPositionCollidedWithWell(Vector3 pos) {

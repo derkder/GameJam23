@@ -38,24 +38,31 @@ namespace Assets.Scripts {
             if (LevelManager.instance.isPaused) {
                 return;
             }
-            accel = GravityManager.instance.GetAcceleration(transform.position);
-        }
-
-        private void Update() {
-            if (LevelManager.instance.isPaused) {
-                return;
-            }
-            Vector3 realDeltaSpeed = Time.fixedDeltaTime / ForceCalculator.standardTimeDelta * accel;
+            float multiplier = 100;
             float inGameSpeedRatio = GravityManager.instance.speedRatio *
                 (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
-            speed = (speed + realDeltaSpeed * inGameSpeedRatio) * (float)GravityManager.instance.damping;
-            transform.localPosition += speed * inGameSpeedRatio;
+            float simulatorDt = Time.deltaTime * multiplier * inGameSpeedRatio;
+
+            accel = GravityManager.instance.GetAcceleration(transform.position);
+            Vector3 realDeltaSpeed = simulatorDt * accel;
+
+            speed = (speed + realDeltaSpeed) * (float)GravityManager.instance.damping;
+            Debug.LogFormat("speed: {0}, realDeltaSpeed: {1}", speed * 1000, realDeltaSpeed * 1000);
+            Debug.LogFormat("dt: {0}, acc: {1}", Time.deltaTime, accel);
+            transform.localPosition += speed * simulatorDt;
 
             if (isTrajectoryOn) {
                 Vector3[] trajectory = PlotPredictionLine(GravityManager.instance.predictionLineStepCount);
                 GetComponent<LineRenderer>().SetPositions(trajectory);
                 GetComponent<LineRenderer>().positionCount = trajectory.Length;
             }
+        }
+
+        private void Update() {
+            if (LevelManager.instance.isPaused) {
+                return;
+            }
+
 
             Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
             if (!(viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)) {
