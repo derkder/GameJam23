@@ -194,11 +194,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBulletTimeAllowed: 1
   totalGold: 0
-  totalBulletTime: 7
+  totalBulletTime: 10
   isPaused: 0
   remainingBulletTime: 0
   objectParent: {fileID: 0}
   curElapsedTime: 0
+  twistEffect: {fileID: 0}
+  blurEffect: {fileID: 0}
 --- !u!4 &97573066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1844684399691330242, guid: 0ef254b5f7abf8342a5d96dc4b52db64,

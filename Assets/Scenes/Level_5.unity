@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ddffa0a6e2ac94c83ff3669395e17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedRatio: 0.8
+  speedRatio: 0.6
   bulletTimeSlowRatio: 0.2
   predictionLineStepCount: 500
   isBulletTimeOn: 0
@@ -194,11 +194,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBulletTimeAllowed: 1
   totalGold: 0
-  totalBulletTime: 10
+  totalBulletTime: 7
   isPaused: 0
   remainingBulletTime: 0
   objectParent: {fileID: 0}
   curElapsedTime: 0
+  twistEffect: {fileID: 0}
+  blurEffect: {fileID: 0}
 --- !u!1001 &221867210
 PrefabInstance:
   m_ObjectHideFlags: 0

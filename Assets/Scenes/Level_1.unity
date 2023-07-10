@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ddffa0a6e2ac94c83ff3669395e17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedRatio: 1
+  speedRatio: 1.2
   bulletTimeSlowRatio: 0.2
   predictionLineStepCount: 500
   isBulletTimeOn: 0
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBulletTimeAllowed: 1
   totalGold: 0
-  totalBulletTime: 7
+  totalBulletTime: 5
   isPaused: 0
   remainingBulletTime: 0
   objectParent: {fileID: 0}
