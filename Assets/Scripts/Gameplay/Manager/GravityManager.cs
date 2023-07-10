@@ -37,7 +37,7 @@ namespace Assets.Scripts {
             wells.Add(gravityWell);
         }
 
-        public Vector2 GetAcceleration(Vector3 position) {
+        public Vector2 GetAcceleration(Vector2 position) {
             return ForceCalculator.GetAcceleration((Vector2)position, wells);
         }
 
