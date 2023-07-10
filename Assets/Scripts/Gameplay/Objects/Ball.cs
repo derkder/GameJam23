@@ -61,23 +61,7 @@ namespace Assets.Scripts {
                 return;
             }
 
-            float multiplier = 100;
-
-            Vector2 pos = transform.position;
-            Vector4 rkState = new Vector4(pos.x, pos.y,
-                                              speed.x, speed.y);
-
-            for (int i = 0; i < multiplier; i++) {
-                float inGameSpeedRatio = GravityManager.instance.speedRatio *
-                    (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
-                float simulatorDt = Time.deltaTime * inGameSpeedRatio;
-
-                Vector4 deltaState = rkUpdate(rawUpdate, rkState, simulatorDt, GravityManager.instance.GetAcceleration);
-                rkState += deltaState;
-                //Debug.LogFormat("rk: {0}", rkState);
-            }
-            speed = new Vector2(rkState.z, rkState.w);
-            transform.position = rkState;
+            
 
 
             //accel = GravityManager.instance.GetAcceleration(transform.position);
@@ -99,6 +83,23 @@ namespace Assets.Scripts {
                 return;
             }
 
+            float multiplier = 1;
+
+            Vector2 pos = transform.position;
+            Vector4 rkState = new Vector4(pos.x, pos.y,
+                                              speed.x, speed.y);
+
+            for (int i = 0; i < multiplier; i++) {
+                float inGameSpeedRatio = GravityManager.instance.speedRatio *
+                    (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
+                float simulatorDt = Time.deltaTime * inGameSpeedRatio;
+
+                Vector4 deltaState = rkUpdate(rawUpdate, rkState, simulatorDt, GravityManager.instance.GetAcceleration);
+                rkState += deltaState;
+                //Debug.LogFormat("rk: {0}", rkState);
+            }
+            speed = new Vector2(rkState.z, rkState.w);
+            transform.position = rkState;
 
             Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
             if (!(viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)) {
@@ -137,7 +138,7 @@ namespace Assets.Scripts {
                     Vector4 rkState = new Vector4(localPos.x, localPos.y,
                                                   localSpeed.x, localSpeed.y);
 
-                    float multiplier = 100;
+                    float multiplier = 1;
                     float inGameSpeedRatio = GravityManager.instance.speedRatio *
                         (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
                     float simulatorDt = Time.deltaTime * multiplier * inGameSpeedRatio;
