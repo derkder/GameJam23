@@ -36,6 +36,12 @@ public class GameManager : Singleton<GameManager>
         gameDataModel = new GameDataModel();
     }
 
+    private void Start() {
+        if (levelProgress == -1) {
+            AudioManager.Instance.PlayMusic(MusicType.MainMenu);
+        }
+    }
+
     public void Update() {
         if (isEditorModeOn) {
             if (Input.GetKeyUp(KeyCode.A)) {
@@ -46,7 +52,9 @@ public class GameManager : Singleton<GameManager>
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
     public void LevelPass() {
-        AudioManager.Instance.PlaySFX(SfxType.FinishLevel);
+        if (levelProgress != -1) {
+            AudioManager.Instance.PlaySFX(SfxType.FinishLevel);
+        }
         levelProgress += 1;
         if (levelProgress == 0){
             GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);

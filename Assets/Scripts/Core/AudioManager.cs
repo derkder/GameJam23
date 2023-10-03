@@ -10,45 +10,40 @@ public class AudioManager : Singleton<AudioManager>
     public float musicVolume = 1.0f;
     public float sfxVolume = 1.0f;
 
-    public AudioSource _audioSourecMusic;
-    public AudioSource _audioSourecSfx;
+    public AudioSource _audioSourceMusic;
+    public AudioSource _audioSourceSfx;
     private AudioClip _clip;
-
-    public void Start()
-    {
-        _audioSourecMusic.clip = MusicSource[2];
-    }
 
     public void PlayMusic(MusicType mt, bool loop = true)
     {
         Debug.Log(mt);
         _clip = MusicSource[(int)mt];
-        _audioSourecMusic.clip = _clip;
-        _audioSourecMusic.loop = loop;
-        _audioSourecMusic.volume = musicVolume;
-        _audioSourecMusic.Play();
+        _audioSourceMusic.clip = _clip;
+        _audioSourceMusic.loop = loop;
+        _audioSourceMusic.volume = musicVolume;
+        _audioSourceMusic.Play();
     }
 
     public void StopMusic()
     {
-        _audioSourecMusic.Stop();
-        _audioSourecSfx.Stop();
+        _audioSourceMusic.Stop();
+        _audioSourceSfx.Stop();
     }
 
     public void PlaySFX(SfxType st, bool loop = false)
     {
         _clip = SfxSource[(int)st];
-        _audioSourecSfx.clip = _clip;
-        _audioSourecSfx.loop = loop;
-        _audioSourecSfx.volume = 0.7f * musicVolume;
-        _audioSourecSfx.Play();
+        _audioSourceSfx.clip = _clip;
+        _audioSourceSfx.loop = loop;
+        _audioSourceSfx.volume = 0.7f * musicVolume;
+        _audioSourceSfx.Play();
     }
 
     public void SetMusicVolume(float volume)
     {
         musicVolume = volume;
-        _audioSourecMusic.volume = volume;
-        _audioSourecSfx.volume = volume;
+        _audioSourceMusic.volume = volume;
+        _audioSourceSfx.volume = volume;
     }
 
 

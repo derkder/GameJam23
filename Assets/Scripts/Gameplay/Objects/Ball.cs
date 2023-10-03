@@ -6,10 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
-using static UnityEngine.Networking.UnityWebRequest;
-using UnityEngine.Apple.ReplayKit;
 using UnityEditor;
-using static UnityEditor.PlayerSettings;
 using UnityEngine.UI;
 
 namespace Assets.Scripts {

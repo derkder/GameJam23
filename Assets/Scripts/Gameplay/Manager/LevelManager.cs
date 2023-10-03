@@ -45,7 +45,7 @@ namespace Assets.Scripts {
                 SceneUIManager.Instance.OnPauseLevel += PauseLevel;
                 SceneUIManager.Instance.OnResumeLevel += ResumeLevel;
             }
-            PauseLevel();
+            PauseLevelBeforeClick();
         }
 
         private void Update() {
@@ -98,12 +98,17 @@ namespace Assets.Scripts {
             ResetLevel();
         }
 
+        public void PauseLevelBeforeClick() {
+            isPaused = true;
+            Time.timeScale = 0f;
+        }
+
         public void PauseLevel() {
             if (isPaused) {
                 return;
             }
             isPaused = true;
-            AudioManager.Instance.SetMusicVolume(0);
+            AudioManager.Instance.SetMusicVolume(.2f);
             Time.timeScale = 0f;
         }
 
@@ -111,7 +116,7 @@ namespace Assets.Scripts {
             if (!isPaused) {
                 return;
             }
-            AudioManager.Instance.SetMusicVolume(100);
+            AudioManager.Instance.SetMusicVolume(1f);
             isPaused = false;
             Time.timeScale = 1f;
         }
