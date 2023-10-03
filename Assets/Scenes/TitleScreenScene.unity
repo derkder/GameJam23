@@ -355,6 +355,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1126419298093973948, guid: 2026c86dd135a3044b4520fc03ecaf2d,
+        type: 3}
+      propertyPath: LevelCanvas
+      value: 
+      objectReference: {fileID: 733206592588631490, guid: 72893784b72fc8547bf459e0cabad848,
+        type: 3}
     - target: {fileID: 1787441752311335930, guid: 2026c86dd135a3044b4520fc03ecaf2d,
         type: 3}
       propertyPath: _audioSourceSfx
