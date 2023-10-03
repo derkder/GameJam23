@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelProgress: -1
-  isEditorModeOn: 0
+  isEditorModeOn: 1
   enableWellColliderDetection: 0
 --- !u!114 &1126419298093973948
 MonoBehaviour:

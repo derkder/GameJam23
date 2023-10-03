@@ -511,6 +511,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 394361965}
     m_Modifications:
+    - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
+        type: 3}
+      propertyPath: strength
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
+        type: 3}
+      propertyPath: repelRatioPerSecond
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
+        type: 3}
+      propertyPath: attractRatioPerSecond
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2199037078117906569, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}
       propertyPath: m_Color.a
@@ -2028,6 +2043,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 394361965}
     m_Modifications:
+    - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
+        type: 3}
+      propertyPath: strength
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
+        type: 3}
+      propertyPath: repelRatioPerSecond
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
+        type: 3}
+      propertyPath: attractRatioPerSecond
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2199037078117906569, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}
       propertyPath: m_Color.a
@@ -2233,12 +2263,12 @@ PrefabInstance:
     - target: {fileID: 78119143592568904, guid: 421750f7789d9f94a9723056efc9cd05,
         type: 3}
       propertyPath: initialSpeed.x
-      value: -0.01
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 78119143592568904, guid: 421750f7789d9f94a9723056efc9cd05,
         type: 3}
       propertyPath: initialSpeed.y
-      value: -0.005
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 6926638616270293529, guid: 421750f7789d9f94a9723056efc9cd05,
         type: 3}
