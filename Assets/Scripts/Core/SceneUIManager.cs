@@ -79,6 +79,7 @@ namespace Assets.Scripts {
 
         public void Pause() {
             OnPauseLevel?.Invoke();
+            _btnPlay.gameObject.SetActive(false);
             _pnlRightCorner.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
         }
