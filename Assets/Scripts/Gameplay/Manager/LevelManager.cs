@@ -78,11 +78,17 @@ namespace Assets.Scripts {
             PauseLevel();
             if (!GameManager.Instance.IsScoreBoardScene()) {
                 ScoreData scoreData = GetScore();
+                int goldScore = scoreData.GoldScore();
                 Debug.LogFormat("Level Passed, Score is ({0} + {1} + {2}) = {3}",
-                    totalGold,
-                    remainingBulletTime / totalBulletTime,
-                    Time.time - curElapsedTime,
+                    goldScore,
+                    scoreData.BulletTimeScore(),
+                    scoreData.RemainingTimeScore(),
                     scoreData.TotalScore());
+                if (scoreData.gold >= GetFullGoldScore()) {
+                    AudioManager.Instance.PlaySFX(SfxType.FullCompleteLevel);
+                } else {
+                    AudioManager.Instance.PlaySFX(SfxType.CompleteLevel);
+                }
                 SceneUIManager.Instance.ShowScoreView(scoreData);
             } else {
                 GameManager.Instance.LevelPass();
@@ -117,7 +123,6 @@ namespace Assets.Scripts {
         }
 
         public void ResetLevel() {
-            // TODO: ball destruction animation
             Destroy(GravityManager.instance.ball.gameObject);
             GameObject ball = (GameObject)Instantiate(AssetHelper.instance.Ball, objectParent);
             ball.transform.position = GravityManager.instance.ballData.position;
@@ -137,6 +142,16 @@ namespace Assets.Scripts {
                 remainingBulletTime / totalBulletTime,
                 Time.time - curElapsedTime
             );
+        }
+
+        public int GetFullGoldScore() {
+            Bounty[] bountyTrans = objectParent.GetComponentsInChildren<Bounty>();
+            int fullGoldScore = 0;
+            foreach (Bounty bounty in bountyTrans) {
+                fullGoldScore += bounty.gold;
+            }
+            Debug.LogFormat("fullGoldScore {0}", fullGoldScore);
+            return fullGoldScore;
         }
     }
 }

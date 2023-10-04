@@ -10,8 +10,8 @@ public enum MusicType {
     MainMenu = 2,
 }
 public enum SfxType {
-    FinishLevel = 0,
-    WinLevel = 1,
+    FullCompleteLevel = 0,
+    CompleteLevel = 1,
     TouchGold = 2,
     BallRolling = 3,
     BulletTime = 4,

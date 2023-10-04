@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &73206406 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4450871633921366631, guid: 2026c86dd135a3044b4520fc03ecaf2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1008344276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4754a2e85c06eb543a20e2f42c5d946c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &415448735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -738,9 +750,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1949967489}
-        m_TargetAssemblyTypeName: Assets.Scripts.LevelManager, Assembly-CSharp
-        m_MethodName: Pass
+      - m_Target: {fileID: 73206406}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -898,18 +910,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa7de9755e0c1a94cbcb5fe411cf3813, type: 3}
---- !u!114 &1949967489 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7758995510457285812, guid: aa7de9755e0c1a94cbcb5fe411cf3813,
-    type: 3}
-  m_PrefabInstance: {fileID: 1949967488}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0adc4a73a3497647be0fff880a1536b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2115030835
 GameObject:
   m_ObjectHideFlags: 0

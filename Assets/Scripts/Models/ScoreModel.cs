@@ -15,7 +15,7 @@ namespace Assets.Scripts {
             this.passDuration = passDuration;
         }
 
-        public float GoldScore() {
+        public int GoldScore() {
             return 100 * gold;
         }
 
