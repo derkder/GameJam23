@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static AudioManager;
 
-public class AudioManager : Singleton<AudioManager>
-{
+public class AudioManager : Singleton<AudioManager> {
     public List<AudioClip> MusicSource;
     public List<AudioClip> SfxSource;
     public float musicVolume = 1.0f;
@@ -14,9 +13,14 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource _audioSourceSfx;
     private AudioClip _clip;
 
-    public void PlayMusic(MusicType mt, bool loop = true)
-    {
-        Debug.Log(mt);
+    private MusicType currentMusic = MusicType.None;
+
+    public void PlayMusic(MusicType mt, bool loop = true) {
+        if (mt == currentMusic) {
+            return;
+        }
+        currentMusic = mt;
+        Debug.LogFormat("Play bgm {0}", mt);
         _clip = MusicSource[(int)mt];
         _audioSourceMusic.clip = _clip;
         _audioSourceMusic.loop = loop;
@@ -47,19 +51,4 @@ public class AudioManager : Singleton<AudioManager>
     }
 
 
-}
-public enum MusicType
-{
-    TeachLevel = 0,
-    MainLevel = 1,
-    MainMenu = 2,
-}
-
-public enum SfxType
-{
-    FinishLevel = 0,
-    WinLevel = 1,
-    TouchGold = 2,
-    BallRolling = 3,
-    BulletTime = 4,
 }

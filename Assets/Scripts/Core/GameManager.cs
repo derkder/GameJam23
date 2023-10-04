@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
     };
 
     private GameDataModel gameDataModel;
-    public int levelProgress = -1;
+    public int levelProgress = 0;
 
     private GameObject _globalLevelCanvas;
 
@@ -37,9 +37,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     private void Start() {
-        if (levelProgress == -1) {
-            AudioManager.Instance.PlayMusic(MusicType.MainMenu);
-        }
+        AudioManager.Instance.PlayMusic(AssetHelper.instance.levelMusic[levelProgress]);
     }
 
     public void Update() {
@@ -50,26 +48,26 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void StartGame() {
+        GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);
+        DontDestroyOnLoad(_globalLevelCanvas);
+
+        levelProgress += 1;
+        SceneChange(levelScenes[levelProgress]);
+
+        Debug.LogFormat("SceneChange background {0}", levelScenes[levelProgress]);
+        Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
+        Plane.Instance.UpdateImage(levelScenes[levelProgress], backgroundMaterial);
+        OnLevelPass?.Invoke();
+        Debug.LogFormat("GameManager load scene {0}", levelScenes[levelProgress]);
+    }
+
     //当前关卡通关，跳到下一关卡并切换plane的texture
     public void LevelPass() {
-        if (levelProgress != -1) {
-            AudioManager.Instance.PlaySFX(SfxType.FinishLevel);
-        }
+        AudioManager.Instance.PlaySFX(SfxType.FinishLevel);
         levelProgress += 1;
-        if (levelProgress == 0){
-            GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);
-            DontDestroyOnLoad(_globalLevelCanvas);
-        }
 
         SceneChange(levelScenes[levelProgress]);
-        if (levelProgress <= 3)
-        {
-            AudioManager.Instance.PlayMusic(MusicType.TeachLevel);
-        }
-        else
-        {
-            AudioManager.Instance.PlayMusic(MusicType.MainLevel);
-        }
         Debug.LogFormat("SceneChange background {0}", levelScenes[levelProgress]);
         Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
         Plane.Instance.UpdateImage(levelScenes[levelProgress], backgroundMaterial);
@@ -79,6 +77,12 @@ public class GameManager : Singleton<GameManager>
     }
 
     private void SceneChange(string sceneName) {
+        int sceneIndex = AssetHelper.instance.levelScenes.IndexOf(sceneName);
+        if (sceneIndex == -1) {
+            Debug.LogFormat("Scene {0} not found", sceneName);
+            return;
+        }
+        AudioManager.Instance.PlayMusic(AssetHelper.instance.levelMusic[sceneIndex]);
         SceneManager.LoadScene(sceneName);
     }
 

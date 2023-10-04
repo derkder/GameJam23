@@ -75,11 +75,6 @@ namespace Assets.Scripts {
         }
 
         public void Pass() {
-            if (GameManager.Instance.IsTitleScene()) {
-                GameManager.Instance.LevelPass();
-                return;
-            }
-
             PauseLevel();
             if (!GameManager.Instance.IsScoreBoardScene()) {
                 ScoreData scoreData = GetScore();

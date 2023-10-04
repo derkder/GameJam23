@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4754a2e85c06eb543a20e2f42c5d946c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelProgress: -1
+  levelProgress: 0
   isEditorModeOn: 1
   enableWellColliderDetection: 0
 --- !u!114 &1126419298093973948
@@ -206,6 +206,19 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f507ba5ecd8d254449965231b1cfa2c8, type: 2}
   - {fileID: 2100000, guid: 4ece24ffdcea4124d8bc36f52195d423, type: 2}
   - {fileID: 2100000, guid: de59450dd1a934c4588fbe07ea7711d7, type: 2}
+  levelScenes:
+  - TitleScreenScene
+  - Tutorial_0
+  - Tutorial_1
+  - Tutorial_2
+  - Level_1
+  - Level_2
+  - Level_3
+  - Level_4
+  - Level_5
+  - Level_6
+  - Level_7
+  levelMusic: 0200000000000000000000000000000000000000000000000000000001000000010000000100000001000000
 --- !u!114 &1787441752311335930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,8 +243,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b796903e092e5224998c26e882f9f75b, type: 3}
   musicVolume: 1
   sfxVolume: 1
-  _audioSourecMusic: {fileID: 7016532950797587915}
-  _audioSourecSfx: {fileID: 6763077364184627119}
+  _audioSourceMusic: {fileID: 0}
+  _audioSourceSfx: {fileID: 0}
 --- !u!81 &6774349004527110672
 AudioListener:
   m_ObjectHideFlags: 0
