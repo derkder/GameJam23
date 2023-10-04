@@ -8,11 +8,13 @@ namespace Assets.Scripts {
         public int gold;
         public float remainingBulletTimeRatio;
         public float passDuration;
+        public int fullGoldCount;
 
-        public ScoreData(int gold, float remainingBulletTimeRatio, float passDuration) {
+        public ScoreData(int gold, float remainingBulletTimeRatio, float passDuration, int fullGoldCount) {
             this.gold = gold; 
             this.remainingBulletTimeRatio = remainingBulletTimeRatio;
             this.passDuration = passDuration;
+            this.fullGoldCount = fullGoldCount;
         }
 
         public int GoldScore() {

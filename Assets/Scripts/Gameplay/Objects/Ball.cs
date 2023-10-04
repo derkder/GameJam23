@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -72,9 +71,6 @@ namespace Assets.Scripts {
             if (LevelManager.instance.isPaused) {
                 return;
             }
-
-            
-
 
             //accel = GravityManager.instance.GetAcceleration(transform.position);
             //Vector3 realDeltaSpeed = simulatorDt * accel;

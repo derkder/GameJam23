@@ -16,6 +16,11 @@ public enum SfxType {
     BallRolling = 3,
     BulletTime = 4,
 }
+public enum GameState {
+    Title = 0,
+    Game = 1,
+    ScoreBoard = 2,
+}
 
 namespace Assets.Scripts {
     public class AssetHelper : MonoBehaviour {
@@ -57,6 +62,15 @@ namespace Assets.Scripts {
 
         private void Awake() {
             instance = this;
+        }
+
+        public bool ShouldShowScoreBoard(string sceneName) {
+            int sceneIndex = levelScenes.IndexOf(sceneName);
+            if (sceneIndex == -1) {
+                Debug.LogFormat("Scene {0} not found", sceneName);
+                return false;
+            }
+            return sceneIndex <= 3;
         }
     }
 }

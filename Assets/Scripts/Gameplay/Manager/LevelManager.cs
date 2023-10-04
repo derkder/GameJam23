@@ -25,9 +25,6 @@ namespace Assets.Scripts {
         public BlurEffect blurEffect;
 
         public void Awake() {
-            /*if (instance != null) {
-                Destroy(instance.gameObject);
-            }*/
             instance = this;
         }
 
@@ -50,6 +47,10 @@ namespace Assets.Scripts {
 
         private void Update() {
             if (GravityManager.instance == null) {
+                return;
+            }
+            if (GameManager.Instance.state != GameState.Game || isPaused) {
+                // Not in game (e.g. ScoreBoard) or paused, disable keyboard Interactions
                 return;
             }
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
@@ -76,23 +77,8 @@ namespace Assets.Scripts {
 
         public void Pass() {
             PauseLevel();
-            if (!GameManager.Instance.IsScoreBoardScene()) {
-                ScoreData scoreData = GetScore();
-                int goldScore = scoreData.GoldScore();
-                Debug.LogFormat("Level Passed, Score is ({0} + {1} + {2}) = {3}",
-                    goldScore,
-                    scoreData.BulletTimeScore(),
-                    scoreData.RemainingTimeScore(),
-                    scoreData.TotalScore());
-                if (scoreData.gold >= GetFullGoldScore()) {
-                    AudioManager.Instance.PlaySFX(SfxType.FullCompleteLevel);
-                } else {
-                    AudioManager.Instance.PlaySFX(SfxType.CompleteLevel);
-                }
-                SceneUIManager.Instance.ShowScoreView(scoreData);
-            } else {
-                GameManager.Instance.LevelPass();
-            }
+            ScoreData scoreData = GetScore();
+            GameManager.Instance.CompleteLevel(scoreData);
         }
 
         public void Fail() {
@@ -140,11 +126,12 @@ namespace Assets.Scripts {
             return new ScoreData(
                 totalGold,
                 remainingBulletTime / totalBulletTime,
-                Time.time - curElapsedTime
+                Time.time - curElapsedTime,
+                GetFullGoldCount()
             );
         }
 
-        public int GetFullGoldScore() {
+        public int GetFullGoldCount() {
             Bounty[] bountyTrans = objectParent.GetComponentsInChildren<Bounty>();
             int fullGoldScore = 0;
             foreach (Bounty bounty in bountyTrans) {
