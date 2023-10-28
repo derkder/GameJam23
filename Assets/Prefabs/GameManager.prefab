@@ -180,6 +180,7 @@ MonoBehaviour:
   levelProgress: 0
   isEditorModeOn: 1
   enableWellColliderDetection: 0
+  state: 0
 --- !u!114 &1126419298093973948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,8 +244,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b796903e092e5224998c26e882f9f75b, type: 3}
   musicVolume: 1
   sfxVolume: 1
-  _audioSourceMusic: {fileID: 0}
-  _audioSourceSfx: {fileID: 0}
+  _audioSourceMusic: {fileID: 7016532950797587915}
+  _audioSourceSfx: {fileID: 6763077364184627119}
 --- !u!81 &6774349004527110672
 AudioListener:
   m_ObjectHideFlags: 0

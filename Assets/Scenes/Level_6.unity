@@ -178,7 +178,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &87840557
 MonoBehaviour:
@@ -230,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 2687653553555705929, guid: 2026c86dd135a3044b4520fc03ecaf2d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2687653553555705929, guid: 2026c86dd135a3044b4520fc03ecaf2d,
         type: 3}
@@ -412,7 +412,7 @@ Transform:
   - {fileID: 499059999}
   - {fileID: 1512135609}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &399664352
 PrefabInstance:
@@ -678,7 +678,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &499059999 stripped
 Transform:
@@ -777,7 +777,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -2146,27 +2146,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 394361965}
     m_Modifications:
-    - target: {fileID: 750477817181358195, guid: b355d602d1357ee4dbd495a587edc0f7,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1172531344, guid: bd4495e0b37f39e43af400ae92a40e4e,
-        type: 3}
-    - target: {fileID: 750477817181358195, guid: b355d602d1357ee4dbd495a587edc0f7,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 750477817181358195, guid: b355d602d1357ee4dbd495a587edc0f7,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 750477817181358195, guid: b355d602d1357ee4dbd495a587edc0f7,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6348862578239159441, guid: b355d602d1357ee4dbd495a587edc0f7,
         type: 3}
       propertyPath: m_RootOrder
