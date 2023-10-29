@@ -163,7 +163,7 @@ Transform:
   - {fileID: 7057564617617400459}
   - {fileID: 2046235066590284443}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4450871633921366631
 MonoBehaviour:
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelProgress: 0
+  totalLevel: 11
   isEditorModeOn: 1
   enableWellColliderDetection: 0
   state: 0
@@ -194,9 +195,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ball: {fileID: 6926638616270293529, guid: 421750f7789d9f94a9723056efc9cd05, type: 3}
-  LevelCanvas: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
+  LevelCanvas: {fileID: 733206592588631490, guid: 72893784b72fc8547bf459e0cabad848,
     type: 3}
   BackgroundMaterials:
+  - {fileID: 0}
   - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
   - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
   - {fileID: 2100000, guid: 6ff0d13b6ca9eef4d81f8fefbb3344d0, type: 2}
@@ -219,7 +221,8 @@ MonoBehaviour:
   - Level_5
   - Level_6
   - Level_7
-  levelMusic: 0200000000000000000000000000000000000000000000000000000001000000010000000100000001000000
+  - Ending
+  levelMusic: 020000000000000000000000000000000000000000000000000000000100000001000000010000000100000002000000
 --- !u!114 &1787441752311335930
 MonoBehaviour:
   m_ObjectHideFlags: 0

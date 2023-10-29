@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager> {
 
     private GameDataModel gameDataModel;
     public int levelProgress = 0;
+    public int totalLevel = 11;
 
     private GameObject _globalLevelCanvas;
 
@@ -79,7 +80,12 @@ public class GameManager : Singleton<GameManager> {
     public void GoNextLevel() {
         state = GameState.Game;
         levelProgress += 1;
+        if (levelProgress >= totalLevel) {
+            GoPrologue();
+            return;
+        }
 
+        // TODO: 重复代码删掉一个
         SceneChange(levelScenes()[levelProgress]);
         Debug.LogFormat("SceneChange background {0}", levelScenes()[levelProgress]);
         Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
@@ -87,6 +93,22 @@ public class GameManager : Singleton<GameManager> {
 
         OnLevelPass?.Invoke();
         Debug.LogFormat("GameManager load scene {0}", levelScenes()[levelProgress]);
+    }
+
+    public void GoPrologue() {
+        levelProgress = totalLevel;
+        SceneChange(levelScenes()[levelProgress]);
+
+        SceneUIManager.Instance.ClearCanvas();
+        Debug.LogFormat("GameManager load ending scene", levelScenes()[levelProgress]);
+    }
+
+    public void GoTitleScreen() {
+        levelProgress = 0;
+        SceneChange(levelScenes()[levelProgress]);
+
+        SceneUIManager.Instance.ClearCanvas();
+        Debug.LogFormat("GameManager load title screen", levelScenes()[levelProgress]);
     }
 
     private void SceneChange(string sceneName) {

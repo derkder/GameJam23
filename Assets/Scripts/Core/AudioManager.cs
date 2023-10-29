@@ -19,6 +19,10 @@ public class AudioManager : Singleton<AudioManager> {
         if (mt == currentMusic) {
             return;
         }
+        if (mt == MusicType.None) {
+            StopMusic();
+            return;
+        }
         currentMusic = mt;
         Debug.LogFormat("Play bgm {0}", mt);
         _clip = MusicSource[(int)mt];

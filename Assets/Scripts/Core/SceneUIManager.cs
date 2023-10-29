@@ -69,6 +69,13 @@ namespace Assets.Scripts {
             _btnPlay.gameObject.SetActive(true);
             BulletTimeSlider.gameObject.SetActive(false);
         }
+        public void ClearCanvas() {
+            _pnlMain.gameObject.SetActive(false);
+            PanelScore.gameObject.SetActive(false);
+            _pnlRightCorner.gameObject.SetActive(false);
+            _btnPlay.gameObject.SetActive(false);
+            BulletTimeSlider.gameObject.SetActive(false);
+        }
 
         #region 暂停开始界面
         public void Play()

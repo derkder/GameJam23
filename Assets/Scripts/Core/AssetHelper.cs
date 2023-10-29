@@ -30,7 +30,7 @@ namespace Assets.Scripts {
         public GameObject LevelCanvas;
         public List<Material> BackgroundMaterials;
 
-            //场景名称列表
+        //场景名称列表
         public List<string> levelScenes = new List<string> {
             "TitleScreenScene",
             "Tutorial_0",
@@ -42,10 +42,11 @@ namespace Assets.Scripts {
             "Level_4",
             "Level_5",
             "Level_6",
-            "Level_7"
+            "Level_7",
+            "Ending"
         };
 
-        //场景名称列表
+        //BGM列表
         public List<MusicType> levelMusic = new List<MusicType> {
             MusicType.MainMenu,
             MusicType.TeachLevel,
@@ -57,7 +58,8 @@ namespace Assets.Scripts {
             MusicType.MainLevel,
             MusicType.MainLevel,
             MusicType.MainLevel,
-            MusicType.MainLevel
+            MusicType.MainLevel,
+            MusicType.MainMenu
         };
 
         private void Awake() {

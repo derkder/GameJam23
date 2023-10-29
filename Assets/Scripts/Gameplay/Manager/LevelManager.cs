@@ -35,7 +35,10 @@ namespace Assets.Scripts {
 
             curElapsedTime = Time.time;
             remainingBulletTime = totalBulletTime;
-            objectParent = GameObject.Find("Objects").transform;
+            GameObject mainObject = GameObject.Find("Objects");
+            if (mainObject != null) {
+                objectParent = mainObject.transform;
+            }
 
             if (null != SceneUIManager.Instance) {
                 SceneUIManager.Instance.OnRetryLevel += ResetLevel;
