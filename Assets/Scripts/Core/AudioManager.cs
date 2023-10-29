@@ -28,7 +28,7 @@ public class AudioManager : Singleton<AudioManager> {
         _clip = MusicSource[(int)mt];
         _audioSourceMusic.clip = _clip;
         _audioSourceMusic.loop = loop;
-        _audioSourceMusic.volume = musicVolume;
+        _audioSourceMusic.volume = 0.7f * musicVolume;
         _audioSourceMusic.Play();
     }
 

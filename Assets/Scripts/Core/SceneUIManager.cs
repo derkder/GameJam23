@@ -17,6 +17,7 @@ namespace Assets.Scripts {
         [SerializeField]
         public Transform _pnlMain;
         public Transform _pnlRightCorner;
+        public Transform _btnLevelSelection;
         public Slider BulletTimeSlider;
 
         private Button _btnPlay;
@@ -89,6 +90,7 @@ namespace Assets.Scripts {
             _btnPlay.gameObject.SetActive(false);
             _pnlRightCorner.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
+            _btnLevelSelection.gameObject.SetActive(!GameManager.Instance.isLevelSelectionDisabled);
         }
 
         public void Retry() {

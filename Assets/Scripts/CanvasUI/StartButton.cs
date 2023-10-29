@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.CanvasUI {
@@ -15,7 +11,11 @@ namespace Assets.Scripts.CanvasUI {
         }
 
         private void StartGame() {
-            GameManager.Instance.StartGame();
+            if (GameManager.Instance.isLevelSelectionDisabled) {
+                GameManager.Instance.StartGame();
+            } else {
+                GameManager.Instance.GoToLevelSelection();
+            }
         }
     }
 }

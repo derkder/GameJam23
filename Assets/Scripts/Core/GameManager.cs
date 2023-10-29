@@ -9,7 +9,10 @@ public class GameManager : Singleton<GameManager> {
 
     private GameDataModel gameDataModel;
     public int levelProgress = 0;
+    public int historyMaximumLevelProgress = 0;
+    public int mainLevelSceneIndex = 4;
     public int totalLevel = 11;
+    public int levelSelectionSceneIndex = 12;
 
     private GameObject _globalLevelCanvas;
 
@@ -18,6 +21,7 @@ public class GameManager : Singleton<GameManager> {
     
     public event Action OnLevelPass;
     public GameState state;
+    public bool isLevelSelectionDisabled = true;
 
     public new void Awake() {
         base.Awake();
@@ -43,7 +47,7 @@ public class GameManager : Singleton<GameManager> {
         GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);
         DontDestroyOnLoad(_globalLevelCanvas);
 
-        levelProgress += 1;
+        levelProgress = 1;
         SceneChange(levelScenes()[levelProgress]);
 
         Debug.LogFormat("SceneChange background {0}", levelScenes()[levelProgress]);
@@ -80,19 +84,14 @@ public class GameManager : Singleton<GameManager> {
     public void GoNextLevel() {
         state = GameState.Game;
         levelProgress += 1;
+        if (levelProgress >= historyMaximumLevelProgress) {
+            historyMaximumLevelProgress = levelProgress;
+        }
         if (levelProgress >= totalLevel) {
             GoPrologue();
             return;
         }
-
-        // TODO: 重复代码删掉一个
-        SceneChange(levelScenes()[levelProgress]);
-        Debug.LogFormat("SceneChange background {0}", levelScenes()[levelProgress]);
-        Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
-        Plane.Instance.UpdateImage(levelScenes()[levelProgress], backgroundMaterial);
-
-        OnLevelPass?.Invoke();
-        Debug.LogFormat("GameManager load scene {0}", levelScenes()[levelProgress]);
+        LoadLevel();
     }
 
     public void GoPrologue() {
@@ -104,11 +103,39 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void GoTitleScreen() {
+        state = GameState.Title;
         levelProgress = 0;
         SceneChange(levelScenes()[levelProgress]);
 
         SceneUIManager.Instance.ClearCanvas();
         Debug.LogFormat("GameManager load title screen", levelScenes()[levelProgress]);
+    }
+
+    public void GoToLevelSelection() {
+        state = GameState.Title;
+        levelProgress = levelSelectionSceneIndex;
+        SceneChange(levelScenes()[levelProgress]);
+    }
+
+    public void JumptoLevel(int newLevelProgress) {
+        state = GameState.Game;
+        levelProgress = newLevelProgress;
+        LoadLevel();
+    }
+
+    public void LoadLevel() {
+        if (levelProgress >= mainLevelSceneIndex) {
+            isLevelSelectionDisabled = false;
+        }
+        SceneChange(levelScenes()[levelProgress]);
+        Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
+        if (backgroundMaterial != null) {
+            Debug.LogFormat("SceneChange background {0}", levelScenes()[levelProgress]);
+            Plane.Instance.UpdateImage(levelScenes()[levelProgress], backgroundMaterial);
+        }
+
+        OnLevelPass?.Invoke();
+        Debug.LogFormat("GameManager load scene {0}", levelScenes()[levelProgress]);
     }
 
     private void SceneChange(string sceneName) {
