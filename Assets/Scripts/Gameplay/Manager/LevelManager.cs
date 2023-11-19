@@ -54,6 +54,7 @@ namespace Assets.Scripts {
             }
             if (GameManager.Instance.state != GameState.Game || isPaused) {
                 // Not in game (e.g. ScoreBoard) or paused, disable keyboard Interactions
+                Debug.LogFormat("[bullettime] {0} {1}", GameManager.Instance.state, isPaused);
                 return;
             }
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {

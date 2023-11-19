@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 732973b4ce27ba34b9cb919123285acc, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -156,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4007808468262055614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.741729, y: 5.8787575, z: -2.8932772}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -178,10 +178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelProgress: 0
+  historyMaximumLevelProgress: 0
+  mainLevelSceneIndex: 4
   totalLevel: 11
+  levelSelectionSceneIndex: 12
   isEditorModeOn: 1
   enableWellColliderDetection: 0
   state: 0
+  isLevelSelectionDisabled: 1
 --- !u!114 &1126419298093973948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ball: {fileID: 6926638616270293529, guid: 421750f7789d9f94a9723056efc9cd05, type: 3}
-  LevelCanvas: {fileID: 733206592588631490, guid: 72893784b72fc8547bf459e0cabad848,
+  LevelCanvas: {fileID: 372734636419155275, guid: 72893784b72fc8547bf459e0cabad848,
     type: 3}
   BackgroundMaterials:
   - {fileID: 0}

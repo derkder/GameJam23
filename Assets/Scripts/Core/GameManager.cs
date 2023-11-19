@@ -30,6 +30,13 @@ public class GameManager : Singleton<GameManager> {
 
     private void Start() {
         state = GameState.Title;
+        GameObject mainGameObject = GameObject.Find("Game");
+        if (mainGameObject != null) {
+            LevelManager levelManager = mainGameObject.GetComponent<LevelManager>();
+            if (levelManager != null) {
+                state = GameState.Game;
+            }
+        }
         AudioManager.Instance.PlayMusic(AssetHelper.instance.levelMusic[levelProgress]);
     }
 
