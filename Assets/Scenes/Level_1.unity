@@ -313,7 +313,6 @@ MonoBehaviour:
   speedRatio: 1.2
   bulletTimeSlowRatio: 0.2
   predictionLineStepCount: 500
-  isBulletTimeOn: 0
   damping: 0
   wells: []
   ball: {fileID: 0}
@@ -335,7 +334,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &87840557
 MonoBehaviour:
@@ -353,6 +352,7 @@ MonoBehaviour:
   totalGold: 0
   totalBulletTime: 5
   isPaused: 0
+  isBulletTimeOn: 0
   remainingBulletTime: 0
   objectParent: {fileID: 0}
   curElapsedTime: 0
@@ -558,7 +558,7 @@ Transform:
   - {fileID: 1584009819}
   - {fileID: 375242857}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &485706581
 PrefabInstance:
@@ -699,7 +699,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -792,7 +792,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -1534,6 +1534,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1688654879819980191, guid: 72893784b72fc8547bf459e0cabad848,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
         type: 3}
       propertyPath: m_Name
@@ -1941,7 +1946,7 @@ PrefabInstance:
     - target: {fileID: 78119143592568904, guid: 421750f7789d9f94a9723056efc9cd05,
         type: 3}
       propertyPath: initialSpeed.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6926638616270293529, guid: 421750f7789d9f94a9723056efc9cd05,
         type: 3}
