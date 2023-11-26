@@ -16,26 +16,25 @@ namespace Assets.Scripts {
 
         [SerializeField]
         public Transform _pnlMain;
-        public Transform _pnlRightCorner;
+        public Transform _pnlMenu;
         public Transform _btnLevelSelection;
+        public CoverScreen _viewScreen;
         public Slider BulletTimeSlider;
+        public ScorePanel _pnlScore;
+        public ConfigPanel _pnlConfig;
 
         private Button _btnPlay;
         private float _speed = 0.5f;
-        public ScorePanel PanelScore;
-        public  Image _imgMask;
+        public Image _imgMask;
 
         public void Start() {
             _btnPlay = transform.Find("BtnPlay").GetComponent<Button>();
+            // TODO: remove one
             RefreshCanvas();
             GameManager.Instance.OnLevelPass += RefreshCanvas;
             RefreshCanvas();
-            _imgMask.gameObject.SetActive(false);
-        }
 
-        public void OnDestroy()
-        {
-            //GameManager.Instance.OnNextLevel -= RefreshCanvas;
+            _imgMask.gameObject.SetActive(false);
         }
 
         public void PassLevel()//通关或场景过渡时调用此函数使用渐暗效果
@@ -65,16 +64,18 @@ namespace Assets.Scripts {
 
         public void RefreshCanvas() {
             _pnlMain.gameObject.SetActive(true);
-            PanelScore.gameObject.SetActive(false);
-            _pnlRightCorner.gameObject.SetActive(false);
+            _pnlScore.gameObject.SetActive(false);
+            _pnlMenu.gameObject.SetActive(false);
             _btnPlay.gameObject.SetActive(true);
+            _pnlConfig.gameObject.SetActive(false);
             BulletTimeSlider.gameObject.SetActive(false);
         }
         public void ClearCanvas() {
             _pnlMain.gameObject.SetActive(false);
-            PanelScore.gameObject.SetActive(false);
-            _pnlRightCorner.gameObject.SetActive(false);
+            _pnlScore.gameObject.SetActive(false);
+            _pnlMenu.gameObject.SetActive(false);
             _btnPlay.gameObject.SetActive(false);
+            _pnlConfig.gameObject.SetActive(false);
             BulletTimeSlider.gameObject.SetActive(false);
         }
 
@@ -82,14 +83,18 @@ namespace Assets.Scripts {
         public void Play()
         {
             OnResumeLevel?.Invoke();
+            _viewScreen.gameObject.SetActive(false);
             _btnPlay.gameObject.SetActive(false);
         }
 
         public void Pause() {
             OnPauseLevel?.Invoke();
+            _viewScreen.isOnClickContinueEnabled = false;
+            _viewScreen.gameObject.SetActive(true);
             _btnPlay.gameObject.SetActive(false);
-            _pnlRightCorner.gameObject.SetActive(true);
+            _pnlMenu.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
+            _pnlConfig.gameObject.SetActive(false);
             _btnLevelSelection.gameObject.SetActive(!GameManager.Instance.isLevelSelectionDisabled);
         }
 
@@ -99,38 +104,72 @@ namespace Assets.Scripts {
 
         public void Resume() {
             OnResumeLevel?.Invoke();
-            _pnlRightCorner.gameObject.SetActive(false);
+            _viewScreen.gameObject.SetActive(false);
+            _pnlMenu.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(true);
+            _pnlScore.gameObject.SetActive(false);
+            _pnlConfig.gameObject.SetActive(false);
         }
         #endregion
 
         //结算界面
         public void ShowScoreView(ScoreData data) {
-            PanelScore.gameObject.SetActive(true);
+            _viewScreen.gameObject.SetActive(true);
+            _viewScreen.isOnClickContinueEnabled = true;
+            _pnlScore.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
-            _pnlRightCorner.gameObject.SetActive(false);
+            _pnlMenu.gameObject.SetActive(false);
+            _pnlConfig.gameObject.SetActive(false);
             BulletTimeSlider.gameObject.SetActive(false);
 
-            PanelScore.UpdateScore(data);
+            _pnlScore.UpdateScore(data);
         }
 
-        #region BulletTimeProgressBar
-        /// <summary>
-        /// 显示进度条
-        /// </summary>
-        public void OnShowSlider()
-        {
-            BulletTimeSlider.gameObject.SetActive(true);
-        }
-        /// <summary>
-        /// 显示进度条
-        /// </summary>
-        public void OnHideSlider()
-        {
+        // Config View
+        public void ShowConfigView() {
+            _viewScreen.gameObject.SetActive(true);
+            _viewScreen.isOnClickContinueEnabled = true;
+            _pnlScore.gameObject.SetActive(false);
+            _pnlMain.gameObject.SetActive(false);
+            _pnlMenu.gameObject.SetActive(false);
+            _pnlConfig.gameObject.SetActive(true);
+            _pnlConfig.UpdateData();
             BulletTimeSlider.gameObject.SetActive(false);
         }
+
+        public void HideConfigView() {
+            BulletTimeSlider.gameObject.SetActive(false);
+            Resume();
+        }
+
+        public void JumpToTitle() {
+            GameManager.Instance.GoTitleScreen();
+        }
+        public void GoLevelSelection() {
+            GameManager.Instance.GoToLevelSelection();
+        }
+
+
+        #region BulletTime
         /// <summary>
-        /// 显示进度条
+        /// Enter bullet time
+        /// </summary>
+        public void OnActivateBulletTime() {
+            if (GameManager.Instance.ConfigModel.Difficulty != GlobalDifficultyType.Easy) {
+                BulletTimeSlider.gameObject.SetActive(true);
+            }
+            Camera.main.GetComponent<BlurEffect>().intensity = 0.4f;
+        }
+
+        /// <summary>
+        /// Exit bullet time
+        /// </summary>
+        public void OnDeactivateBulletTime() {
+            BulletTimeSlider.gameObject.SetActive(false);
+            Camera.main.GetComponent<BlurEffect>().intensity = 0f;
+        }
+        /// <summary>
+        /// Edit remaining bullet time value
         /// </summary>
         /// param 进度条的进度值（0到1）name="value"></param>
         public void OnChangeSlider(float val)

@@ -13,7 +13,6 @@ namespace Assets.Scripts {
         public int predictionLineStepCount = 500;
 
         [Header("Runtime Variables")]
-        public bool isBulletTimeOn = false;
         public double damping;
         public List<GravityWell> wells;
         public Ball ball;
@@ -40,27 +39,18 @@ namespace Assets.Scripts {
         public Vector2 GetAcceleration(Vector2 position) {
             return ForceCalculator.GetAcceleration((Vector2)position, wells);
         }
+        
+        public bool isBulletTimeOn() {
+            return LevelManager.instance.isBulletTimeOn;
+        }
 
         public void SwitchBulletTime(bool isOn) {
-            if (isOn == isBulletTimeOn) {
-                return;
-            }
-            Debug.LogFormat("BulletTime {0}", isOn);
-            isBulletTimeOn = isOn;
-
             UpdateDamping();
             ball.SwitchTrajectoryState(isOn);
-
-            if (isOn) {
-                SceneUIManager.Instance.OnShowSlider();
-            } else {
-                SceneUIManager.Instance.OnHideSlider();
-            }
-            Camera.main.GetComponent<BlurEffect>().intensity = isOn ? 0.4f : 0.0f;
         }
 
         public void UpdateDamping() {
-            float inGameSpeedRatio = speedRatio * (isBulletTimeOn ? bulletTimeSlowRatio : 1f);
+            float inGameSpeedRatio = speedRatio * (isBulletTimeOn() ? bulletTimeSlowRatio : 1f);
             damping = 1 - _baseDampingFactor * inGameSpeedRatio * inGameSpeedRatio;
         }
 

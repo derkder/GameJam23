@@ -6,8 +6,6 @@ using static AudioManager;
 public class AudioManager : Singleton<AudioManager> {
     public List<AudioClip> MusicSource;
     public List<AudioClip> SfxSource;
-    public float musicVolume = 1.0f;
-    public float sfxVolume = 1.0f;
 
     public AudioSource _audioSourceMusic;
     public AudioSource _audioSourceSfx;
@@ -28,31 +26,36 @@ public class AudioManager : Singleton<AudioManager> {
         _clip = MusicSource[(int)mt];
         _audioSourceMusic.clip = _clip;
         _audioSourceMusic.loop = loop;
-        _audioSourceMusic.volume = 0.7f * musicVolume;
+        _audioSourceMusic.volume = GameManager.Instance.ConfigModel.MusicVolume;
         _audioSourceMusic.Play();
     }
-
-    public void StopMusic()
-    {
-        _audioSourceMusic.Stop();
-        _audioSourceSfx.Stop();
-    }
-
-    public void PlaySFX(SfxType st, bool loop = false)
-    {
+    public void PlaySFX(SfxType st, bool loop = false) {
         _clip = SfxSource[(int)st];
         _audioSourceSfx.clip = _clip;
         _audioSourceSfx.loop = loop;
-        _audioSourceSfx.volume = 0.7f * musicVolume;
+        _audioSourceMusic.volume = GameManager.Instance.ConfigModel.SfxVolume;
         _audioSourceSfx.Play();
     }
 
-    public void SetMusicVolume(float volume)
-    {
-        musicVolume = volume;
-        _audioSourceMusic.volume = volume;
-        _audioSourceSfx.volume = volume;
+    public void StopMusic() {
+        _audioSourceMusic.Stop();
+        _audioSourceSfx.Stop();
+    }
+    public void PauseMusic() {
+        _audioSourceMusic.Pause();
+    }
+    public void ResumeMusic() {
+        _audioSourceMusic.Play();
     }
 
-
+    public void SetMusicVolume(float volume) {
+        Debug.LogFormat("AudioManager SetMusicVolume {0}", volume);
+        GameManager.Instance.ConfigModel.MusicVolume = volume;
+        _audioSourceMusic.volume = volume;
+    }
+    public void SetSfxVolume(float volume) {
+        Debug.LogFormat("AudioManager SetSfxVolume {0}", volume);
+        GameManager.Instance.ConfigModel.SfxVolume = volume;
+        _audioSourceSfx.volume = volume;
+    }
 }

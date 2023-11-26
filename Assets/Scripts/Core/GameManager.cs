@@ -7,17 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager> {
 
-    private GameDataModel gameDataModel;
+    public GlobalConfigModel ConfigModel;
     public int levelProgress = 0;
     public int historyMaximumLevelProgress = 0;
-    public int mainLevelSceneIndex = 4;
-    public int totalLevel = 11;
-    public int levelSelectionSceneIndex = 12;
-
-    private GameObject _globalLevelCanvas;
-
     public bool isEditorModeOn;
     public bool enableWellColliderDetection;
+
+    public int MainLevelSceneIndex = 4;
+    public int TotalLevel = 11;
+    public int LevelSelectionSceneIndex = 12;
+    public float NormalDifficultyBulletTimeCostPerSec = 0.5f;
+    public float HardDifficultyBulletTimeCostPerSec = 1f;
+
+    private GameDataModel gameDataModel;
+    private GameObject _globalLevelCanvas;
     
     public event Action OnLevelPass;
     public GameState state;
@@ -26,6 +29,7 @@ public class GameManager : Singleton<GameManager> {
     public new void Awake() {
         base.Awake();
         gameDataModel = new GameDataModel();
+        ConfigModel = new GlobalConfigModel();
     }
 
     private void Start() {
@@ -94,7 +98,7 @@ public class GameManager : Singleton<GameManager> {
         if (levelProgress >= historyMaximumLevelProgress) {
             historyMaximumLevelProgress = levelProgress;
         }
-        if (levelProgress >= totalLevel) {
+        if (levelProgress >= TotalLevel) {
             GoPrologue();
             return;
         }
@@ -102,7 +106,7 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void GoPrologue() {
-        levelProgress = totalLevel;
+        levelProgress = TotalLevel;
         SceneChange(levelScenes()[levelProgress]);
 
         SceneUIManager.Instance.ClearCanvas();
@@ -120,7 +124,7 @@ public class GameManager : Singleton<GameManager> {
 
     public void GoToLevelSelection() {
         state = GameState.Title;
-        levelProgress = levelSelectionSceneIndex;
+        levelProgress = LevelSelectionSceneIndex;
         SceneChange(levelScenes()[levelProgress]);
     }
 
@@ -131,7 +135,7 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void LoadLevel() {
-        if (levelProgress >= mainLevelSceneIndex) {
+        if (levelProgress >= MainLevelSceneIndex) {
             isLevelSelectionDisabled = false;
         }
         SceneChange(levelScenes()[levelProgress]);

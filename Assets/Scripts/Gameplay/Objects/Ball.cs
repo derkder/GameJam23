@@ -25,7 +25,6 @@ namespace Assets.Scripts {
 
         public const float oneSixth = 1 / 6f;
         float cubeRootTwo, w0, w1, c1, c2, c3, c4, d1, d2, d3;
-        
 
         public delegate Vector2 acceletationDelegate(Vector2 pos);
         public delegate Vector4 rawUpdateDelegate(Vector4 state, float dt, Vector2 accel);
@@ -72,13 +71,6 @@ namespace Assets.Scripts {
                 return;
             }
 
-            //accel = GravityManager.instance.GetAcceleration(transform.position);
-            //Vector3 realDeltaSpeed = simulatorDt * accel;
-
-            //speed = (speed + realDeltaSpeed) * (float)GravityManager.instance.damping;
-            //Debug.LogFormat("speed: {0}, realDeltaSpeed: {1}", speed * 1000, realDeltaSpeed * 1000);
-            //transform.localPosition += speed * simulatorDt;
-
             if (isTrajectoryOn) {
                 Vector3[] trajectory = PlotPredictionLine(GravityManager.instance.predictionLineStepCount);
                 GetComponent<LineRenderer>().SetPositions(trajectory);
@@ -98,7 +90,7 @@ namespace Assets.Scripts {
                 Vector2 pos = transform.position;
 
                 float inGameSpeedRatio = GravityManager.instance.speedRatio *
-                    (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
+                    (LevelManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
                 float simulatorDt = Time.deltaTime * inGameSpeedRatio * multiplier;
 
                 Vector2 p1 = pos + c1 * (Vector2)speed * simulatorDt;
@@ -151,7 +143,7 @@ namespace Assets.Scripts {
                 for (int j = 0; j < segmentCoverage; j++) {
                     float multiplier = 1;
                     float inGameSpeedRatio = GravityManager.instance.speedRatio *
-                        (GravityManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
+                        (LevelManager.instance.isBulletTimeOn ? GravityManager.instance.bulletTimeSlowRatio : 1f);
                     float simulatorDt = Time.deltaTime * multiplier * inGameSpeedRatio;
 
                     localAccel = GravityManager.instance.GetAcceleration(localPos);

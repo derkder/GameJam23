@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts;
 using System;
 using System.Collections;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -14,6 +15,7 @@ namespace Assets.Scripts {
         public bool isPaused = false;
 
         [Header("Runtime Variables")]
+        public bool isBulletTimeOn;
         public float remainingBulletTime;
         public Transform objectParent;
         public float curElapsedTime;
@@ -54,25 +56,34 @@ namespace Assets.Scripts {
             }
             if (GameManager.Instance.state != GameState.Game || isPaused) {
                 // Not in game (e.g. ScoreBoard) or paused, disable keyboard Interactions
-                Debug.LogFormat("[bullettime] {0} {1}", GameManager.Instance.state, isPaused);
+                //Debug.LogFormat("[bullettime] {0} {1}", GameManager.Instance.state, isPaused);
                 return;
             }
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-                AudioManager.Instance.PlaySFX(SfxType.BulletTime);
-                if (isBulletTimeAllowed && remainingBulletTime > 0) {
+            if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && isBulletTimeAllowed && remainingBulletTime > 0) {
+                if (!isBulletTimeOn) {
+                    isBulletTimeOn = true;
                     GravityManager.instance.SwitchBulletTime(true);
-                    SpendBulletTime(Time.deltaTime);
+                    SceneUIManager.Instance.OnActivateBulletTime();
+                    AudioManager.Instance.PlaySFX(SfxType.BulletTime);
                 }
+                SpendBulletTime(Time.deltaTime);
             } else {
-                GravityManager.instance.SwitchBulletTime(false);
+                if (isBulletTimeOn) {
+                    isBulletTimeOn = false;
+                    GravityManager.instance.SwitchBulletTime(false);
+                    SceneUIManager.Instance.OnDeactivateBulletTime();
+                }
             }
         }
 
         private void SpendBulletTime(float costTime) {
-            if (GameManager.Instance.isEditorModeOn) {
+            // Bullet Time Slider not activated on easy mode
+            if (GameManager.Instance.ConfigModel.Difficulty == GlobalDifficultyType.Easy) {
                 return;
             }
-            remainingBulletTime -= costTime;
+            float timeCostMultiplier = GameManager.Instance.ConfigModel.Difficulty == GlobalDifficultyType.Normal ?
+                GameManager.Instance.NormalDifficultyBulletTimeCostPerSec : GameManager.Instance.HardDifficultyBulletTimeCostPerSec;
+            remainingBulletTime -= costTime * timeCostMultiplier;
             SceneUIManager.Instance.OnChangeSlider(remainingBulletTime / totalBulletTime);
             if (remainingBulletTime <= 0) {
                 GravityManager.instance.SwitchBulletTime(false);
@@ -99,7 +110,6 @@ namespace Assets.Scripts {
                 return;
             }
             isPaused = true;
-            AudioManager.Instance.SetMusicVolume(.2f);
             Time.timeScale = 0f;
         }
 
@@ -107,7 +117,6 @@ namespace Assets.Scripts {
             if (!isPaused) {
                 return;
             }
-            AudioManager.Instance.SetMusicVolume(1f);
             isPaused = false;
             Time.timeScale = 1f;
         }
