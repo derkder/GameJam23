@@ -18,17 +18,16 @@ public class GameManager : Singleton<GameManager> {
     public int LevelSelectionSceneIndex = 12;
     public float NormalDifficultyBulletTimeCostPerSec = 0.5f;
     public float HardDifficultyBulletTimeCostPerSec = 1f;
+    public UserDataModel UserDataModel;
 
-    private GameDataModel gameDataModel;
     private GameObject _globalLevelCanvas;
     
-    public event Action OnLevelPass;
     public GameState state;
     public bool isLevelSelectionDisabled = true;
 
     public new void Awake() {
         base.Awake();
-        gameDataModel = new GameDataModel();
+        UserDataModel = new UserDataModel();
         ConfigModel = new GlobalConfigModel();
     }
 
@@ -59,17 +58,11 @@ public class GameManager : Singleton<GameManager> {
         DontDestroyOnLoad(_globalLevelCanvas);
 
         levelProgress = 1;
-        SceneChange(levelScenes()[levelProgress]);
-
-        Debug.LogFormat("SceneChange background {0}", levelScenes()[levelProgress]);
-        Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
-        Plane.Instance.UpdateImage(levelScenes()[levelProgress], backgroundMaterial);
-        OnLevelPass?.Invoke();
-        Debug.LogFormat("GameManager load scene {0}", levelScenes()[levelProgress]);
+        LoadLevel();
     }
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
-    public void CompleteLevel(ScoreData scoreData) {
+    public void CompleteLevel(LevelScoreModel scoreData) {
         if (!AssetHelper.instance.ShouldShowScoreBoard(levelScenes()[levelProgress]) && scoreData != null) {
             state = GameState.ScoreBoard;
 
@@ -79,11 +72,12 @@ public class GameManager : Singleton<GameManager> {
                 scoreData.RemainingTimeScore(),
                 scoreData.TotalScore()
             );
-            if (scoreData.gold >= scoreData.fullGoldCount) {
+            if (scoreData.isAllGoldClear()) {
                 AudioManager.Instance.PlaySFX(SfxType.FullCompleteLevel);
             } else {
                 AudioManager.Instance.PlaySFX(SfxType.CompleteLevel);
             }
+            UserDataModel.levelScoreDict[AssetHelper.instance.levelScenes[levelProgress]] = scoreData;
             SceneUIManager.Instance.ShowScoreView(scoreData);
         } else {
             Debug.LogFormat("Level Passed without score");
@@ -106,6 +100,7 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void GoPrologue() {
+        state = GameState.Prologue;
         levelProgress = TotalLevel;
         SceneChange(levelScenes()[levelProgress]);
 
@@ -145,7 +140,7 @@ public class GameManager : Singleton<GameManager> {
             Plane.Instance.UpdateImage(levelScenes()[levelProgress], backgroundMaterial);
         }
 
-        OnLevelPass?.Invoke();
+        SceneUIManager.Instance.RefreshCanvas();
         Debug.LogFormat("GameManager load scene {0}", levelScenes()[levelProgress]);
     }
 
@@ -162,10 +157,11 @@ public class GameManager : Singleton<GameManager> {
     public void ExitGame() {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#endif
+#else
         Application.Quit();
+#endif
     }
-    
+
     //场景名称列表
     private List<string> levelScenes() {
         return AssetHelper.instance.levelScenes;

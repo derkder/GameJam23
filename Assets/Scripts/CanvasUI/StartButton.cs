@@ -5,7 +5,7 @@ namespace Assets.Scripts.CanvasUI {
     public class StartButton : MonoBehaviour {
         private Button _button;
 
-        private void Awake() {
+        private void Start() {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(StartGame);
         }

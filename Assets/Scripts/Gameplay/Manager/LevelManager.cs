@@ -92,7 +92,7 @@ namespace Assets.Scripts {
 
         public void Pass() {
             PauseLevel();
-            ScoreData scoreData = GetScore();
+            LevelScoreModel scoreData = GetScore();
             GameManager.Instance.CompleteLevel(scoreData);
         }
 
@@ -135,8 +135,8 @@ namespace Assets.Scripts {
             remainingBulletTime = totalBulletTime;
         }
 
-        public ScoreData GetScore() {
-            return new ScoreData(
+        public LevelScoreModel GetScore() {
+            return new LevelScoreModel(
                 totalGold,
                 remainingBulletTime / totalBulletTime,
                 Time.time - curElapsedTime,

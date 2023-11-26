@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 6368549414277500931}
   - component: {fileID: 4958951309256001659}
   - component: {fileID: 8824576934549195273}
+  - component: {fileID: 6670745179940754561}
   m_Layer: 5
   m_Name: BtnQuit
   m_TagString: Untagged
@@ -257,17 +258,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4958951309256001659}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4450871633921366631, guid: 2026c86dd135a3044b4520fc03ecaf2d,
-          type: 3}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ExitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &6670745179940754561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5869663345362194104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 974bbc82759b6ba4b914ce0f90301d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

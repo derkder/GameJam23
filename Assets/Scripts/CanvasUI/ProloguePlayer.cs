@@ -29,10 +29,13 @@ namespace Assets.Scripts.CanvasUI {
         }
 
         public void SkipVideo() {
-            if (_isFading) {
-                return;
-            }
-            StartCoroutine(FadeOutVideo());
+
+            SceneUIManager.Instance.ShowTotalScoreView(GameManager.Instance.UserDataModel);
+
+            //if (_isFading) {
+            //    return;
+            //}
+            //StartCoroutine(FadeOutVideo());
         }
 
         IEnumerator FadeOutVideo() {

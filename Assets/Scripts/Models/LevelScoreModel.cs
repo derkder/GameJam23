@@ -3,13 +3,13 @@ using UnityEditor;
 using UnityEngine;
 
 [Serializable]
-public class ScoreData {
+public class LevelScoreModel {
     public int gold;
     public float remainingBulletTimeRatio;
     public float passDuration;
     public int fullGoldCount;
 
-    public ScoreData(int gold, float remainingBulletTimeRatio, float passDuration, int fullGoldCount) {
+    public LevelScoreModel(int gold, float remainingBulletTimeRatio, float passDuration, int fullGoldCount) {
         this.gold = gold; 
         this.remainingBulletTimeRatio = remainingBulletTimeRatio;
         this.passDuration = passDuration;
@@ -26,6 +26,10 @@ public class ScoreData {
 
     public float RemainingTimeScore() {
         return 5000 / passDuration;
+    }
+
+    public bool isAllGoldClear() {
+        return gold >= fullGoldCount;
     }
 
     public int TotalScore() {

@@ -20,8 +20,9 @@ namespace Assets.Scripts {
         public Transform _btnLevelSelection;
         public CoverScreen _viewScreen;
         public Slider BulletTimeSlider;
-        public ScorePanel _pnlScore;
+        public LevelScorePanel _pnlScore;
         public ConfigPanel _pnlConfig;
+        public TotalScorePanel _pnlTotalScore;
 
         private Button _btnPlay;
         private float _speed = 0.5f;
@@ -29,15 +30,12 @@ namespace Assets.Scripts {
 
         public void Start() {
             _btnPlay = transform.Find("BtnPlay").GetComponent<Button>();
-            // TODO: remove one
-            RefreshCanvas();
-            GameManager.Instance.OnLevelPass += RefreshCanvas;
             RefreshCanvas();
 
             _imgMask.gameObject.SetActive(false);
         }
 
-        public void PassLevel()//通关或场景过渡时调用此函数使用渐暗效果
+        public void ShowPassLevelTransition()//通关或场景过渡时调用此函数使用渐暗效果
         {
             _imgMask.gameObject.SetActive(true);
             StartCoroutine(BeDark());
@@ -64,18 +62,24 @@ namespace Assets.Scripts {
 
         public void RefreshCanvas() {
             _pnlMain.gameObject.SetActive(true);
+            _viewScreen.gameObject.SetActive(true);
+            _viewScreen.isOnClickContinueEnabled = true;
             _pnlScore.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);
             _btnPlay.gameObject.SetActive(true);
             _pnlConfig.gameObject.SetActive(false);
+            _pnlTotalScore.gameObject.SetActive(false);
+
             BulletTimeSlider.gameObject.SetActive(false);
         }
         public void ClearCanvas() {
+            _viewScreen.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(false);
             _pnlScore.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);
             _btnPlay.gameObject.SetActive(false);
             _pnlConfig.gameObject.SetActive(false);
+            _pnlTotalScore.gameObject.SetActive(false);
             BulletTimeSlider.gameObject.SetActive(false);
         }
 
@@ -95,6 +99,7 @@ namespace Assets.Scripts {
             _pnlMenu.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
             _pnlConfig.gameObject.SetActive(false);
+            _pnlTotalScore.gameObject.SetActive(false);
             _btnLevelSelection.gameObject.SetActive(!GameManager.Instance.isLevelSelectionDisabled);
         }
 
@@ -109,17 +114,19 @@ namespace Assets.Scripts {
             _pnlMain.gameObject.SetActive(true);
             _pnlScore.gameObject.SetActive(false);
             _pnlConfig.gameObject.SetActive(false);
+            _pnlTotalScore.gameObject.SetActive(false);
         }
         #endregion
 
         //结算界面
-        public void ShowScoreView(ScoreData data) {
+        public void ShowScoreView(LevelScoreModel data) {
             _viewScreen.gameObject.SetActive(true);
             _viewScreen.isOnClickContinueEnabled = true;
             _pnlScore.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);
             _pnlConfig.gameObject.SetActive(false);
+            _pnlTotalScore.gameObject.SetActive(false);
             BulletTimeSlider.gameObject.SetActive(false);
 
             _pnlScore.UpdateScore(data);
@@ -132,14 +139,24 @@ namespace Assets.Scripts {
             _pnlScore.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);
+            _pnlTotalScore.gameObject.SetActive(false);
             _pnlConfig.gameObject.SetActive(true);
             _pnlConfig.UpdateData();
             BulletTimeSlider.gameObject.SetActive(false);
         }
 
-        public void HideConfigView() {
+        // 总结算界面
+        public void ShowTotalScoreView(UserDataModel data) {
+            _viewScreen.gameObject.SetActive(true);
+            _viewScreen.isOnClickContinueEnabled = true;
+            _pnlScore.gameObject.SetActive(false);
+            _pnlMain.gameObject.SetActive(false);
+            _pnlMenu.gameObject.SetActive(false);
+            _pnlConfig.gameObject.SetActive(false);
             BulletTimeSlider.gameObject.SetActive(false);
-            Resume();
+
+            _pnlTotalScore.gameObject.SetActive(true);
+            _pnlTotalScore.UpdateModel(data);
         }
 
         public void JumpToTitle() {
@@ -148,7 +165,6 @@ namespace Assets.Scripts {
         public void GoLevelSelection() {
             GameManager.Instance.GoToLevelSelection();
         }
-
 
         #region BulletTime
         /// <summary>

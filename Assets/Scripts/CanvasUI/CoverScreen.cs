@@ -21,7 +21,6 @@ namespace Assets.Scripts.CanvasUI {
             if (!isOnClickContinueEnabled) {
                 return;
             }
-            
             if (GameManager.Instance.state == GameState.ScoreBoard) {
                 GameManager.Instance.GoNextLevel();
             } else if (GameManager.Instance.state == GameState.Game) {

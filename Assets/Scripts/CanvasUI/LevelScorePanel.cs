@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.CanvasUI {
-    public class ScorePanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler {
+    public class LevelScorePanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler {
         private TextMeshProUGUI totalScoreText, goldText, bulletTimeText, remainingTimeText;
 
         private void Awake() {
@@ -14,7 +14,7 @@ namespace Assets.Scripts.CanvasUI {
             remainingTimeText = transform.Find("RemainingTimeScore").GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void UpdateScore(ScoreData data) {
+        public void UpdateScore(LevelScoreModel data) {
             goldText.text = ((int)data.GoldScore()).ToString();
             bulletTimeText.text = ((int)data.BulletTimeScore()).ToString();
             remainingTimeText.text = ((int)data.RemainingTimeScore()).ToString();

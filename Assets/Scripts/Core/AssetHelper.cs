@@ -20,6 +20,7 @@ public enum GameState {
     Title = 0,
     Game = 1,
     ScoreBoard = 2,
+    Prologue = 3,
 }
 
 namespace Assets.Scripts {
