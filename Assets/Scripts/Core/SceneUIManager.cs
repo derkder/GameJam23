@@ -14,8 +14,8 @@ namespace Assets.Scripts {
         public event Action OnRetryLevel;
         public event Action OnResumeLevel;
 
-        [SerializeField]
         public Transform _pnlMain;
+        public StrokePanel _pnlMainStroke;
         public Transform _pnlMenu;
         public Transform _btnLevelSelection;
         public CoverScreen _viewScreen;
@@ -23,13 +23,12 @@ namespace Assets.Scripts {
         public LevelScorePanel _pnlScore;
         public ConfigPanel _pnlConfig;
         public TotalScorePanel _pnlTotalScore;
+        public Button _btnPlay;
 
-        private Button _btnPlay;
         private float _speed = 0.5f;
         public Image _imgMask;
 
         public void Start() {
-            _btnPlay = transform.Find("BtnPlay").GetComponent<Button>();
             RefreshCanvas();
 
             _imgMask.gameObject.SetActive(false);
@@ -62,6 +61,8 @@ namespace Assets.Scripts {
 
         public void RefreshCanvas() {
             _pnlMain.gameObject.SetActive(true);
+            _pnlMainStroke.UpdateData(GameManager.Instance.UserDataModel);
+
             _viewScreen.gameObject.SetActive(true);
             _viewScreen.isOnClickContinueEnabled = true;
             _pnlScore.gameObject.SetActive(false);
