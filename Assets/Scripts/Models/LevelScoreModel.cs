@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,12 +9,19 @@ public class LevelScoreModel {
     public float remainingBulletTimeRatio;
     public float passDuration;
     public int fullGoldCount;
+    public GlobalDifficultyType difficulty;
 
     public LevelScoreModel(int gold, float remainingBulletTimeRatio, float passDuration, int fullGoldCount) {
         this.gold = gold; 
         this.remainingBulletTimeRatio = remainingBulletTimeRatio;
         this.passDuration = passDuration;
         this.fullGoldCount = fullGoldCount;
+        difficulty = GameManager.Instance.ConfigModel.Difficulty;
+    }
+    public static LevelScoreModel EmptyScore(int fullGoldCount) {
+        return new LevelScoreModel(
+            0, 0, 0, fullGoldCount
+        );
     }
 
     public int GoldScore() {
@@ -21,7 +29,15 @@ public class LevelScoreModel {
     }
 
     public float BulletTimeScore() {
-        return 1000 * remainingBulletTimeRatio;
+        switch (difficulty) {
+            case GlobalDifficultyType.Easy:
+                return 0;
+            case GlobalDifficultyType.Normal:
+                return 400 * remainingBulletTimeRatio;
+            case GlobalDifficultyType.Hard:
+            default:
+                return 1000 * remainingBulletTimeRatio;
+        }
     }
 
     public float RemainingTimeScore() {
@@ -29,6 +45,7 @@ public class LevelScoreModel {
     }
 
     public bool isAllGoldClear() {
+        Debug.LogFormat("isAllGoldClear {0} {1}", gold, fullGoldCount);
         return gold >= fullGoldCount;
     }
 

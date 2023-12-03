@@ -29,8 +29,6 @@ namespace Assets.Scripts {
         public Image _imgMask;
 
         public void Start() {
-            RefreshCanvas();
-
             _imgMask.gameObject.SetActive(false);
         }
 
@@ -57,6 +55,10 @@ namespace Assets.Scripts {
             }
             GravityManager.instance.ball.SwitchTrajectoryState(isEnabled);
             LevelManager.instance.blurEffect.intensity = isEnabled ? 0.4f : 0f;
+        }
+
+        public void UpdatePanelMainStrokeData(LevelScoreModel model) {
+            _pnlMainStroke.UpdateLevelData(GameManager.Instance.currentLevelName(), model);
         }
 
         public void RefreshCanvas() {
@@ -87,9 +89,7 @@ namespace Assets.Scripts {
         #region 暂停开始界面
         public void Play()
         {
-            OnResumeLevel?.Invoke();
-            _viewScreen.gameObject.SetActive(false);
-            _btnPlay.gameObject.SetActive(false);
+            Resume();
         }
 
         public void Pause() {
@@ -111,6 +111,7 @@ namespace Assets.Scripts {
         public void Resume() {
             OnResumeLevel?.Invoke();
             _viewScreen.gameObject.SetActive(false);
+            _btnPlay.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(true);
             _pnlScore.gameObject.SetActive(false);
@@ -123,6 +124,7 @@ namespace Assets.Scripts {
         public void ShowScoreView(LevelScoreModel data) {
             _viewScreen.gameObject.SetActive(true);
             _viewScreen.isOnClickContinueEnabled = true;
+            _btnPlay.gameObject.SetActive(false);
             _pnlScore.gameObject.SetActive(true);
             _pnlMain.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);
@@ -137,6 +139,7 @@ namespace Assets.Scripts {
         public void ShowConfigView() {
             _viewScreen.gameObject.SetActive(true);
             _viewScreen.isOnClickContinueEnabled = true;
+            _btnPlay.gameObject.SetActive(false);
             _pnlScore.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);
@@ -150,6 +153,7 @@ namespace Assets.Scripts {
         public void ShowTotalScoreView(UserDataModel data) {
             _viewScreen.gameObject.SetActive(true);
             _viewScreen.isOnClickContinueEnabled = true;
+            _btnPlay.gameObject.SetActive(false);
             _pnlScore.gameObject.SetActive(false);
             _pnlMain.gameObject.SetActive(false);
             _pnlMenu.gameObject.SetActive(false);

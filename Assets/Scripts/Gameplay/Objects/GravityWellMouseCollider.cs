@@ -41,7 +41,7 @@ namespace Assets.Scripts {
             if (!Camera.main) {
                 return;
             }
-            Debug.LogFormat("BroadcastMouseHitEvent {0} {1}", Input.mousePosition, Camera.main);
+            //Debug.LogFormat("BroadcastMouseHitEvent {0} {1}", Input.mousePosition, Camera.main);
             Vector2 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(clickPosition, Vector2.zero);
             foreach (RaycastHit2D hit in hits) {
@@ -69,24 +69,31 @@ namespace Assets.Scripts {
 
         #region IPointerDelegate
         public void OnPointerDown(PointerEventData eventData) {
+            Debug.LogFormat("{0} OnPointerDown", well.gameObject.name);
             OnMouseBehaviourChanged();
         }
         public void OnPointerUp(PointerEventData eventData) {
+            Debug.LogFormat("{0} OnPointerUp", well.gameObject.name);
             OnMouseBehaviourChanged();
         }
         public void OnPointerClick(PointerEventData eventData) {
+            Debug.LogFormat("{0} OnPointerClick", well.gameObject.name);
             OnMouseBehaviourChanged();
         }
         public void OnPointerEnter(PointerEventData eventData) {
+            Debug.LogFormat("{0} OnPointerEnter", well.gameObject.name);
             OnMouseBehaviourChanged();
         }
         public void OnPointerExit(PointerEventData eventData) {
+            Debug.LogFormat("{0} OnPointerExit", well.gameObject.name);
             OnMouseBehaviourChanged();
         }
         public void OnDrag(PointerEventData eventData) {
+            Debug.LogFormat("{0} OnDrag", well.gameObject.name);
             OnMouseBehaviourChanged();
         }
         public void OnDrop(PointerEventData eventData) {
+            Debug.LogFormat("{0} OnDrop", well.gameObject.name);
             OnMouseBehaviourChanged();
         }
         #endregion

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using Assets.Scripts.CanvasUI;
 using System;
 using System.Collections;
 using Unity.Jobs;
@@ -13,12 +14,15 @@ namespace Assets.Scripts {
         public int totalGold;
         public float totalBulletTime = 7f;
         public bool isPaused = false;
+        public Animator FullGoldAnimator;
+        public SpriteRenderer PatternSprite;
 
         [Header("Runtime Variables")]
         public bool isBulletTimeOn;
         public float remainingBulletTime;
         public Transform objectParent;
         public float curElapsedTime;
+        public LevelScoreModel previousScoreModel;
 
         public event Action OnLevelReset;
 
@@ -26,7 +30,7 @@ namespace Assets.Scripts {
         public TwistEffect twistEffect;
         public BlurEffect blurEffect;
 
-        public void Awake() {
+        private void Awake() {
             instance = this;
         }
 
@@ -34,20 +38,30 @@ namespace Assets.Scripts {
             Camera mainCamera = Camera.main;
             twistEffect = mainCamera.gameObject.AddComponent<TwistEffect>();
             blurEffect = mainCamera.gameObject.AddComponent<BlurEffect>();
+            objectParent = GameObject.Find("Objects")?.transform;
 
             curElapsedTime = Time.time;
             remainingBulletTime = totalBulletTime;
-            GameObject mainObject = GameObject.Find("Objects");
-            if (mainObject != null) {
-                objectParent = mainObject.transform;
+            if (GameManager.Instance.UserDataModel.levelScoreDict.ContainsKey(GameManager.Instance.currentLevelName())) {
+                previousScoreModel = GameManager.Instance.UserDataModel.levelScoreDict[GameManager.Instance.currentLevelName()];
+            } else {
+                previousScoreModel = LevelScoreModel.EmptyScore(GetFullGoldCount());
             }
+            if (FullGoldAnimator != null) {
+                FullGoldAnimator.gameObject.SetActive(false);
+            }
+            ResetAnimator();
+            OnLevelReset += ResetAnimator;
 
             if (null != SceneUIManager.Instance) {
                 SceneUIManager.Instance.OnRetryLevel += ResetLevel;
                 SceneUIManager.Instance.OnPauseLevel += PauseLevel;
                 SceneUIManager.Instance.OnResumeLevel += ResumeLevel;
             }
-            PauseLevelBeforeClick();
+            if (GameManager.Instance.isEditorModeOn) {
+                totalGold = GetFullGoldCount() - 1;
+            }
+            PauseLevel();
         }
 
         private void Update() {
@@ -62,6 +76,9 @@ namespace Assets.Scripts {
             if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && isBulletTimeAllowed && remainingBulletTime > 0) {
                 if (!isBulletTimeOn) {
                     isBulletTimeOn = true;
+                    if (FullGoldAnimator != null && FullGoldAnimator.isActiveAndEnabled) {
+                        FullGoldAnimator.speed = GravityManager.instance.bulletTimeSlowRatio;
+                    }
                     GravityManager.instance.SwitchBulletTime(true);
                     SceneUIManager.Instance.OnActivateBulletTime();
                     AudioManager.Instance.PlaySFX(SfxType.BulletTime);
@@ -70,6 +87,9 @@ namespace Assets.Scripts {
             } else {
                 if (isBulletTimeOn) {
                     isBulletTimeOn = false;
+                    if (FullGoldAnimator != null && FullGoldAnimator.isActiveAndEnabled) {
+                        FullGoldAnimator.speed = 1;
+                    }
                     GravityManager.instance.SwitchBulletTime(false);
                     SceneUIManager.Instance.OnDeactivateBulletTime();
                 }
@@ -100,17 +120,15 @@ namespace Assets.Scripts {
             ResetLevel();
         }
 
-        public void PauseLevelBeforeClick() {
-            isPaused = true;
-            Time.timeScale = 0f;
-        }
-
         public void PauseLevel() {
             if (isPaused) {
                 return;
             }
             isPaused = true;
             Time.timeScale = 0f;
+            if (FullGoldAnimator != null) {
+                FullGoldAnimator.speed = 0;
+            }
         }
 
         public void ResumeLevel() {
@@ -119,6 +137,9 @@ namespace Assets.Scripts {
             }
             isPaused = false;
             Time.timeScale = 1f;
+            if (FullGoldAnimator != null) {
+                FullGoldAnimator.speed = 1;
+            }
         }
 
         public void ResetLevel() {
@@ -129,10 +150,23 @@ namespace Assets.Scripts {
             GravityManager.instance.ball = ball.GetComponent<Ball>();
 
             OnLevelReset();
-
             totalGold = 0;
+            if (GameManager.Instance.isEditorModeOn) {
+                totalGold = GetFullGoldCount() - 1;
+            }
             curElapsedTime = Time.time;
             remainingBulletTime = totalBulletTime;
+        }
+
+        public void ResetAnimator() {
+            if (FullGoldAnimator != null) {
+                FullGoldAnimator.gameObject.SetActive(false);
+            }
+            SceneUIManager.Instance.UpdatePanelMainStrokeData(previousScoreModel);
+            Debug.LogFormat("previousScoreModel isAllGoldClear {0}", previousScoreModel.isAllGoldClear());
+            if (PatternSprite != null) {
+                PatternSprite?.gameObject?.SetActive(!previousScoreModel.isAllGoldClear());
+            }
         }
 
         public LevelScoreModel GetScore() {
@@ -145,6 +179,7 @@ namespace Assets.Scripts {
         }
 
         public int GetFullGoldCount() {
+            Debug.LogFormat("[LevelManager] objectParent GetFullGoldCount {0}", objectParent);
             Bounty[] bountyTrans = objectParent.GetComponentsInChildren<Bounty>();
             int fullGoldScore = 0;
             foreach (Bounty bounty in bountyTrans) {
@@ -152,6 +187,25 @@ namespace Assets.Scripts {
             }
             Debug.LogFormat("fullGoldScore {0}", fullGoldScore);
             return fullGoldScore;
+        }
+
+        public void GrabGold(int gold) {
+            totalGold += gold;
+            if (totalGold == GetFullGoldCount()) {
+                if (FullGoldAnimator != null) {
+                    AudioManager.Instance.PlaySFX(SfxType.StrokeComplete);
+                    PatternSprite.gameObject.SetActive(false);
+                    StrokeCompleteAnimator strokeAnimator = FullGoldAnimator?.GetComponent<StrokeCompleteAnimator>();
+                    strokeAnimator.OnStrokeEnd += OnPatternCollected;
+                    FullGoldAnimator.gameObject.SetActive(true);
+                    FullGoldAnimator.Play("StrokeCompleteAnimation");
+                }
+            }
+        }
+
+        public void OnPatternCollected() {
+            Debug.LogFormat("OnPatternCollected");
+            SceneUIManager.Instance.UpdatePanelMainStrokeData(GetScore());
         }
     }
 }

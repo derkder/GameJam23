@@ -25,5 +25,14 @@ namespace Assets.Scripts.CanvasUI {
                 }
             }
         }
+        public void UpdateLevelData(string levelName, LevelScoreModel model) {
+            for (int i = 0; i < SceneNameList.Count; i++) {
+                if (SceneNameList[i].Equals(levelName)) {
+                    Debug.LogFormat("levelName {0} UpdateLevelData {1}!", levelName, model.isAllGoldClear());
+                    ImageList[i].gameObject.SetActive(model.isAllGoldClear());
+                    break;
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager> {
     public int MainLevelSceneIndex = 4;
     public int TotalLevel = 11;
     public int LevelSelectionSceneIndex = 12;
+    public int CreditSceneIndex = 13;
     public float NormalDifficultyBulletTimeCostPerSec = 0.5f;
     public float HardDifficultyBulletTimeCostPerSec = 1f;
     public UserDataModel UserDataModel;
@@ -40,6 +41,7 @@ public class GameManager : Singleton<GameManager> {
                 state = GameState.Game;
             }
         }
+        SceneUIManager.Instance.ClearCanvas();
         AudioManager.Instance.PlayMusic(AssetHelper.instance.levelMusic[levelProgress]);
     }
 
@@ -72,11 +74,7 @@ public class GameManager : Singleton<GameManager> {
                 scoreData.RemainingTimeScore(),
                 scoreData.TotalScore()
             );
-            if (scoreData.isAllGoldClear()) {
-                AudioManager.Instance.PlaySFX(SfxType.FullCompleteLevel);
-            } else {
-                AudioManager.Instance.PlaySFX(SfxType.CompleteLevel);
-            }
+            AudioManager.Instance.PlaySFX(SfxType.CompleteLevel);
             UserDataModel.levelScoreDict[AssetHelper.instance.levelScenes[levelProgress]] = scoreData;
             SceneUIManager.Instance.ShowScoreView(scoreData);
         } else {
@@ -123,6 +121,12 @@ public class GameManager : Singleton<GameManager> {
         SceneChange(levelScenes()[levelProgress]);
     }
 
+    public void GoToCredits() {
+        state = GameState.Title;
+        levelProgress = CreditSceneIndex;
+        SceneChange(levelScenes()[levelProgress]);
+    }
+
     public void JumptoLevel(int newLevelProgress) {
         state = GameState.Game;
         levelProgress = newLevelProgress;
@@ -151,6 +155,7 @@ public class GameManager : Singleton<GameManager> {
             return;
         }
         AudioManager.Instance.PlayMusic(AssetHelper.instance.levelMusic[sceneIndex]);
+        SceneUIManager.Instance.ClearCanvas();
         SceneManager.LoadScene(sceneName);
     }
 
@@ -166,4 +171,9 @@ public class GameManager : Singleton<GameManager> {
     private List<string> levelScenes() {
         return AssetHelper.instance.levelScenes;
     }
+
+    public string currentLevelName() {
+        return AssetHelper.instance.levelScenes[levelProgress];
+    }
+
 }
