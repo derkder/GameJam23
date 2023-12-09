@@ -22,7 +22,7 @@ namespace Assets.Scripts.CanvasUI {
                 return;
             }
             if (GameManager.Instance.state == GameState.ScoreBoard) {
-                GameManager.Instance.GoNextLevel();
+                GameManager.Instance.FadeOutLevel();
             } else if (GameManager.Instance.state == GameState.Game) {
                 SceneUIManager.Instance.Resume();
             }

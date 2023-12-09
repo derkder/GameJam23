@@ -206,6 +206,7 @@ MonoBehaviour:
     remainingBulletTimeRatio: 0
     passDuration: 0
     fullGoldCount: 0
+    difficulty: 0
   twistEffect: {fileID: 0}
   blurEffect: {fileID: 0}
 --- !u!1001 &221867210
@@ -656,12 +657,12 @@ PrefabInstance:
     - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}
       propertyPath: repelRatioPerSecond
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}
       propertyPath: attractRatioPerSecond
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4664025703378451726, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}
@@ -1346,6 +1347,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2134338486267173380, guid: 72893784b72fc8547bf459e0cabad848,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154907959166924642, guid: 72893784b72fc8547bf459e0cabad848,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2732237717738914540, guid: 72893784b72fc8547bf459e0cabad848,
         type: 3}
       propertyPath: m_Name
@@ -1454,6 +1465,16 @@ PrefabInstance:
     - target: {fileID: 4058548144291231163, guid: 72893784b72fc8547bf459e0cabad848,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6906507811135403501, guid: 72893784b72fc8547bf459e0cabad848,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195642222465974976, guid: 72893784b72fc8547bf459e0cabad848,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8499006937831816202, guid: 72893784b72fc8547bf459e0cabad848,
@@ -1839,12 +1860,12 @@ PrefabInstance:
     - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}
       propertyPath: repelRatioPerSecond
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 846031810977842936, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}
       propertyPath: attractRatioPerSecond
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4664025703378451726, guid: 224228723d21a2c40a9972e6b5b5ed31,
         type: 3}

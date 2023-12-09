@@ -59,7 +59,8 @@ namespace Assets.Scripts {
                 SceneUIManager.Instance.OnResumeLevel += ResumeLevel;
             }
             if (GameManager.Instance.isEditorModeOn) {
-                totalGold = GetFullGoldCount() - 1;
+                // 用于调试全收集动画
+                // totalGold = GetFullGoldCount() - 1;
             }
             PauseLevel();
         }
@@ -143,7 +144,9 @@ namespace Assets.Scripts {
         }
 
         public void ResetLevel() {
+            GravityManager.instance.ball.transform.parent = null;
             Destroy(GravityManager.instance.ball.gameObject);
+
             GameObject ball = (GameObject)Instantiate(AssetHelper.instance.Ball, objectParent);
             ball.transform.position = GravityManager.instance.ballData.position;
             ball.GetComponent<Ball>().initialSpeed = GravityManager.instance.ballData.initialSpeed;
@@ -152,7 +155,8 @@ namespace Assets.Scripts {
             OnLevelReset();
             totalGold = 0;
             if (GameManager.Instance.isEditorModeOn) {
-                totalGold = GetFullGoldCount() - 1;
+                // 用于调试全收集动画
+                //totalGold = GetFullGoldCount() - 1;
             }
             curElapsedTime = Time.time;
             remainingBulletTime = totalBulletTime;

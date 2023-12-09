@@ -220,12 +220,21 @@ TrailRenderer:
       - serializedVersion: 3
         time: 0.0028839111
         value: 0.16993904
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.044776108
+        outSlope: -0.044776108
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.07329431
+      - serializedVersion: 3
+        time: 1
+        value: 0.055557344
+        inSlope: -0.2702224
+        outSlope: -0.2702224
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.0651049
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -325,12 +334,30 @@ LineRenderer:
       - serializedVersion: 3
         time: 0
         value: 0.10062981
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.0020440344
+        outSlope: -0.0020440344
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.06841101
+      - serializedVersion: 3
+        time: 0.9094897
+        value: 0.048791762
+        inSlope: -0.17826019
+        outSlope: -0.17826019
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.041719135
+        outWeight: 0.78304034
+      - serializedVersion: 3
+        time: 1
+        value: 0.029228315
+        inSlope: -0.32635412
+        outSlope: -0.32635412
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.5777497
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

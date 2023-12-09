@@ -8,7 +8,6 @@ using UnityEngine.UI;
 namespace Assets.Scripts.CanvasUI {
     public class ProloguePlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler {
         private VideoPlayer _player;
-        private bool _isFading = false;
 
         private void Awake() {
             _player = GetComponent<VideoPlayer>();
@@ -29,26 +28,7 @@ namespace Assets.Scripts.CanvasUI {
         }
 
         public void SkipVideo() {
-
             SceneUIManager.Instance.ShowTotalScoreView(GameManager.Instance.UserDataModel);
-
-            //if (_isFading) {
-            //    return;
-            //}
-            //StartCoroutine(FadeOutVideo());
-        }
-
-        IEnumerator FadeOutVideo() {
-            _isFading = true;
-            float alpha = 1f;
-            while (alpha >= 0f) {
-                alpha -= .001f;
-                _player.targetCameraAlpha = alpha;
-                yield return null;
-            }
-            GameManager.Instance.GoTitleScreen();
-            yield return null;
         }
     }
-    
 }

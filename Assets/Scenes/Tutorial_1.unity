@@ -307,7 +307,6 @@ MonoBehaviour:
   speedRatio: 1
   bulletTimeSlowRatio: 0.2
   predictionLineStepCount: 500
-  isBulletTimeOn: 0
   damping: 0
   wells: []
   ball: {fileID: 0}
@@ -329,7 +328,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &87840557
 MonoBehaviour:
@@ -347,9 +346,18 @@ MonoBehaviour:
   totalGold: 0
   totalBulletTime: 7
   isPaused: 0
+  FullGoldAnimator: {fileID: 0}
+  PatternSprite: {fileID: 0}
+  isBulletTimeOn: 0
   remainingBulletTime: 0
   objectParent: {fileID: 0}
   curElapsedTime: 0
+  previousScoreModel:
+    gold: 0
+    remainingBulletTimeRatio: 0
+    passDuration: 0
+    fullGoldCount: 0
+    difficulty: 0
   twistEffect: {fileID: 0}
   blurEffect: {fileID: 0}
 --- !u!1001 &110543097
@@ -444,6 +452,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1681815438678575939, guid: 2026c86dd135a3044b4520fc03ecaf2d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2687653553555705929, guid: 2026c86dd135a3044b4520fc03ecaf2d,
         type: 3}
       propertyPath: m_RootOrder
@@ -554,7 +567,7 @@ Transform:
   - {fileID: 796105966}
   - {fileID: 751180883}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &424476832 stripped
 Transform:
@@ -634,7 +647,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &672952572 stripped
 Transform:
@@ -677,7 +690,7 @@ GameObject:
   - component: {fileID: 896463317}
   - component: {fileID: 896463316}
   m_Layer: 0
-  m_Name: shift
+  m_Name: Hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1025,7 +1038,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1187861393 stripped
 Transform:

@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,7 +25,7 @@ namespace Assets.Scripts.CanvasUI {
             SwitchScene();
         }
         public void SwitchScene() {
-            GameManager.Instance.GoTitleScreen();
+            SceneUIManager.Instance.ShowLevelTransition(GameManager.Instance.GoTitleScreen);
         }
     }
 }

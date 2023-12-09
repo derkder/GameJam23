@@ -2,8 +2,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Assets.Scripts.SceneUIManager;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -39,9 +41,12 @@ public class GameManager : Singleton<GameManager> {
             LevelManager levelManager = mainGameObject.GetComponent<LevelManager>();
             if (levelManager != null) {
                 state = GameState.Game;
+                SceneUIManager.Instance.RefreshCanvas();
             }
         }
-        SceneUIManager.Instance.ClearCanvas();
+        if (state != GameState.Game) {
+            SceneUIManager.Instance.ClearCanvas();
+        }
         AudioManager.Instance.PlayMusic(AssetHelper.instance.levelMusic[levelProgress]);
     }
 
@@ -56,11 +61,15 @@ public class GameManager : Singleton<GameManager> {
     public void StartGame() {
         state = GameState.Game;
 
+        AssetHelper.instance.LevelCanvas = GameObject.Find("CanvasLevel");
+        if (AssetHelper.instance.LevelCanvas == null) {
+            return;
+        }
         GameObject _globalLevelCanvas = Instantiate(AssetHelper.instance.LevelCanvas);
         DontDestroyOnLoad(_globalLevelCanvas);
 
         levelProgress = 1;
-        LoadLevel();
+        SceneUIManager.Instance.ShowLevelTransition(LoadLevel);
     }
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
@@ -79,11 +88,15 @@ public class GameManager : Singleton<GameManager> {
             SceneUIManager.Instance.ShowScoreView(scoreData);
         } else {
             Debug.LogFormat("Level Passed without score");
-            GameManager.Instance.GoNextLevel();
+            GameManager.Instance.FadeOutLevel();
         }
     }
 
     //当前关卡通关，跳到下一关卡并切换plane的texture
+    public void FadeOutLevel() {
+        SceneUIManager.Instance.ShowLevelTransition(GoNextLevel);
+    }
+
     public void GoNextLevel() {
         state = GameState.Game;
         levelProgress += 1;
@@ -140,8 +153,8 @@ public class GameManager : Singleton<GameManager> {
         SceneChange(levelScenes()[levelProgress]);
         Material backgroundMaterial = AssetHelper.instance.BackgroundMaterials[levelProgress];
         if (backgroundMaterial != null) {
-            Debug.LogFormat("SceneChange background {0}", levelScenes()[levelProgress]);
-            Plane.Instance.UpdateImage(levelScenes()[levelProgress], backgroundMaterial);
+            Debug.LogFormat("SceneChange background {0}, material {1}", levelScenes()[levelProgress], backgroundMaterial);
+            Plane.Instance?.UpdateImage(levelScenes()[levelProgress], backgroundMaterial);
         }
 
         SceneUIManager.Instance.RefreshCanvas();

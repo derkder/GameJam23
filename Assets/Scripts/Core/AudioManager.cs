@@ -32,8 +32,11 @@ public class AudioManager : Singleton<AudioManager> {
     public void PlaySFX(SfxType st, bool loop = false) {
         _clip = SfxSource[(int)st];
         _audioSourceSfx.clip = _clip;
+        _audioSourceSfx.volume = GameManager.Instance.ConfigModel.SfxVolume * 0.75f;
+        if (!loop) {
+            _audioSourceSfx.PlayOneShot(_clip);
+        }
         _audioSourceSfx.loop = loop;
-        _audioSourceMusic.volume = GameManager.Instance.ConfigModel.SfxVolume;
         _audioSourceSfx.Play();
     }
 

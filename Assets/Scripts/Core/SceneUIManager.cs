@@ -25,28 +25,23 @@ namespace Assets.Scripts {
         public TotalScorePanel _pnlTotalScore;
         public Button _btnPlay;
 
-        private float _speed = 0.5f;
-        public Image _imgMask;
+        public GameObject FadeMask;
+        private bool isFading;
 
-        public void Start() {
-            _imgMask.gameObject.SetActive(false);
-        }
+        public delegate void OnTransitionFinishedDelegate();
 
-        public void ShowPassLevelTransition()//通关或场景过渡时调用此函数使用渐暗效果
-        {
-            _imgMask.gameObject.SetActive(true);
-            StartCoroutine(BeDark());
-        }
-
-        IEnumerator BeDark()//渐白
-        {
-            while (1 - _imgMask.color.a > 0.05f)
-            {
-                _imgMask.color = Color.Lerp(_imgMask.color, new Color(1, 1, 1, 1), _speed * Time.deltaTime);
-                yield return null;
+        public void ShowLevelTransition(OnTransitionFinishedDelegate onTransitionFinishedMethod) {
+            if (isFading) {
+                return;
             }
-            _imgMask.color = new Color(1, 1, 1, 0);
-            _imgMask.gameObject.SetActive(false);
+            isFading = true;
+            GameObject maskObject = Instantiate(FadeMask, transform);
+            FadeMask mask = maskObject.GetComponent<FadeMask>();
+            mask.OnEnterMaskTransitionPoint += () => onTransitionFinishedMethod();
+            mask.OnEnterMaskTransitionPoint += delegate () {
+                isFading = false;
+            };
+            maskObject.SetActive(true);
         }
 
         public void SwitchBulletTimeEffect(bool isEnabled) {

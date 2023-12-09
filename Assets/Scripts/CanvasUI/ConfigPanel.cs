@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.CanvasUI {
-    public class ConfigPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler {
+    public class ConfigPanel : MonoBehaviour {
         [SerializeField]
         private Button EasyModeButton, NormalModeButton, HardModeButton;
         [SerializeField]
@@ -59,18 +59,6 @@ namespace Assets.Scripts.CanvasUI {
                 }
                 entry.Value.colors = colorBlock;
             }
-        }
-        public void OnPointerDown(PointerEventData eventData) {
-            ExitConfig();
-        }
-        public void OnPointerUp(PointerEventData eventData) {
-            ExitConfig();
-        }
-        public void OnPointerClick(PointerEventData eventData) {
-            ExitConfig();
-        }
-        public void ExitConfig() {
-            LevelManager.instance.ResumeLevel();
         }
     }
 }

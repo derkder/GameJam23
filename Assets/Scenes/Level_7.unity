@@ -305,7 +305,7 @@ MonoBehaviour:
   totalBulletTime: 14
   isPaused: 0
   FullGoldAnimator: {fileID: 243499010}
-  PatternSprite: {fileID: 0}
+  PatternSprite: {fileID: 946432646}
   isBulletTimeOn: 0
   remainingBulletTime: 0
   objectParent: {fileID: 0}
@@ -315,6 +315,7 @@ MonoBehaviour:
     remainingBulletTimeRatio: 0
     passDuration: 0
     fullGoldCount: 0
+    difficulty: 0
   twistEffect: {fileID: 0}
   blurEffect: {fileID: 0}
 --- !u!1 &243499007
