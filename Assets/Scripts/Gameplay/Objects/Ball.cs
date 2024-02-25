@@ -57,6 +57,9 @@ namespace Assets.Scripts {
             d3 = w1;
 
             speed = initialSpeed;
+            if (LevelManager.instance != null) {
+                isTrajectoryOn = LevelManager.instance.isBulletTimeOn;
+            }
 
             BallData data = new BallData();
             data.position = transform.position;
